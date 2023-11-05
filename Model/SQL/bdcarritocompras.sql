@@ -5,7 +5,13 @@
 -- Servidor: localhost
 -- Tiempo de generación: 15-10-2018 a las 23:12:45
 -- Versión del servidor: 10.1.34-MariaDB
--- Versión de PHP: 7.2.7
+-- Versión de PHP: 8.3
+--
+-- Base de datos: `bdcarritocompras`
+--
+DROP DATABASE IF EXISTS bdcarritocompras;
+CREATE DATABASE bdcarritocompras;
+USE bdcarritocompras;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -17,10 +23,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `bdcarritocompras`
---
 
 -- --------------------------------------------------------
 
@@ -60,16 +62,6 @@ CREATE TABLE `compraestadotipo` (
   `cetdetalle` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `compraestadotipo`
---
-
-INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
-(1, 'iniciada', 'cuando el usuario : cliente inicia la compra de uno o mas productos del carrito'),
-(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1 '),
-(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado =2 '),
-(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado=1 ');
-
 -- --------------------------------------------------------
 
 --
@@ -96,17 +88,6 @@ CREATE TABLE `menu` (
   `idpadre` bigint(20) DEFAULT NULL COMMENT 'Referencia al id del menu que es subitem',
   `medeshabilitado` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en la que el menu fue deshabilitado por ultima vez'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `menu`
---
-
-INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(7, 'nuevo', 'kkkkk', NULL, NULL),
-(8, 'nuevo', 'kkkkk', NULL, NULL),
-(9, 'nuevo', 'kkkkk', 7, NULL),
-(10, 'nuevo', 'kkkkk', NULL, NULL),
-(11, 'nuevo', 'kkkkk', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -342,3 +323,107 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+
+-- TABLE DATA DUMP
+
+--
+
+--
+-- Volcado de datos para la tabla `compraestadotipo`
+--
+
+INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
+(1, 'iniciada', 'cuando el usuario cliente inicia la compra de uno o mas productos del carrito'),
+(2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1'),
+(3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado = 2'),
+(4, 'cancelada', 'un usuario administrador podra cancelar una compra en cualquier estado y un usuario cliente solo en estado = 1');
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+INSERT INTO
+    rol(idrol, rodescripcion)
+VALUES (1, "User"), (2, "Deposito"), (3, "Admin");
+
+--
+-- Volcado de datos para la tabla `menu`
+-- Default (TODO agregar datos mas utiles)
+--
+INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
+(7, 'nuevo', 'kkkkk', NULL, NULL),
+(8, 'nuevo', 'kkkkk', NULL, NULL),
+(9, 'nuevo', 'kkkkk', 7, NULL),
+(10, 'nuevo', 'kkkkk', NULL, NULL),
+(11, 'nuevo', 'kkkkk', NULL, NULL);
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+INSERT INTO
+    usuario(idusuario, usnombre, uspass, usmail, usdeshabilitado)
+VALUES (
+        1,
+        "admin",
+        "30bb8411dd0cbf96b10a52371f7b3be1690f7afa16c3bd7bc7d02c0e2854768d", -- Pass: admin
+        "admin@admin.com",
+        null
+    ), (
+        2,
+        "usuario",
+        "5fc602e460eec6e51aeffbea00b3a3ba944f24511c75608106524d0898ca4be4 ", -- Pass: usuario
+        "user@user.com",
+        null
+    ), (
+        3,
+        "deposito",
+        "fd9a004020220bb574f45af92fca69b59482d71c5acd7013483368c86dfbb2ec ", -- Pass: deposito
+        "depo@depo.com",
+        null
+    );
+
+--
+-- Volcado de datos para la tabla `usuariorol`
+--
+INSERT INTO
+    usuariorol(idusuario, idrol)
+VALUES (1, 3), (2, 1), (3, 2);
+
+--
+-- Volcado de datos para la tabla `menu`
+--
+INSERT INTO
+    menu (idmenu, menombre, medescripcion, idpadre, medeshabilitado)
+VALUES (
+        1,
+        'menuevo',
+        'Header principal',
+        NULL,
+        NULL
+    ), (
+        2,
+        'meusuario',
+        'Header de usuario con cuenta',
+        1,
+        NULL
+    ), (
+        3,
+        'medeposito',
+        'Header de deposito/vendedor',
+        1,
+        NULL
+    ), (
+        4,
+        'meadmin',
+        'Header de administrador',
+        1,
+        NULL
+    );
+
+--
+-- Volcado de datos para la tabla `menurol`
+--
+INSERT INTO 
+    menurol(idmenu, idrol)
+VALUES (2, 1), (3, 2), (4, 3);
