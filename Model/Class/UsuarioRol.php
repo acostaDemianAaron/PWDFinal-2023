@@ -38,7 +38,7 @@ class UsuarioRol
      */
     public function getObjRol()
     {
-        $this->objRol;
+        return $this->objRol;
     }
 
     /**
@@ -46,12 +46,12 @@ class UsuarioRol
      */
     public function getObjUsuario()
     {
-        $this->objUsuario;
+        return $this->objUsuario;
     }
 
     public function getMensaje()
     {
-        $this->mensaje;
+        return $this->mensaje;
     }
 
 

@@ -35,17 +35,17 @@ class Rol
     //Getters
     public function getIdRol()
     {
-        $this->idRol;
+        return $this->idRol;
     }
 
     public function getRoDescripcion()
     {
-        $this->roDescripcion;
+        return $this->roDescripcion;
     }
 
     public function getMensaje()
     {
-        $this->mensaje;
+        return $this->mensaje;
     }
 
 

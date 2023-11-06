@@ -81,7 +81,7 @@ class Menu
 
     public function getMensaje()
     {
-        $this->mensaje;
+        return $this->mensaje;
     }
 
 

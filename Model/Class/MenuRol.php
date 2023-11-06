@@ -38,7 +38,7 @@ class MenuRol
      */
     public function getObjMenu()
     {
-        $this->objMenu;
+        return $this->objMenu;
     }
 
     /**
@@ -46,12 +46,12 @@ class MenuRol
      */
     public function getObjRol()
     {
-        $this->objRol;
+        return $this->objRol;
     }
 
     public function getMensaje()
     {
-        $this->mensaje;
+        return $this->mensaje;
     }
 
 

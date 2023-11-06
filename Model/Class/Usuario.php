@@ -56,32 +56,32 @@ class Usuario
     //Getters
     public function getIdUsuario()
     {
-        $this->idUsuario;
+        return $this->idUsuario;
     }
 
     public function getUsNombre()
     {
-        $this->usNombre;
+        return $this->usNombre;
     }
 
     public function getUsPass()
     {
-        $this->usPass;
+        return $this->usPass;
     }
 
     public function getUsMail()
     {
-        $this->usMail;
+        return $this->usMail;
     }
 
     public function getUsDeshabilitado()
     {
-        $this->usDeshabilitado;
+        return $this->usDeshabilitado;
     }
 
     public function getMensaje()
     {
-        $this->mensaje;
+        return $this->mensaje;
     }
 
 
