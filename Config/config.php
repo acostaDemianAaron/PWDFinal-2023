@@ -19,12 +19,10 @@ $FUNCIONES = $ROOT.'/Function/function.php';
 require($FUNCIONES);
 
 // Location of index
-$INICIO = "http://". $_SERVER['HTTP_HOST'] . "/$PROYECTO/View/";
-$DIRS["INDEX"] = $INICIO;
+$DIRS["INDEX"] = "http://". $_SERVER['HTTP_HOST'] . "/$PROYECTO/View/";
 
 // Location of Libraries.
-$LIBS = "/$PROYECTO/View/Libs/";
-$DIRS["LIBS"] = $LIBS;
+$DIRS['LIBS'] = "/$PROYECTO/View/Libs/";
 
 $_SESSION['ROOT']=$ROOT;
 ?>
