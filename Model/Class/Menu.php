@@ -172,19 +172,20 @@ class Menu
     {
         $array = array();
         $database = new Database();
-        $query = "SELECT * FROM menu ";
+        $query = "SELECT * FROM menu";
         if ($condition != "") {
             $query .= " WHERE " . $condition;
         }
-        $res = $database->Execute($query);
-        if ($res > 0) {
-            while ($row = $database->Register()) {
-                $obj = new Menu();
-                $obj->setValues($row['idmenu'], $row['menombre'], $row['medescripcion'], $row['idpadre'], $row['medeshabilitado']);
-                array_push($array, $obj);
+        if ($database->Start()) {
+            if ($database->Execute($query)) {
+                while ($row = $database->Register()) {
+                    $obj = new Menu();
+                    $obj->setValues($row['idmenu'], $row['menombre'], $row['medescripcion'], $row['idpadre'], $row['medeshabilitado']);
+                    array_push($array, $obj);
+                }
+            } else {
+                $this->setMensaje("Menu->List: " . $database->getError());
             }
-        } else {
-            $this->setMensaje("Menu->List: " . $database->getError());
         }
         return $array;
     }
