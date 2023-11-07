@@ -318,7 +318,6 @@ ALTER TABLE `menurol`
 ALTER TABLE `usuariorol`
   ADD CONSTRAINT `fkmovimiento_1` FOREIGN KEY (`idrol`) REFERENCES `rol` (`idrol`) ON UPDATE CASCADE,
   ADD CONSTRAINT `usuariorol_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
@@ -427,3 +426,5 @@ VALUES (
 INSERT INTO 
     menurol(idmenu, idrol)
 VALUES (2, 1), (3, 2), (4, 3);
+
+COMMIT;
