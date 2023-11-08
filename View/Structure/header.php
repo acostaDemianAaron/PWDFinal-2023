@@ -54,7 +54,7 @@ class Header{
                            </li>
                            <li>
                            <!-- TODO DIR -->
-                           <a href="#" class="nav-link px-2">
+                           <a href="{$dirs['INDEX']}/adminDashboard" class="nav-link px-2">
                               <div><i class="fa-solid fa-gauge me-1"></i>Dashboard</div>
                            </a>
                            </li>

@@ -60,7 +60,7 @@ class Rol
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'rol' WHERE idrol = " . $this->getIdRol();
+        $query = "SELECT * FROM rol WHERE idrol = " . $this->getIdRol();
 
         if ($database->Start()) {
             $status = $database->Execute($query);
@@ -116,7 +116,7 @@ class Rol
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'rol' WHERE idrol = " . $this->getIdRol();
+        $query = "DELETE FROM rol WHERE idrol = " . $this->getIdRol();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {

@@ -157,7 +157,7 @@ class UsuarioRol
     {
         $array = array();
         $database = new Database();
-        $query = "SELECT * FROM 'usuariorol' ";
+        $query = "SELECT * FROM usuariorol ";
         if ($condition != "") {
             $query .= "WHERE " . $condition;
         }

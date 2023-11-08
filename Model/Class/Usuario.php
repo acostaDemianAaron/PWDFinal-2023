@@ -99,7 +99,7 @@ class Usuario
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'usuario' WHERE idusuario = " . $this->getIdUsuario();
+        $query = "SELECT * FROM usuario WHERE idusuario = " . $this->getIdUsuario();
 
         if ($database->Start()) {
             $status = $database->Execute($query);
@@ -155,7 +155,7 @@ class Usuario
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'usuario' WHERE idusuario = " . $this->getIdUsuario();
+        $query = "DELETE FROM usuario WHERE idusuario = " . $this->getIdUsuario();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {
@@ -194,7 +194,7 @@ class Usuario
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE 'usuario' SET usdeshabilitado='" . $condition . "' WHERE idusuario=" . $this->getIdUsuario();
+        $query = "UPDATE usuario SET usdeshabilitado='" . $condition . "' WHERE idusuario=" . $this->getIdUsuario();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {
