@@ -1,5 +1,6 @@
 <?php
 include_once("../Config/config.php");
+new HEAD($DIRS);
 new Header("Test Page", $DIRS, null);
 
 // { Turn to SHA512/256
@@ -38,7 +39,11 @@ echo <<<HTML
 <body>
    <!-- Call of EasyUI using menu -->
    <div class="container">
-   <!-- Show Result of SHA512/256 convertion with AJAX -->
+      <div class="container">
+         <h4>Test header menues</h4>
+         <br>
+      </div>
+      <!-- Show Result of SHA512/256 convertion with AJAX -->
       <div class="container">
          <h4>Convertir password con SHA512/256</h4>
          <input type="text" id="pass" name="pass">
@@ -80,7 +85,7 @@ echo <<<HTML
    </div>
 
    <br><hr><br>
-
+   <!-- Test of EasyUI -->
    <div class="container">
       <h2>Basic CRUD Application</h2>
       <p>Useful for checking if DB is working correctly.</p>
