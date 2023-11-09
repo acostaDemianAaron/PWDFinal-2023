@@ -1,5 +1,15 @@
 <?php
 class Header{
+   protected $title = "";
+   protected $dirs = [];
+   protected $rol = 0;
+   
+   /**
+    * Construct header by parameters.
+    * @param String $title
+    * @param Array $dirs
+    * @param Integer $rol
+    */
    function __construct($title, $dirs, $rol)
    {
       // Show Dirs
