@@ -84,7 +84,7 @@ CREATE TABLE `compraitem` (
 CREATE TABLE `menu` (
   `idmenu` bigint(20) NOT NULL,
   `menombre` varchar(50) NOT NULL COMMENT 'Nombre del item del menu',
-  `medescripcion` varchar(124) NOT NULL COMMENT 'Descripcion mas detallada del item del menu',
+  `medescripcion` varchar(124) NOT NULL COMMENT 'URI a la que referencia',
   `idpadre` bigint(20) DEFAULT NULL COMMENT 'Referencia al id del menu que es subitem',
   `medeshabilitado` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en la que el menu fue deshabilitado por ultima vez'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -325,9 +325,7 @@ ALTER TABLE `usuariorol`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 --
-
 -- TABLE DATA DUMP
-
 --
 
 --
@@ -345,20 +343,8 @@ INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdeta
 --
 INSERT INTO
     rol(idrol, rodescripcion)
-VALUES (1, "User"), (2, "Deposito"), (3, "Admin");
+VALUES (3, "User"), (2, "Deposito"), (1, "Admin");
 
---
--- Volcado de datos para la tabla `menu`
--- Default (TODO agregar datos mas utiles)
---
-INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabilitado`) VALUES
-(7, 'nuevo', 'kkkkk', NULL, NULL),
-(8, 'nuevo', 'kkkkk', NULL, NULL),
-(9, 'nuevo', 'kkkkk', 7, NULL),
-(10, 'nuevo', 'kkkkk', NULL, NULL),
-(11, 'nuevo', 'kkkkk', NULL, NULL);
-
---
 -- Volcado de datos para la tabla `usuario`
 --
 INSERT INTO
@@ -387,45 +373,31 @@ VALUES (
 -- Volcado de datos para la tabla `usuariorol`
 --
 INSERT INTO
-    usuariorol(idusuario, idrol)
+  usuariorol(idusuario, idrol)
 VALUES (1, 3), (2, 1), (3, 2);
 
 --
 -- Volcado de datos para la tabla `menu`
 --
+
 INSERT INTO
-    menu (idmenu, menombre, medescripcion, idpadre, medeshabilitado)
-VALUES (
-        1,
-        'menuevo',
-        'Header principal',
-        NULL,
-        NULL
-    ), (
-        2,
-        'meusuario',
-        'Header de usuario con cuenta',
-        1,
-        NULL
-    ), (
-        3,
-        'medeposito',
-        'Header de deposito/vendedor',
-        1,
-        NULL
-    ), (
-        4,
-        'meadmin',
-        'Header de administrador',
-        1,
-        NULL
-    );
+  menu(idmenu, menombre, medescripcion, idpadre, medeshabilitado)
+VALUES
+(1, 'Menu', '#', NULL, NULL),
+(2, 'Home', '/View/', 1, NULL),
+(3, 'Iniciar Sesion', '/View/login/', 1, NULL),
+(4, 'Admin', '#', NULL, NULL),
+(5, 'Gestion Admin', '/Private/admin/', 4, NULL),
+(6, 'Gestion de Usuarios', '/Private/usuario/', 4, NULL),
+(7, 'Gestion de Rol', '/Private/usuariorol/', 4, NULL),
+(8, 'Gestión de Permisos', '/Private/menu/', 4, NULL);
 
 --
 -- Volcado de datos para la tabla `menurol`
 --
 INSERT INTO 
     menurol(idmenu, idrol)
-VALUES (2, 1), (3, 2), (4, 3);
+VALUES
+(4, 1);
 
 COMMIT;

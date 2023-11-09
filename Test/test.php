@@ -1,5 +1,6 @@
 <?php
 include_once("../Config/config.php");
+new HEAD($DIRS);
 new Header("Test Page", $DIRS, null);
 
 // { Turn to SHA512/256
@@ -38,6 +39,54 @@ echo <<<HTML
 <body>
    <!-- Call of EasyUI using menu -->
    <div class="container">
+      <div class="container">
+         <h4>Test header menues</h4>
+         <br>
+      </div>
+      <!-- Show Result of SHA512/256 convertion with AJAX -->
+      <div class="container">
+         <h4>Convertir password con SHA512/256</h4>
+         <input type="text" id="pass" name="pass">
+         <button id="updateButton">Convert</button>
+         <p>Pass: <span id="pass-response"></span></p>
+         <div id="loading" hidden>Loading...</div>
+         <br>
+         <p id="passwords-hash">
+            <h5>Passwords usadas en la base de datos</h5>
+            <h6>Nobmre Usuario: hash = pass</h6>
+            Admin: {$passAdmin} = admin <br>
+            Usuario: {$passUser} = usuario <br>
+            Deposito: {$passDepo} = deposito <br>
+         </p>
+      </div>
+      <script>
+         $(document).ready(function () {
+            $("#updateButton").on("click", function () {
+               // You can set the value before handing value to AJAXexample.php
+               $("#pass-response").html("");
+               // And can set other attributes
+               $("#loading").attr('hidden', false);
+               $.ajax({
+                  type: "POST", // Or 'GET', depending on your needs
+                  url: "AJAXexample.php", // URL where your server-side script should handle the data
+                  data: {pass : $("#pass").val()},
+                  success: function (response) {
+                     // Once the function resolves in success, you can set again the attribute and show the response
+                     $("#loading").attr('hidden', true);
+                     $("#pass-response").html(response); // Update the div with the response from the server
+                  },
+                  error: function () {
+                     $("#pass-response").html("Error updating the div");
+                  }
+               });
+            });
+         });
+      </script>
+   </div>
+
+   <br><hr><br>
+   <!-- Test of EasyUI -->
+   <div class="container">
       <h2>Basic CRUD Application</h2>
       <p>Useful for checking if DB is working correctly.</p>
 
@@ -45,11 +94,11 @@ echo <<<HTML
         url="test_menu.php" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
          <thead>
             <tr>
-               <th field="idmenu" width="50">ID Menu</th>
-               <th field="menombre" width="50">Nombre</th>
-               <th field="medescripcion" width="50">Descripcion</th>
-               <th field="idpadre" width="50">ID Padre</th>
-               <th field="medeshabilitado" width="50">Deshabilitado</th>
+               <th field="idmenu" name="idmenu" width="50">ID Menu</th>
+               <th field="menombre" name="menombre" width="50">Nombre</th>
+               <th field="medescripcion" name="medescripcion" width="50">Descripcion</th>
+               <th field="idpadre" name="idpadre" width="50">ID Padre</th>
+               <th field="medeshabilitado" name="medeshabilitado" width="50">Deshabilitado</th>
             </tr>
          </thead>
       </table>
@@ -67,24 +116,29 @@ echo <<<HTML
       <div class="ftitle">Menu Information</div>
          <form id="fm" method="post" novalidate>
             <div class="fitem">
-                  <label>ID Menu:</label>
-                  <input name="firstname" class="easyui-textbox" required="true">
+                  <label>ID Menu:
+                  <input id="id-idmenu" class="easyui-textbox" required="true">
+                  </label>
             </div>
             <div class="fitem">
-                  <label>Nombre:</label>
-                  <input name="lastname" class="easyui-textbox" required="true">
+                  <label>Nombre:
+                  <input id="id-menombre" class="easyui-textbox" required="true">
+                  </label>
             </div>
             <div class="fitem">
-                  <label>Descripcion:</label>
-                  <input name="phone" class="easyui-textbox">
+                  <label>Descripcion:
+                  <input id="id-medescripcion" class="easyui-textbox" required="true">
+                  </label>
             </div>
             <div class="fitem">
-                  <label>ID Padre:</label>
-                  <input name="text" class="easyui-textbox">
+                  <label>ID Padre:
+                  <input id="id-mepadre" class="easyui-textbox">
+                  </label>
             </div>
             <div class="fitem">
-                  <label>Deshabilitado:</label>
-                  <input name="text" class="easyui-textbox">
+                  <label>Deshabilitado:
+                  <input id="id-medeshabilitado" class="easyui-textbox">
+                  </label>
             </div>
          </form>
       </div>
@@ -140,14 +194,6 @@ echo <<<HTML
    </div>
 
    <br><hr><br>
-   <!-- Show Result of SHA512/256 convertion -->
-   <div class="container">
-      <p id="passwords-hash">
-         Admin: {$passAdmin} = admin <br>
-         Usuario: {$passUser} = usuario <br>
-         Deposito: {$passDepo} = deposito <br>
-      </p>
-   </div>
 </body>
 
 HTML;
