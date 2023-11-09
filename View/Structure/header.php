@@ -8,6 +8,7 @@ class Header{
       // Needs authentication process to decide menues.
       echo 
       <<<HTML
+
       <!DOCTYPE html>
       <!-- Integrations -->
       <head>
@@ -41,8 +42,8 @@ class Header{
                            <i class="fa-solid  fa-laptop fa-2xl px-2"></i> <!-- Icon -->
                            <span class="fs-4">E-commerce</span>
                         </a>
-                        <!-- TODO DIR -->
-                        <a href="{$dirs['INDEX']}/test.php" class="nav-link px-2">
+                        <!-- Test page (Only visible for admin) -->
+                        <a href="{$dirs['ROOT']}Test/test.php" class="nav-link px-2">
                            <div><i class="fa-solid fa-gauge me-1"></i>Test</div>
                         </a>
 
@@ -54,7 +55,7 @@ class Header{
                            </li>
                            <li>
                            <!-- TODO DIR -->
-                           <a href="{$dirs['INDEX']}/adminDashboard" class="nav-link px-2">
+                           <a href="{$dirs['INDEX']}adminDashboard" class="nav-link px-2">
                               <div><i class="fa-solid fa-gauge me-1"></i>Dashboard</div>
                            </a>
                            </li>
@@ -114,6 +115,7 @@ class Header{
             })
          </script>
       </body>
+
       HTML;
    }
 }
