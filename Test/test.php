@@ -140,14 +140,38 @@ echo <<<HTML
    </div>
 
    <br><hr><br>
-   <!-- Show Result of SHA512/256 convertion -->
+   <!-- Show Result of SHA512/256 convertion with AJAX -->
    <div class="container">
+      <h4>Convertir password con SHA512/256</h4>
+      <input type="text" id="pass" name="pass">
+      <button id="updateButton">Convert</button>
+      <p>Pass: <span id="pass-response"></span></p>
+
       <p id="passwords-hash">
+         <h5>Passwords usadas en la base de datos</h5>
+         <h6>Nobmre Usuario: hash = pass</h6>
          Admin: {$passAdmin} = admin <br>
          Usuario: {$passUser} = usuario <br>
          Deposito: {$passDepo} = deposito <br>
       </p>
    </div>
+   <script>
+      $(document).ready(function () {
+         $("#updateButton").on("click", function () {
+            $.ajax({
+               type: "POST", // Or 'GET', depending on your needs
+               url: "AJAXexample.php", // URL where your server-side script should handle the data
+               data: {pass : $("#pass").val()},
+               success: function (response) {
+                  $("#pass-response").html(response); // Update the div with the response from the server
+               },
+               error: function () {
+                  $("#pass-response").html("Error updating the div");
+               }
+            });
+         });
+      });
+   </script>
 </body>
 
 HTML;
