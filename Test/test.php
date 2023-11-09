@@ -146,7 +146,8 @@ echo <<<HTML
       <input type="text" id="pass" name="pass">
       <button id="updateButton">Convert</button>
       <p>Pass: <span id="pass-response"></span></p>
-
+      <div id="loading" hidden>Loading...</div>
+      <br>
       <p id="passwords-hash">
          <h5>Passwords usadas en la base de datos</h5>
          <h6>Nobmre Usuario: hash = pass</h6>
@@ -158,11 +159,17 @@ echo <<<HTML
    <script>
       $(document).ready(function () {
          $("#updateButton").on("click", function () {
+            // You can set the value before handing value to AJAXexample.php
+            $("#pass-response").html("");
+            // And can set other attributes
+            $("#loading").attr('hidden', false);
             $.ajax({
                type: "POST", // Or 'GET', depending on your needs
                url: "AJAXexample.php", // URL where your server-side script should handle the data
                data: {pass : $("#pass").val()},
                success: function (response) {
+                  // Once the function resolves in success, you can set again the attribute and show the response
+                  $("#loading").attr('hidden', true);
                   $("#pass-response").html(response); // Update the div with the response from the server
                },
                error: function () {
