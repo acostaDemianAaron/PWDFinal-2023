@@ -77,7 +77,7 @@ class Compra
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'compra' WHERE idcompra = " . $this->getIdCompra();
+        $query = "SELECT * FROM compra WHERE idcompra = " . $this->getIdCompra();
 
         if ($database->Start()) {
             $status = $database->Execute($query);
