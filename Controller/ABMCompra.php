@@ -1,4 +1,4 @@
-<?
+<?php
 class ABMCompra{
    /**
     * @param Array
@@ -29,7 +29,7 @@ class ABMCompra{
       $res = null;
       if($this->Verify()){
          $instance = new Compra;
-         $instance->SetIdCompra();
+         $instance->SetIdCompra($params);
          if($instance->Load()){
             $res = $instance;
          }
@@ -50,9 +50,9 @@ class ABMCompra{
     * @param Array
     * @return Boolean
     */
-   public function Delete($param = []){
+   public function Delete($params = []){
       $res = false;
-      if($this->Verify($param)){
+      if($this->Verify($params)){
          $objCompra = new Compra();
          $res = $objCompra->Delete($params);
       }
