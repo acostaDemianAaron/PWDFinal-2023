@@ -92,12 +92,8 @@ echo <<<HTML
       <table id="dg" title="Menues" class="easyui-datagrid" style="width:550px;height:250px"
         url="test_menu.php" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
          <thead>
-            <tr>
-               <th field="idmenu" name="idmenu" width="50">ID Menu</th>
-               <th field="menombre" name="menombre" width="50">Nombre</th>
-               <th field="medescripcion" name="medescripcion" width="50">Descripcion</th>
-               <th field="idpadre" name="idpadre" width="50">ID Padre</th>
-               <th field="medeshabilitado" name="medeshabilitado" width="50">Deshabilitado</th>
+            <tr id="menu-fields">
+               <!-- TODO Programatically -->
             </tr>
          </thead>
       </table>

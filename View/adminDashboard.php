@@ -10,11 +10,6 @@ $usModel = new Usuario;
 $usArray = $usModel->List();
 $usRolModel = new UsuarioRol;
 $usRolArray = $usRolModel->List();
-// print_r($data);
-
-// $newArray = get_class_methods($menuArray[1]);
-
-// print_r($newArray);
 
 function showData($dataArray){
    $blockText = "";
@@ -23,7 +18,6 @@ function showData($dataArray){
 
       foreach($methods as $method){
          if(mb_substr($method, 0, 3) == "get" && mb_substr($method, 3, 3) != "Obj"){
-            // echo "This method now: " . $method . "<br>";
             $blockText .=  " " . $obj->$method();
          }
       }
@@ -37,7 +31,7 @@ $showOnBlock = fn($data) => showData($data);
 
 // showData($menuArray);
 
-// TODO p Blocks can be changed to a table to show data by rows and columns
+// TODO Blocks can be changed to a table to show data by rows and columns
 
 echo <<<HTML
    <p>
