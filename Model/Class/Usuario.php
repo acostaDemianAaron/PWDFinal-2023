@@ -190,6 +190,7 @@ class Usuario
         return $array;
     }
 
+    // TODO check
     public function State($condition = "")
     {
         $res = false;

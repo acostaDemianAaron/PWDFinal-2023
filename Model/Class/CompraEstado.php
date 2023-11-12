@@ -106,7 +106,7 @@ class CompraEstado
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'compraestado' WHERE idcompraestado = " . $this->getIdCompraEstado();
+        $query = "SELECT * FROM compraestado WHERE idcompraestado = " . $this->getIdCompraEstado();
 
         if ($database->Start()) {
             $status = $database->Execute($query);
@@ -175,7 +175,7 @@ class CompraEstado
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'compraestado' WHERE idcompraestado = " . $this->getIdCompraEstado();
+        $query = "DELETE FROM compraestado WHERE idcompraestado = " . $this->getIdCompraEstado();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {

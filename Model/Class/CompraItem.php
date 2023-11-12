@@ -93,7 +93,7 @@ class CompraItem
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'compraitem' WHERE idcompraitem = " . $this->getIdCompraItem();
+        $query = "SELECT * FROM compraitem WHERE idcompraitem = " . $this->getIdCompraItem();
 
         if ($database->Start()) {
             $status = $database->Execute($query);
@@ -163,7 +163,7 @@ class CompraItem
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'compraitem' WHERE idcompraitem=" . $this->getIdCompraItem();
+        $query = "DELETE FROM compraitem WHERE idcompraitem=" . $this->getIdCompraItem();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {

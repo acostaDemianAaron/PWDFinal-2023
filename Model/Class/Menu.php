@@ -137,7 +137,7 @@ class Menu
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE 'menu' SET menombre = '{$this->getMeNombre()}', medescripcion = '{$this->getMeDescripcion()}', idpadre = '{$this->getIdPadre()}', medeshabilitado= '{$this->getMeDeshabilitado()} WHERE idmenu = {$this->getIdMenu()}";
+        $query = "UPDATE menu SET menombre = '{$this->getMeNombre()}', medescripcion = '{$this->getMeDescripcion()}', idpadre = '{$this->getIdPadre()}', medeshabilitado= '{$this->getMeDeshabilitado()} WHERE idmenu = {$this->getIdMenu()}";
 
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
@@ -155,7 +155,7 @@ class Menu
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'menu' WHERE idmenu = " . $this->getIdMenu();
+        $query = "DELETE FROM menu WHERE idmenu = " . $this->getIdMenu();
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $res = true;
@@ -194,7 +194,7 @@ class Menu
     {
         $res = false;
         $database = new Database();
-        $query = " UPDATE 'menu' SET medeshabilitado = '" . $condition . "' WHERE idmenu = " . $this->getIdMenu();
+        $query = " UPDATE menu SET medeshabilitado = '" . $condition . "' WHERE idmenu = " . $this->getIdMenu();
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $res = true;

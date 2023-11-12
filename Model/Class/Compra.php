@@ -121,7 +121,7 @@ class Compra
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE 'compra' SET idcompra = '{$this->getIdCompra()}', cofecha = '{$this->getCoFecha()}', idusuario = '{$this->getObjUsuario()->getIdUsuario()} WHERE idcompra = {$this->getIdCompra()}";
+        $query = "UPDATE compra SET idcompra = '{$this->getIdCompra()}', cofecha = '{$this->getCoFecha()}', idusuario = '{$this->getObjUsuario()->getIdUsuario()} WHERE idcompra = {$this->getIdCompra()}";
 
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
@@ -139,7 +139,7 @@ class Compra
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'compra' WHERE idcompra=" . $this->getIdCompra();
+        $query = "DELETE FROM compra WHERE idcompra=" . $this->getIdCompra();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {

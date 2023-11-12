@@ -72,7 +72,7 @@ class UsuarioRol
         $res = false;
         $database = new Database();
 
-        $query = "SELECT * FROM 'usuariorol' WHERE idusuario= " . $this->getObjUsuario()->getIdUsuario();
+        $query = "SELECT * FROM usuariorol WHERE idusuario= " . $this->getObjUsuario()->getIdUsuario();
         if($this->getObjRol()->getIdRol() != NULL) $query .= " AND idrol= " . $this->getObjRol()->getIdRol();
 
         if ($database->Start()) {
@@ -140,7 +140,7 @@ class UsuarioRol
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'usuariorol' WHERE idusuario=" . $this->getObjUsuario()->getIdUsuario() . " AND idrol=" . $this->getObjRol()->getIdRol();
+        $query = "DELETE FROM usuariorol WHERE idusuario=" . $this->getObjUsuario()->getIdUsuario() . " AND idrol=" . $this->getObjRol()->getIdRol();
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $res = true;

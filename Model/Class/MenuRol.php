@@ -66,7 +66,7 @@ class MenuRol
     {
         $res = false;
         $database = new Database();
-        $query = " SELECT * FROM 'menurol' WHERE idmenu = " . $this->getObjMenu()->getIdMenu();
+        $query = " SELECT * FROM menurol WHERE idmenu = " . $this->getObjMenu()->getIdMenu();
         if ($this->getObjRol()->getIdRol() != NULL) $query .= " AND idrol= " . $this->getObjRol()->getIdRol();
 
         if ($database->Start()) {

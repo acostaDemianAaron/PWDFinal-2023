@@ -100,7 +100,7 @@ class Producto
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'producto' WHERE idproducto = '" . $this->getIdProducto() . "'";
+        $query = "SELECT * FROM producto WHERE idproducto = '" . $this->getIdProducto() . "'";
 
         if ($database->Start()) {
             $status = $database->Execute($query);
@@ -138,7 +138,7 @@ class Producto
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE 'producto' SET idproducto = '{$this->getIdProducto()}', proprecio = '{$this->getProPrecio()}', pronombre = '{$this->getProNombre()}', prodetalle = '{$this->getProDetalle()}', procantstock = '{$this->getProCantStock()} WHERE idproducto = {$this->getIdProducto()}";
+        $query = "UPDATE producto SET idproducto = '{$this->getIdProducto()}', proprecio = '{$this->getProPrecio()}', pronombre = '{$this->getProNombre()}', prodetalle = '{$this->getProDetalle()}', procantstock = '{$this->getProCantStock()} WHERE idproducto = {$this->getIdProducto()}";
 
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
@@ -156,7 +156,7 @@ class Producto
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'producto' WHERE idproducto='" . $this->getIdProducto() . "'";
+        $query = "DELETE FROM producto WHERE idproducto='" . $this->getIdProducto() . "'";
 
         if ($database->Start()) {
             if ($database->Execute($query)) {

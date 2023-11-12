@@ -110,7 +110,7 @@ class CompraEstadoTipo
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE 'compraestadotipo' SET idcompraestadotipo = '{$this->getIdCompraEstadoTipo()}', cetdescripcion = '{$this->getCetDescripcion()}', cetdetalle = '{$this->getCetDetalle()} WHERE idcompraestadotipo = {$this->getIdCompraEstadoTipo()}";
+        $query = "UPDATE compraestadotipo SET idcompraestadotipo = '{$this->getIdCompraEstadoTipo()}', cetdescripcion = '{$this->getCetDescripcion()}', cetdetalle = '{$this->getCetDetalle()} WHERE idcompraestadotipo = {$this->getIdCompraEstadoTipo()}";
 
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
@@ -128,7 +128,7 @@ class CompraEstadoTipo
     {
         $res = false;
         $database = new Database();
-        $query = "DELETE FROM 'compraestadotipo' WHERE idcompraestadotipo = " . $this->getIdCompraEstadoTipo();
+        $query = "DELETE FROM compraestadotipo WHERE idcompraestadotipo = " . $this->getIdCompraEstadoTipo();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {
