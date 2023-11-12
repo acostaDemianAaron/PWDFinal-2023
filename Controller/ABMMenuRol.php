@@ -2,21 +2,26 @@
 
 class ABMMenuRol
 {
-    public function LoadObject($argument)
+
+    /** 
+     * @param Array
+     * @return Boolean|Object
+     */
+    public function LoadObject($array)
     {
-        if(array_key_exists('idrol', $argument) and array_key_exists('idmenu', $argument))
+        if(array_key_exists('idrol', $array) && array_key_exists('idmenu', $array))
         {
             $object = new MenuRol();
             $objectMenu = new Menu();
             $objectRol = new Rol();
-            if(isset($argument['idmenu']))
+            if(isset($array['idmenu']))
             {
-                $objectMenu->setIdMenu($argument['idmenu']);
+                $objectMenu->setIdMenu($array['idmenu']);
                 $objectMenu->Load();
             }
-            if(isset($argument['idrol']))
+            if(isset($array['idrol']))
             {
-                $objectRol->setIdRol($argument['idrol']);
+                $objectRol->setIdRol($array['idrol']);
                 $objectRol->Load();
             }
             $object->setValues($objectMenu, $objectRol);
@@ -24,40 +29,28 @@ class ABMMenuRol
         return $object;
     }
 
-    public function LoadObjectEnKey($argument)
-    {
-        $menuR = new MenuRol();
-        if(isset($argument['idrol']))
-        {
-            $rol = new Rol();
-            $rol->setIdRol($argument['idrol']);
-            if($rol->Load())
-            {
-                $menuR->setObjRol($rol);
-                $menuR->Load();
-            } else {
-                $rol->setIdRol(0);
-                $menuR->setObjRol($rol);
-                $menuR->Load();
-            }
-        }
-        return $menuR;
-    }
-
-    public function SetearEnKey($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Verify($array)
     {
         $resp = false;
-        if(isset($argument['idrol']))
+        if(isset($array['idrol']))
         {
             $resp = true;
         }
         return $resp;
     }
 
-    public function Register($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Add($array)
     {
         $resp = false;
-        $object = $this->LoadObject($argument);
+        $object = $this->LoadObject($array);
         if($object != null and $object->Insert())
         {
             $resp = true;
@@ -65,24 +58,16 @@ class ABMMenuRol
         return $resp;
     }
 
-    public function Drop($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Edit($array)
     {
         $resp = false;
-        $object = $this->LoadObjectEnKey($argument);
-        if($object != null and $object->Delete())
+        if($this->Verify($array))
         {
-            $resp = true;
-        }
-
-        return $resp;
-    }
-
-    public function Modify($argument)
-    {
-        $resp = false;
-        if($this->SetearEnKey($argument))
-        {
-            $object = $this->LoadObject($argument);
+            $object = $this->LoadObject($array);
             if($object != null and $object->Modify())
             {
                 $resp = true;
@@ -91,18 +76,22 @@ class ABMMenuRol
         return $resp;
     }
 
-    public function List($argument = "")
+    /** 
+     * @param Array
+     * @return Boolean|Array
+     */
+    public function Search($array = "")
     {
         $where = " true ";
-        if($argument != null)
+        if($array != null)
         {
-            if(isset($argument['idrol']))
+            if(isset($array['idrol']))
             {
-                $where .= " and idrol =" . $argument['idrol'];
+                $where .= " and idrol =" . $array['idrol'];
             }
-            if (isset($argument['idmenu']))
+            if (isset($array['idmenu']))
             {
-                $where .= " and idmenu =" . $argument['idmenu'];
+                $where .= " and idmenu =" . $array['idmenu'];
             }
         }
         $object = new MenuRol();

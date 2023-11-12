@@ -1,65 +1,58 @@
 <?php
 class ABMMenu
 {
-    public function LoadObject($data)
+    /** 
+     * @param Array
+     * @return Boolean|Object
+     */
+    public function LoadObject($array)
+    {
+
+        if (array_key_exists('idmenu', $array) && array_key_exists('menombre', $array) && array_key_exists('medescripcion', $array) && array_key_exists('idpadre', $array) && array_key_exists('medeshabilitado', $array)) {
+            $object = new Menu();
+            $object->setValues($array['idmenu'], $array['menombre'], $array['medescripcion'], $array['idpadre'], null);
+        }
+        return $object;
+    }
+
+    /** 
+     * @param Array
+     * @return Boolean|Object
+     */
+    public function LoadObjectId($array)
     {
         $object = new Menu();
-        if(array_key_exists('idMenu', $data))
-        {
-            $object->setIdMenu($data['idMenu']);
-            $object->Load();
-            foreach ($data as $key => $value)
-            {
-                echo "HERE" . $key;
-                if($value != "null")
-                {
-                    switch ($key)
-                    {
-                        case 'menombre':
-                            $object->setMeNombre($value);
-                            break;
-                        case 'medescripcion':
-                            $object->setMeDescripcion($value);
-                            break;
-                        case 'idpadre':
-                            $padreMenu = new Menu();
-                            $padreMenu->setIdMenu($value);
-                            $padreMenu->Load();
-
-                            $object->setIdPadre($padreMenu);
-                            break;
-                    }
-                }
+        if($this->Verify($array)){
+            $object->setIdMenu($array['idmenu']);
+            if(!$object->Load()){
+                $object = NULL;
             }
         }
-
         return $object;
     }
 
-    public function LoadObjectEnKey($argument)
-    {
-        $object = new Menu();
-        if(isset($argument['idmenu'])){
-            $object->setIdMenu($argument['idmenu']);
-            $object->Load();
-        }
-        return $object;
-    }
-
-    public function SetearEnKey($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Verify($array)
     {
         $resp = false;
-        if(isset($argument['idmenu']))
+        if(isset($array['idmenu']))
         {
             $resp = true;
         }
         return $resp;
     }
 
-    public function Register($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Add($array)
     {
         $resp = false;
-        $object = $this->LoadObject($argument);
+        $object = $this->LoadObject($array);
 
         if($object != null and $object->Insert())
         {
@@ -68,37 +61,49 @@ class ABMMenu
         return $resp;
     }
 
-    public function Drop($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Delete($array)
     {
         $resp = false;
-        if($this->SetearEnKey($argument))
+        if($this->Verify($array))
         {
-            $object = $this->LoadObject($argument);
-            if($object != null and $object->Delete()){
+            $object = $this->LoadObject($array);
+            if($object != null and $object->State()){
                 $resp = true;
             }
         }
         return $resp;
-    }
+    } 
 
-    public function Modify($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Edit($array)
     {
         $resp = false;
-        $object = $this->LoadObject($argument);
+        $object = $this->LoadObject($array);
         if($object != null and $object->Modify()){
             $resp = true;
         }
         return $resp;
     }
 
-    public function List($argument = "")
+    /** 
+     * @param Array
+     * @return Boolean|Array
+     */
+    public function Search($array = "")
     {
         $where = " true ";
-        if($argument != null)
+        if($array != null)
         {
-            if(isset($argument['idmenu']))
+            if(isset($array['idmenu']))
             {
-                $where .= " and idmenu =" . $argument['idmenu'];
+                $where .= " and idmenu =" . $array['idmenu'];
             }
         }
 

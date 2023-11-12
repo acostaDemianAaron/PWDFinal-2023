@@ -1,151 +1,119 @@
 <?php
 class ABMUsuario
 {
-    public function LoadObject($data)
+    /** 
+     * @param Array
+     * @return Boolean|Usuario
+     */
+    public function LoadObject($array)
     {
-        $object = new Usuario();
-        if(array_key_exists('idusuario', $data))
-        {
-            $object->setIdUsuario($data['idusuario']);
-            $object->Load();
-            foreach($data as $key => $value)
-            {
-                if($value != null)
-                {
-                    switch($key)
-                    {
-                        case 'usnombre':
-                            $object->setUsNombre($value);
-                            break;
-                        case 'uspass':
-                            $object->setUsPass($value);
-                            break;
-                        case 'usmail':
-                            $object->setUsMail($value);
-                            break;
-                        case 'usdeshabilitado':
-                            $object->setUsDeshabilitado($value);
-                            break;
-                    }
-                }
-            }
+        $usuario = NULL;
+        if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
+            $usuario = new Usuario();
+            $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], null);
         }
-        return $object;
+        return $usuario;
     }
 
-    public function LoadObjectEnKey($data)
+        /** 
+     * @param Array
+     * @return NULL|Usuario
+     */
+    public function LoadObjectId($array)
     {
-        $object = new Usuario();
-        if(isset($data['idusuario']))
-        {
-            $object->setIdUsuario($data['idusuario']);
-            $object->Load();
-        }
-        return $object;
-    }
-
-    public function SetearEnKey($data)
-    {
-        $resp = false;
-        if(isset($data['idusuario']))
-        {
-            $resp = true;
-        }
-        return $resp;
-    }
-
-    public function Register($data)
-    {
-        $resp = false;
-        $object = new Usuario();
-        if (isset($data['idusuario']))
-        {
-            $object->setIdUsuario($data['idusuario']);
-        }
-
-        $object->setUsNombre($data['usnombre']);
-        $object->setUsPass($data['uspass']);
-        $object->setUsMail($data['usmail']);
-        if($object->Insert())
-        {
-            $data['idusuario'] = $object->getIdUsuario();
-            if($this->RegisterRole($data, $object))
-            {
-                $resp = true;
+        $usuario = NULL;
+        if (isset($array['idusuario'])) {
+            $usuario = new Usuario();
+            $usuario->setIdUsuario($array['idusuario']);
+            if (!$usuario->Load()) {
+                $usuario = NULL;
             }
         }
-        return $resp;
+        return $usuario;
     }
 
-    public function RegisterRole($data, $objUsuario)
+        /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Verify($array)
     {
-        $usRol = new UsuarioRol();
-        $rol = new Rol();
-        $rol->setIdRol($data['idrol']);
-        $rol->Load();
-        $usRol->setValues($objUsuario, $rol);
-        $resp = $usRol->Insert($data);
-        return $resp;
+        $res = FALSE;
+        if (isset($array['idusuario'])) {
+            $res = TRUE;
+        }
+        return $res;
     }
 
-    public function Drop($data)
+        /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Add($array)
     {
-        $resp = false;
-        if($this->SetearEnKey($data))
-        {
-            $object = $this->LoadObjectEnKey($data);
-            if($object->getIdUsuario() != null && $object->Delete())
-            {
-                $resp = true;
+        $res = FALSE;
+        $usuario = $this->LoadObject($array);
+        if ($usuario != NULL && $usuario->Insert()) {
+            $res = TRUE;
+        }
+        return $res;
+    }
+
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Delete($array)
+    {
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $usuario = $this->LoadObjectId($array);
+            if ($usuario != NULL && $usuario->Delete()) {
+                $res =  TRUE;
             }
         }
-        return $resp;
+        return $res;
     }
 
-    public function Modify($data)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Edit($array)
     {
-        $resp = false;
-        if($this->SetearEnKey($data))
-        {
-            $object = $this->LoadObject($data);
-            if($object->Modify())
-            {
-                $resp = true;
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $usuario = $this->Search($array);
+            $usuario = $this->LoadObject($array);
+            if ($usuario != NULL && $usuario->Modify()) {
+                $res = TRUE;
             }
         }
-
-        if(isset($data['idrol']))
-        {
-            $usRol = new ABMUsuarioRol();
-            $resp = $resp || $usRol->Modify($data);
-        }
-        return $resp;
+        return $res;
     }
 
-    public function List($data = "")
+    /** 
+     * @param Array
+     * @return Boolean|Array
+     */
+    public function Search($array = null)
     {
-        $where = " true ";
-        if($data <> NULL)
-        {
-            if(isset($data['idusuario']))
-            {
-                $where .= " and idusuario=" . $data['idusuario'];
-            }
-            if(isset($data['usnombre']))
-            {
-                $where .= " and usnombre='" . $data['usnombre'] . "'";
-            }
-            if(isset($data['uspass']))
-            {
-                $where .= " and uspass='" . $data['uspass'] . "'";
-            }
-            if(isset($data['usmail']))
-            {
-                $where .= " and usmail='" . $data['usmail'] . "'";
-            }
+        $on = " true ";
+        if ($array <> NULL) {
+            if (isset($array['idusuario']))
+                $on .= " and idusuario =" . $array['idusuario'];
+            if (isset($array['usnombre']))
+                $on .= " and usnombre =" . $array['usnombre'];
+            if (isset($array['uspass']))
+                $on .= " and uspass =" . $array['uspass'];
+            if (isset($array['usmail']))
+                $on .= " and usmail =" . $array['usmail'];
+            if (isset($array['usdeshabilitado']))
+                $on .= " and usdeshabilitado =" . $array['usdeshabilitado'];
         }
-        $object = new Usuario();
-        $array = $object->List($where);
-        return $array;
+        $usuario = new Usuario();
+        $arrayList = $usuario->List($on);
+        return $arrayList;
     }
-}
+
+    }

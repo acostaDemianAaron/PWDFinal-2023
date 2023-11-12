@@ -99,7 +99,7 @@ class Menu
     {
         $res = false;
         $database = new Database();
-        $query = "SELECT * FROM 'menu' WHERE idmenu = " . $this->getIdMenu();
+        $query = "SELECT * FROM menu WHERE idmenu = " . $this->getIdMenu();
 
         if ($database->Start()) {
             $status = $database->Execute($query);

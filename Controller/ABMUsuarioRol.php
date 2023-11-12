@@ -1,101 +1,111 @@
 <?php
 class ABMUsuarioRol
 {
-    public function LoadObject($argument)
+    /** 
+     * @param Array
+     * @return Null|UsuarioRol
+     */
+    public function LoadObject($array)
     {
-        if(array_key_exists('idrol', $argument) && array_key_exists('idusuario', $argument))
-        {
-            $objectRol = new Rol();
-            $objectRol->setIdRol($argument['idrol']);
-            $objectRol->Load();
-            $objectUser = new Usuario();
-            $objectUser->setIdUsuario($argument['idusuario']);
-            $objectUser->Load();
-            $objectUserRol = new UsuarioRol();
-            $objectUserRol->setValues($objectUser, $objectRol);
+        $usuarioRol = NULL;
+        $usuario = NULL;
+        $rol = NULL;
+        if (array_key_exists('idusuario', $array) && $array['idusuario'] != NULL) {
+            $usuario = new Usuario();
+            $usuario->setIdUsuario($array['idusuario']);
+            $usuario->Load();
         }
-        return $objectUserRol;
+        if (array_key_exists('idrol', $array) && $array['idrol'] != NULL) {
+            $rol = new Rol();
+            $rol->setIdRol($array['idrol']);
+            $rol->Load();
+        }
+
+        $usuarioRol = new UsuarioRol();
+        $usuarioRol->setValues($rol, $usuario);
+        return $usuarioRol;
     }
 
-    public function LoadObjectEnKey($argument) 
+
+    /** 
+     * @param array
+     * @return Boolean
+     */
+    public function Verify($array)
     {
-        $object = new UsuarioRol();
-        if(isset($argument['idusuario']))
-        {
-            $object->getObjUsuario()->setIdUsuario($argument['idusuario']);
-            $object->Load();
+        $res = FALSE;
+        if (isset($array['idusuario']) && isset($array['idrol'])) {
+            $res = TRUE;
         }
-        return $object;
+        return $res;
     }
 
-    public function SetearEnKey($argument)
+        /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Add($array)
     {
-        $resp = false;
-        if(isset($argument['idusuario']))
-        {
-            $resp = true;
+        $res = FALSE;
+        $usuarioRol = $this->LoadObject($array);
+        if ($usuarioRol != NULL && $usuarioRol->Insert()) {
+            $res = TRUE;
         }
-        return $resp;
+        return $res;
     }
 
-    public function Add($argument)
+        /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Delete($array)
     {
-        $resp = false;
-        $object = $this->LoadObject($argument);
-        if ($object != null)
-        {
-            if($object->Insert())
-            {
-                $resp = true;
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $usuarioRol = $this->LoadObject($array);
+            if ($usuarioRol != NULL && $usuarioRol->Delete()) {
+                $res = TRUE;
             }
         }
-        return $resp;
+        return $res;
     }
 
-    public function Drop($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Edit($array)
     {
-        $resp = false;
-        if($this->SetearEnKey($argument))
-        {
-            $object = $this->LoadObjectEnKey($argument);
-            if($object != null and $object->Delete())
-            {
-                $resp = true;
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $usuarioRol = $this->Search($array);
+            $usuarioRol = $this->LoadObject($array);
+            if ($usuarioRol != NULL && $usuarioRol->Modify()) {
+                $res = TRUE;
             }
         }
-        return $resp;
+        return $res;
     }
 
-    public function Modify($argument)
+    /** 
+     * @param Array
+     * @return Boolean|Array
+     */
+    public function Search($array = NULL)
     {
-        $resp = false;
-        if($this->SetearEnKey($argument))
-        {
-            $object = $this->LoadObjectEnKey($argument);
-            if($object->getObjRol()->getIdRol() != $argument['idrol'])
+        $on = " true ";
+        if ($array <> NULL) {
+            if($this->Verify($array))
             {
-                $object->getObjRol()->setIdRol($argument['idrol']);
-                $resp = $object->Modify();
+                $on .= " and idusuario" . $array['idusuario'] . " and idrol" . $array['idrol'];
             }
+            // if (isset($array['idusuario']))
+            //     $on .= " and idusuario" . $array['idusuario'];
+            // if (isset($array['idrol']))
+            //     $on .= " and idrol" . $array['idrol'];
         }
-        return $resp;
-    }
-
-    public function List($argument)
-    {
-        $where = " true ";
-        if($argument <> NULL)
-        {
-            if(isset($argument['idusuario']))
-            {
-                $where .= " and idusuario='" . $argument['idusuario'] . "'";
-            }
-            if(isset($argument['idrol']))
-            {
-                $where .= " and idrol='" . $argument['idrol'] . "'";
-            }
-        }
-        $array = UsuarioRol::List($where, "");
-        return $array;
+        $usuarioRol = new UsuarioRol();
+        $arrayList = $usuarioRol->List($on);
+        return $arrayList;
     }
 }

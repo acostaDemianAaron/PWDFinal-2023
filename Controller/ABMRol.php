@@ -2,124 +2,111 @@
 
 class ABMRol
 {
-    public function LoadObject($argument)
+    /**
+     * @param Array
+     * @return Boolean|Rol
+     */
+    public function LoadObject($array)
     {
-        $object = new Rol();
-        if(array_key_exists('idrol', $argument) and array_key_exists('rodescripcion', $argument))
-        {
-            $object->setRoDescripcion($argument['rodescripcion']);
-        } else {
-            $object->setValues(
-                $argument['idrol'],
-                $argument['rodescripcion'],
-            );
+        $rol = NULL;
+        if (array_key_exists('idrol', $array) && array_key_exists('roldescripcion', $array)) {
+            $rol = new Rol();
+            $rol->setValues($array['idrol'], $array['roldescripcion']);
         }
-        return $object;
+        return $rol;
     }
 
-    public function LoadObjectEnKey($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function LoadObjectId($array)
     {
-        $object = new Rol();
-        if(isset($argument['idrol']))
-        {
-            $object->setIdRol($argument['idrol']);
-            $object->Load();
-        }
-        return $object;
-    }
-
-    public function SetearEnKey($argument)
-    {
-        $resp = false;
-        if(isset($argument['idrol']))
-        {
-            $resp = true;
-        }
-        return $resp;
-    }
-
-    public function Register($argument)
-    {
-        $resp = false;
-        $object = $this->LoadObject($argument);
-
-        if($object != null)
-        {
-            if($argument['idrol'] == 0)
-            {
-                if($object->Insert())
-                {
-                    $menurol = new ABMMenuRol();
-                    $menurol->Register(['idmenu' => $argument['idmenu'], 'idrol' => $object->getIdRol()]);
-                    $resp = true;
-                }
-            } else {
-                if(!$object->Load())
-                {
-                    if($object->Insert())
-                    {
-                        $resp = true;
-                    }
-                }
+        $rol = NULL;
+        if (isset($array['idrol'])) {
+            $rol = new Rol();
+            $rol->setIdRol($array['idrol']);
+            if (!$rol->Load()) {
+                $rol = NULL;
             }
         }
-        return $resp;
+        return $rol;
     }
 
-    public function Drop($argument)
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Verify($array)
     {
-        $resp = false;
-        if($this->SetearEnKey($argument))
-        {
-            $object = $this->LoadObjectEnKey($argument);
-            $menuRol = new ABMMenuRol();
+        $res = FALSE;
+        if (isset($array['idrol'])) {
+            $res = TRUE;
         }
-        if($menuRol->LoadObjectEnKey($argument))
-        {
-            $menuRol->Drop($argument);
-        }
-        if($object != null && $object->Delete())
-        {
-            $resp = true;
-        }
-        return $resp;
+        return $res;
     }
 
-    public function Modify($argument)
+        /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Add($array)
     {
-        $resp = false;
-        if($this->SetearEnKey($argument))
-        {
-            $object = $this->LoadObject($argument);
-            if($object != null and $object->Modify())
-            {
-                $resp = true;
-            }
-            if (isset($argument['idmenu']))
-            {
-                $menu = new ABMMenuRol();
-                $menu->Modify($argument);
-            }
+        $res = FALSE;
+        $rol = $this->LoadObject($array);
+        if ($rol != NULL && $rol->Insert()) {
+            $res = TRUE;
         }
-        return $resp;
+        return $res;
     }
 
-    public function List($argument = "")
+    /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function Delete($array)
     {
-        $where = "true";
-        if($argument <> NULL)
-        {
-            if(isset($argument['idrol']))
-            {
-                $where .= " and idrol=" . $argument['idrol'];
-            }
-            if(isset($argument['rodescripcion']))
-            {
-                $where .= " and rodescripcion='" . $argument['rodescripcion'] . "'";
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $rol = $this->LoadObjectId($array);
+            if ($rol != NULL && $rol->Delete()) {
+                $res = TRUE;
             }
         }
-        $object = new Rol();
-        $array = $object->List($where);
-        return $array;
+        return $res;
+    }
+
+
+    /**
+     * @param Array
+     * @return Boolean
+     */
+    public function Edit($array)
+    {
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $rol = $this->Search($array);
+            $rol = $this->LoadObject($array);
+            if ($rol != NULL && $rol->Modify()) {
+                $res = TRUE;
+            }
+        }
+        return $res;
+    }
+
+    /** 
+     * @param Array
+     * @return Boolean|Array
+     */
+    public function Search($array = NULL)
+    {
+        $on = " true ";
+        if ($array <> NULL) {
+            if ($this->Verify($array))
+                $on .= " and idrol =" . $array['idrol'];
+        }
+        $rol = new Rol();
+        $arrayList = $rol->List($on);
+        return $arrayList;
     }
 }

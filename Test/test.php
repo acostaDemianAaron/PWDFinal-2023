@@ -1,6 +1,5 @@
 <?php
 include_once("../Config/config.php");
-new HEAD($DIRS);
 new Header("Test Page", $DIRS, null);
 
 // { Turn to SHA512/256
