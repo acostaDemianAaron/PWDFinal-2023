@@ -1,7 +1,7 @@
 <?php
 class AbmProducto
 {
-    public function LoadObj($array)
+    public function LoadObject($array)
     {
         $obj = NULL;
         if (array_key_exists('idproducto', $array) && array_key_exists('proprecio', $array) && array_key_exists('pronombre', $array) && array_key_exists('prodetalle', $array) && array_key_exists('procantstock', $array)) {
@@ -11,7 +11,7 @@ class AbmProducto
         return $obj;
     }
 
-    public function LoadObjId($array)
+    public function LoadObjectId($array)
     {
         $obj = NULL;
         if (isset($array['idproducto'])) {
@@ -37,7 +37,7 @@ class AbmProducto
     {
         $resp = FALSE;
         if ($this->Verify($array)) {
-            $obj = $this->LoadObjId($array);
+            $obj = $this->LoadObject($array);
             if ($obj != NULL && $obj->Delete()) {
                 $resp = TRUE;
             }
@@ -49,7 +49,7 @@ class AbmProducto
     {
         $resp = FALSE;
         if ($this->Verify($array)) {
-            $obj = $this->LoadObj($array);
+            $obj = $this->LoadObject($array);
             if ($obj != NULL && $obj->Modify()) {
                 $resp = TRUE;
             }
@@ -80,7 +80,7 @@ class AbmProducto
     public function Add($array)
     {
         $resp =  FALSE;
-        $obj = $this->LoadObj($array);
+        $obj = $this->LoadObject($array);
         if ($obj != NULL && $obj->Insert()) {
             $resp = TRUE;
         }

@@ -2,7 +2,7 @@
 
 class ABMCompraEstado
 {
-    public function LoadObj($array)
+    public function LoadObject($array)
     {
         $obj = NULL;
         if (array_key_exists('idcompra', $array)) {
@@ -29,7 +29,7 @@ class ABMCompraEstado
         return $obj;
     }
 
-    public function LoadObjId($array)
+    public function LoadObjectId($array)
     {
         $obj = NULL;
         if (isset($array['idcompraestado'])) {
@@ -55,7 +55,7 @@ class ABMCompraEstado
     {
         $resp = FALSE;
         if ($this->Verify($array)) {
-            $obj = $this->LoadObjId($array);
+            $obj = $this->LoadObject($array);
             if ($obj != NULL && $obj->Delete()) {
                 $resp = TRUE;
             }
@@ -67,7 +67,7 @@ class ABMCompraEstado
     {
         $resp = FALSE;
         if ($this->Verify($array)) {
-            $obj = $this->LoadObj($array);
+            $obj = $this->LoadObject($array);
             if ($obj != NULL && $obj->Modify()) {
                 $resp = TRUE;
             }
@@ -103,7 +103,7 @@ class ABMCompraEstado
     public function Add($array)
     {
         $resp =  FALSE;
-        $obj = $this->LoadObj($array);
+        $obj = $this->LoadObject($array);
         if ($obj != NULL && $obj->Insert()) {
             $resp = TRUE;
         }
