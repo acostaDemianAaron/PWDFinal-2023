@@ -97,14 +97,18 @@ class ABMMenu
      * @param Array
      * @return Boolean|Array|String
      */
-    public function Search($array = "")
+    public function Search($array = [])
     {
         $where = " true ";
-        if($array != null)
+        if($array != [])
         {
             if(isset($array['idmenu']))
             {
                 $where .= " and idmenu =" . $array['idmenu'];
+            }
+            if(isset($array['idpadre']))
+            {
+                $where .= " and idpadre =" . $array['idpadre'];
             }
         }
 

@@ -81,10 +81,10 @@ class ABMMenuRol
      * @param Array
      * @return Boolean|Array|String
      */
-    public function Search($array = "")
+    public function Search($array = [])
     {
         $where = " true ";
-        if($array != null)
+        if($array != [])
         {
             if (isset($array['idmenu']))
             {
