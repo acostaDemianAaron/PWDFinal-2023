@@ -23,7 +23,8 @@ spl_autoload_register(function ($class_name) { //Se ejecuta automáticamente cad
         $_SESSION['ROOT'] . '/Model/Class/',
         $_SESSION['ROOT'] . '/Model/Connection/',
         $_SESSION['ROOT'] . '/Controller/',
-        $_SESSION['ROOT'] . '/View/Structure/'
+        $_SESSION['ROOT'] . '/View/Structure/',
+        $_SESSION['ROOT'] . '/Test/Login/'
     );
     foreach ($directorys as $directory) { //Busca la BaseDatos o las clases que esten siendo usadas, para que funcione TODAS LAS CLASES DEBEN TENER EL MISMO NOMBRE QUE SU SCRIPT 
         if (file_exists($directory . $class_name . '.php')) {

@@ -15,7 +15,7 @@ class ABMUsuario
         return $usuario;
     }
 
-        /** 
+    /** 
      * @param Array
      * @return NULL|Usuario
      */
@@ -32,7 +32,7 @@ class ABMUsuario
         return $usuario;
     }
 
-        /** 
+    /** 
      * @param Array
      * @return Boolean
      */
@@ -45,7 +45,7 @@ class ABMUsuario
         return $res;
     }
 
-        /** 
+    /** 
      * @param Array
      * @return Boolean
      */
@@ -101,19 +101,19 @@ class ABMUsuario
         $on = " true ";
         if ($array <> NULL) {
             if (isset($array['idusuario']))
-                $on .= " and idusuario =" . $array['idusuario'];
+                $on .= " and idusuario ='" . $array['idusuario'] . "'";
             if (isset($array['usnombre']))
-                $on .= " and usnombre =" . $array['usnombre'];
+                $on .= " and usnombre ='" . $array['usnombre'] . "'";
             if (isset($array['uspass']))
-                $on .= " and uspass =" . $array['uspass'];
+                $on .= " and uspass ='" . $array['uspass'] . "'";
             if (isset($array['usmail']))
-                $on .= " and usmail =" . $array['usmail'];
+                $on .= " and usmail ='" . $array['usmail'] . "'";
             if (isset($array['usdeshabilitado']))
-                $on .= " and usdeshabilitado =" . $array['usdeshabilitado'];
+                $on .= " and usdeshabilitado ='" . $array['usdeshabilitado'] . "'";
         }
         $usuario = new Usuario();
+        echo $on;
         $arrayList = $usuario->List($on);
         return $arrayList;
     }
-
-    }
+}

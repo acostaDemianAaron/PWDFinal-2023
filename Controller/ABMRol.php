@@ -46,7 +46,7 @@ class ABMRol
         return $res;
     }
 
-        /** 
+    /** 
      * @param Array
      * @return Boolean
      */
@@ -109,4 +109,18 @@ class ABMRol
         $arrayList = $rol->List($on);
         return $arrayList;
     }
+
+    // public function objectSearchId($arrayId)
+    // {
+    //     $objRoles = [];
+    //     foreach ($arrayId as $idRol) {
+    //         $array = ['idRol' => $idRol];
+    //         $objRol = $this->Search($array);
+    //         // Verifica si se encontró un objeto antes de intentar acceder a la posición 0
+    //         if (!empty($objRol)) {
+    //             $objRoles[] = $objRol[0];
+    //         }
+    //     }
+    //     return $objRoles;
+    // }
 }
