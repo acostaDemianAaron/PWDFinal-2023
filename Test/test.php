@@ -93,7 +93,11 @@ echo <<<HTML
         url="test_menu.php" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
          <thead>
             <tr id="menu-fields">
-               <!-- TODO Programatically -->
+               <th field="idmenu" width="50">ID</th>
+               <th field="menombre" width="50">Nombre</th>
+               <th field="medescripcion" width="50">Pass (encoded)</th>
+               <th field="idpadre" width="50">Mail</th>
+               <th field="medeshabilitado" width="50">Deshabiltado</th>
             </tr>
          </thead>
       </table>
@@ -143,6 +147,10 @@ echo <<<HTML
    </div>
    <!-- TODO Check functions -->
    <script>
+      function variables(){
+
+      }
+
       function newMenu(){
          $('#dlg').dialog('open').dialog('setTitle','New Menu');
          $('#fm').form('clear');
