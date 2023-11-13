@@ -34,7 +34,7 @@ class ABMUsuarioRol
     public function Verify($array)
     {
         $res = FALSE;
-        if (isset($array['idusuario']) && isset($array['idrol'])) {
+        if (isset($array['idusuario']) || isset($array['idrol'])) {
             $res = TRUE;
         }
         return $res;
@@ -97,9 +97,10 @@ class ABMUsuarioRol
         if ($array <> NULL) {
             if($this->Verify($array))
             {
-                $on .= " and idusuario" . $array['idusuario'] . " and idrol" . $array['idrol'];
+                $on .= " and idusuario = '" . $array['idusuario'] . "'";
             }
         }
+
         $usuarioRol = new UsuarioRol();
         $arrayList = $usuarioRol->List($on);
         return $arrayList;

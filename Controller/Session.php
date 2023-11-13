@@ -80,15 +80,8 @@ class Session
         $userList = $abmUsuario->Search($where);
 
 
-
-
-print_r($userList);
-die();
-
-
-
-
-
+        // print_r($userList);
+        // die();
 
 
         $error = "";
@@ -99,7 +92,7 @@ die();
             $userName = $userList[0];
             $fechaDes = $userName->getUsDeshabilitado();
 
-            if ($fechaDes != "0000-00-00 00:00:00") {
+            if ($fechaDes != null) {
                 $error .= "Este usuario se encuentra deshabilitado!";
             } else {
                 $success = TRUE;

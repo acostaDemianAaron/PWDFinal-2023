@@ -112,7 +112,6 @@ class ABMUsuario
                 $on .= " and usdeshabilitado ='" . $array['usdeshabilitado'] . "'";
         }
         $usuario = new Usuario();
-        echo $on;
         $arrayList = $usuario->List($on);
         return $arrayList;
     }
