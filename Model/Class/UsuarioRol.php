@@ -180,7 +180,7 @@ class UsuarioRol
                 }
 
                 $obj = new UsuarioRol();
-                $obj->setValues($objUsuario, $objRol);
+                $obj->setValues($objRol, $objUsuario);
                 array_push($array, $obj);
             }
         } else {
