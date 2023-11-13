@@ -345,6 +345,7 @@ INSERT INTO
     rol(idrol, rodescripcion)
 VALUES (3, "User"), (2, "Deposito"), (1, "Admin");
 
+--
 -- Volcado de datos para la tabla `usuario`
 --
 INSERT INTO
@@ -379,7 +380,6 @@ VALUES (1, 1), (2, 3), (3, 2);
 --
 -- Volcado de datos para la tabla `menu`
 --
-
 INSERT INTO
   menu(idmenu, menombre, medescripcion, idpadre, medeshabilitado)
 VALUES
