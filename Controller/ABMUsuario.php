@@ -3,7 +3,7 @@ class ABMUsuario
 {
     /** 
      * @param Array
-     * @return Boolean|Usuario
+     * @return Null|Usuario
      */
     public function LoadObject($array)
     {
@@ -94,7 +94,7 @@ class ABMUsuario
 
     /** 
      * @param Array
-     * @return Boolean|Array
+     * @return Boolean|Array|String
      */
     public function Search($array = null)
     {

@@ -89,7 +89,7 @@ class ABMUsuarioRol
 
     /** 
      * @param Array
-     * @return Boolean|Array
+     * @return Boolean|Array|String
      */
     public function Search($array = NULL)
     {
@@ -99,10 +99,6 @@ class ABMUsuarioRol
             {
                 $on .= " and idusuario" . $array['idusuario'] . " and idrol" . $array['idrol'];
             }
-            // if (isset($array['idusuario']))
-            //     $on .= " and idusuario" . $array['idusuario'];
-            // if (isset($array['idrol']))
-            //     $on .= " and idrol" . $array['idrol'];
         }
         $usuarioRol = new UsuarioRol();
         $arrayList = $usuarioRol->List($on);

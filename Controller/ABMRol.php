@@ -4,7 +4,7 @@ class ABMRol
 {
     /**
      * @param Array
-     * @return Boolean|Rol
+     * @return Null|Rol
      */
     public function LoadObject($array)
     {
@@ -96,7 +96,7 @@ class ABMRol
 
     /** 
      * @param Array
-     * @return Boolean|Array
+     * @return Boolean|Array|String
      */
     public function Search($array = NULL)
     {

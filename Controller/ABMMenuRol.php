@@ -5,13 +5,14 @@ class ABMMenuRol
 
     /** 
      * @param Array
-     * @return Boolean|Object
+     * @return Null|MenuRol
      */
     public function LoadObject($array)
     {
+        $objectMenuRol = null;
         if(array_key_exists('idrol', $array) && array_key_exists('idmenu', $array))
         {
-            $object = new MenuRol();
+            $objectMenuRol = new MenuRol();
             $objectMenu = new Menu();
             $objectRol = new Rol();
             if(isset($array['idmenu']))
@@ -24,9 +25,9 @@ class ABMMenuRol
                 $objectRol->setIdRol($array['idrol']);
                 $objectRol->Load();
             }
-            $object->setValues($objectMenu, $objectRol);
+            $objectMenuRol->setValues($objectMenu, $objectRol);
         }
-        return $object;
+        return $objectMenuRol;
     }
 
     /** 
@@ -78,7 +79,7 @@ class ABMMenuRol
 
     /** 
      * @param Array
-     * @return Boolean|Array
+     * @return Boolean|Array|String
      */
     public function Search($array = "")
     {
