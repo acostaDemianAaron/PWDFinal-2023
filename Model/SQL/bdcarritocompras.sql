@@ -374,7 +374,7 @@ VALUES (
 --
 INSERT INTO
   usuariorol(idusuario, idrol)
-VALUES (1, 3), (2, 1), (3, 2);
+VALUES (1, 1), (2, 3), (3, 2);
 
 --
 -- Volcado de datos para la tabla `menu`
@@ -390,7 +390,9 @@ VALUES
 (5, 'Gestion Admin', '/Private/admin/', 4, NULL),
 (6, 'Gestion de Usuarios', '/Private/usuario/', 4, NULL),
 (7, 'Gestion de Rol', '/Private/usuariorol/', 4, NULL),
-(8, 'Gestión de Permisos', '/Private/menu/', 4, NULL);
+(8, 'Gestion de Permisos', '/Private/menu/', 4, NULL),
+(9, 'Dashboard', '/Private/menu/', 4, NULL),
+(10, 'Deposito', '#', NULL, NULL);
 
 --
 -- Volcado de datos para la tabla `menurol`
@@ -398,6 +400,6 @@ VALUES
 INSERT INTO 
     menurol(idmenu, idrol)
 VALUES
-(4, 1);
+(10, 1), (4, 1), (10, 2);
 
 COMMIT;
