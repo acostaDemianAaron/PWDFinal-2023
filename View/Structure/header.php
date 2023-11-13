@@ -1,4 +1,5 @@
 <?php
+
 class Header{
    protected $title = "";
    protected $dirs = [];
@@ -12,10 +13,11 @@ class Header{
     */
    function __construct($title, $dirs, $rol)
    {
-      // Show Dirs
-      // print_r($dirs);
+      // Arrow function for easier call inside heredoc.
+      $loadMenu = fn($dirs, $rol) => $this->LoadMenues($dirs, $rol);
+      $accountMenu = fn($idrol) => $this->accountButtons($idrol);
 
-      // Needs authentication process to decide menues.
+      // HereDoc
       echo 
       <<<HTML
 
@@ -64,25 +66,15 @@ class Header{
                            </a>
                            </li>
                            <li>
-                           <!-- TODO DIR -->
-                           <a href="{$dirs['INDEX']}adminDashboard" class="nav-link px-2">
-                              <div><i class="fa-solid fa-gauge me-1"></i>Dashboard</div>
-                           </a>
+                              <!-- TODO DIR -->
+                              <a href="{$dirs['INDEX']}adminDashboard.php" class="nav-link px-2">
+                                 <div><i class="fa-solid fa-gauge me-1"></i>Dashboard</div>
+                              </a>
                            </li>
+                           <!-- Load every menu for the current Session -->
+                           {$loadMenu($dirs,$rol)}
                            <li>
-                           <!-- TODO DIR -->
-                           <a href="#" class="nav-link px-2">
-                              <div><i class="fa-solid fa-list me-1"></i>Orders</div>
-                           </a>
-                           </li>
-                           <li>
-                           <!-- TODO DIR -->
-                           <a href="#" class="nav-link px-2">
-                              <div><i class="fa-solid fa-bag-shopping me-1"></i>Products</div>
-                           </a>
-                           </li>
-                           <li>
-                           <!-- TODO DIR -->
+                           <!-- Profile button -->
                            <a href="#" class="nav-link px-2">
                               <div><i class="fa-solid fa-user me-1"></i>Profile</div>
                            </a>
@@ -91,6 +83,7 @@ class Header{
                      </div>
                   </div>
                </div>
+               <!-- If there's no session, show LogIn/Register, in other case show LogOut and Profile -->
                <div class="px-3 py-2 border-bottom mb-3">
                   <div class="container d-flex flex-wrap justify-content-center">
                      <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
@@ -98,11 +91,7 @@ class Header{
                      </form>
 
                      <div class="text-end">
-                        <!-- Optional buttons -->
-                        <button type="button" class="btn btn-secondary me-2">Log out</button>
-                        <!-- End of optional buttons -->
-                        <button type="button" class="btn btn-secondary me-2">Log in</button>
-                        <button type="button" class="btn btn-primary">Sign-up</button>
+                        {$accountMenu($rol)}
                      </div>
                   </div>
                </div>
@@ -127,5 +116,117 @@ class Header{
       </body>
 
       HTML;
+   }
+
+   // Methods
+   /**
+    * Get the ID of the menues by the MenuRol table
+    * @param Integer $idrol
+    */
+   private function GetMenuesRol($idrol){
+      $abmMenuRol = new ABMMenuRol;
+      return $abmMenuRol->Search(['idrol' => $idrol]);
+   }
+
+   /**
+    * Get the menues by the IDs found in objects found by GetMenuRol
+    * @param Array $menuRolArray Array that contains MenuRol objects
+    * @return Array $menuesArray Array that contains Menu objects
+    */
+   private function GetMenues($menuRolArray){
+      $abmMenu = new ABMMenu;
+      $menuesArray = [];
+      foreach($menuRolArray as $menurol){
+         array_push($menuesArray, $abmMenu->Search(['idmenu' => $menurol->getObjMenu()->getIdMenu()])[0]);
+      }
+      return $menuesArray;
+   }
+
+   /**
+    * Load every dropdown item from the array of children the menu has.
+    * @param Array $children Array of menu's that need to be a dropdown item.
+    * @return Heredoc $dropdown HTML code of the dropdown items.
+    */
+   private function LoadDropdown($children){
+      $dropdown = "";
+      foreach($children as $child){
+         $dropdown .= <<<HTML
+         <li><a class="dropdown-item" href="{$child->getMeDescripcion()}">{$child->getMeNombre()}</a></li>
+         HTML;
+      }
+      return $dropdown;
+   }
+
+   /**
+    * Load every menu for the present rol id.
+    * @param Array $dirs Contains the config directories.
+    * @param Integer $idrol Rol of current Session.
+    * @return Heredoc $html HTML code of the buttons and dropdown if any.
+    */
+   private function LoadMenues($dirs, $idrol){
+      $html = "";
+      // TODO add logic to check Session. Maybe its better in a diff function.
+      // Only show if is a verified Session.
+      if($idrol != 0){
+         $menurolArray = $this->GetMenuesRol($idrol);
+         $menuesArray = $this->GetMenues($menurolArray);
+
+         foreach($menuesArray as $menu){
+            $abmMenu = new ABMMenu;
+            $children = $abmMenu->Search(['idpadre' => $menu->getIdMenu()]);
+
+            // if there is no children, make a redirectable button.
+            if($children == []){
+               $html .= <<<HTML
+               <li>
+                  <a href="{$dirs['INDEX']}{$menu->getMeDescripcion()}" class="nav-link px-2">
+                     <div><i class="fa-solid fa-gauge me-1"></i>{$menu->getMeNombre()}</div>
+                  </a>
+               </li>
+               HTML;
+            } else {
+               // If there are children, generate a dropdown button instead.
+               $html .= <<<HTML
+               <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     {$menu->getMeNombre()}
+                  </button>
+                  <ul class="dropdown-menu">
+                     <li><span class="dropdown-item-text">Options</span></li>
+               HTML;
+
+               $html .= $this->LoadDropdown($children);
+
+               $html .= <<<HTML
+                  </ul>
+               </div>
+               HTML;
+            }
+         }
+      }
+      return $html;
+   }
+
+   /**
+    * Loads the buttons that need to be shown if logged or not.
+    * @param Integer $idrol Rol of session.
+    * @return Heredoc $html heredoc of buttons.
+    */
+   private function accountButtons($idrol){
+      $html = "";
+      if($idrol == 0){
+         $html = <<<HTML
+            <!-- End of optional buttons -->
+            <button type="button" class="btn btn-secondary me-2">Log in</button>
+            <button type="button" class="btn btn-primary">Sign-up</button>
+         HTML;
+      } else {
+         $html = <<<HTML
+            <!-- End of optional buttons -->
+            <button type="button" class="btn btn-secondary me-2">Log out</button>
+            <button type="button" class="btn btn-secondary me-2">Profile</button>
+         HTML;
+      }
+      return $html;
    }
 }
