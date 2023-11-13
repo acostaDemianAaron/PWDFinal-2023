@@ -2,12 +2,13 @@
 class ABMMenu
 {
     /** 
+     * Carga el objecto con todos los parames
      * @param Array
-     * @return Boolean|Object
+     * @return Null|Menu
      */
     public function LoadObject($array)
     {
-
+        $object = Null;
         if (array_key_exists('idmenu', $array) && array_key_exists('menombre', $array) && array_key_exists('medescripcion', $array) && array_key_exists('idpadre', $array) && array_key_exists('medeshabilitado', $array)) {
             $object = new Menu();
             $object->setValues($array['idmenu'], $array['menombre'], $array['medescripcion'], $array['idpadre'], null);
@@ -17,7 +18,7 @@ class ABMMenu
 
     /** 
      * @param Array
-     * @return Boolean|Object
+     * @return Null|Menu
      */
     public function LoadObjectId($array)
     {
@@ -94,7 +95,7 @@ class ABMMenu
 
     /** 
      * @param Array
-     * @return Boolean|Array
+     * @return Boolean|Array|String
      */
     public function Search($array = "")
     {
