@@ -85,17 +85,17 @@ class ABMMenuRol
         $where = " true ";
         if($array != null)
         {
-            if(isset($array['idrol']))
-            {
-                $where .= " and idrol =" . $array['idrol'];
-            }
             if (isset($array['idmenu']))
             {
                 $where .= " and idmenu =" . $array['idmenu'];
             }
+            if(isset($array['idrol']))
+            {
+                $where .= " and idrol =" . $array['idrol'];
+            }
         }
         $object = new MenuRol();
-        $array = $object->list($where);
+        $array = $object->List($where);
         return $array;
     }
 }

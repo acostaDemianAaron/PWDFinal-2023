@@ -1,6 +1,6 @@
 <?php
 
-class ABMCompraEstado
+class ABMCompraItem
 {
     public function LoadObject($array)
     {
