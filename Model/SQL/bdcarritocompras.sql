@@ -332,7 +332,9 @@ ALTER TABLE `usuariorol`
 -- Volcado de datos para la tabla `compraestadotipo`
 --
 
-INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdetalle`) VALUES
+INSERT INTO
+	compraestadotipo (idcompraestadotipo, cetdescripcion, cetdetalle)
+VALUES
 (1, 'iniciada', 'cuando el usuario cliente inicia la compra de uno o mas productos del carrito'),
 (2, 'aceptada', 'cuando el usuario administrador da ingreso a uno de las compras en estado = 1'),
 (3, 'enviada', 'cuando el usuario administrador envia a uno de las compras en estado = 2'),
@@ -401,5 +403,35 @@ INSERT INTO
     menurol(idmenu, idrol)
 VALUES
 (10, 1), (4, 1), (10, 2);
+
+
+--
+
+-- Volcado de datos para la tabla `compra`
+
+--
+
+INSERT INTO
+    compra(idcompra, cofecha, idusuario)
+VALUES (1, '2023-11-2 13:23:23', 2), (2, '2023-11-4 10:46:13', 2), (3, '2023-11-5 15:41:12', 2), (4, '2023-11-6 12:23:54', 2), (5, '2023-11-10 10:12:12', 1), (6, '2023-11-11 12:11:23', 2), (7, '2023-11-14 17:00:19', 2);
+
+--
+
+-- Volcado de datos para la tabla `compraestado`
+
+--
+
+INSERT INTO
+    compraestado(idcompraestado, idcompra, idcompraestadotipo, cefechaini, cefechafin)
+VALUES
+(1, 1, 1, '2023-11-2 13:23:23', '2023-11-2 14:23:23'),
+(2, 1, 2, '2023-11-2 14:23:23', NULL),
+(3, 2, 1, '2023-11-4 10:46:13', NULL),
+(4, 3, 1, '2023-11-5 15:41:12', NULL),
+(5, 4, 1, '2023-11-6 12:23:54', '2023-11-6 15:10:43'),
+(6, 4, 4, '2023-11-6 15:10:43', NULL),
+(7, 5, 1, '2023-11-10 10:12:12', NULL),
+(8, 6, 1, '2023-11-11 12:11:23', NULL),
+(9, 7, 1, '2023-11-14 17:00:19', NULL);
 
 COMMIT;
