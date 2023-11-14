@@ -1,20 +1,12 @@
 <?php
 include_once("../Config/config.php");
-// TODO header call
-new Header("Titulo", $DIRS);
+new Header("Menu Principal", $DIRS);
 
-print_r($_SESSION);
+// TODO Menu principal.
+echo <<<HTML
+   <div class="container">
+      <h1>Texto de pagina de inicio</h1>
+   </div>
+HTML;
 
-// TODO contents
-if(array_key_exists('msg', data_submitted())){
-   if(data_submitted()['msg'] == 'logout'){
-      echo <<<HTML
-      <h1>Successful Log out!</h1>
-      HTML;
-   }
-} else if(null !== session_id()){
-   echo <<<HTML
-      <h1>Logged In!</h1>
-      HTML;
-}
 // TODO footer call
