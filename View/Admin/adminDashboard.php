@@ -1,5 +1,5 @@
 <?php
-include_once("../Config/config.php");
+include_once("../../Config/config.php");
 // TODO header call
 new Header("Dashboard", $DIRS, 0);
 
