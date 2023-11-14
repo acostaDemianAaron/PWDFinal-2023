@@ -1,5 +1,6 @@
 <?php
 session_start();
+// session_regenerate_id(true);
 header('Content-Type: text/html; charset=utf-8;');
 header('Cache-Control: no-cache, must-revalidate');
 
