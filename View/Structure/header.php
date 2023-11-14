@@ -13,6 +13,16 @@ class Header{
     */
    function __construct($title, $dirs, $rol)
    {
+      // TODO refactor
+      if(array_key_exists('usnombre', $_SESSION)){
+         $usuario = new ABMUsuario;
+         $usuarioRol = new ABMUsuarioRol;
+
+         $idUsuario = $usuario->Search(['usnombre' => $_SESSION['usnombre']])[0]->getIdUsuario();
+         // print_r($idUsuario);
+         
+         $rol = $usuarioRol->Search(['idusuario' => $idUsuario])[0]->getObjRol()->getIdRol();
+      }
       // Arrow function for easier call inside heredoc.
       $loadMenu = fn($dirs, $rol) => $this->LoadMenues($dirs, $rol);
       $accountMenu = fn($idrol) => $this->accountButtons($idrol);
@@ -218,7 +228,7 @@ class Header{
          $html = <<<HTML
             <!-- End of optional buttons -->
             <button type="button" class="btn btn-secondary me-2">Log in</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
+            <button type="button" class="btn btn-primary" disabled>Sign-up</button>
          HTML;
       } else {
          $html = <<<HTML

@@ -113,6 +113,7 @@ class ABMUsuario
         }
         $usuario = new Usuario();
         $arrayList = $usuario->List($on);
+        print_r($arrayList[0]);
         return $arrayList;
     }
 }

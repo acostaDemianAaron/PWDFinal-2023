@@ -8,6 +8,7 @@ class CUsuario
         $sesion = new Session();
         $abmUsuario = new ABMUsuario();
         $data['uspass'] = hash("SHA512/256", $data['uspass']);
+
         $user = $abmUsuario->Search($data);
         if (count($user) > 0) {
             $userName = $user[0];
@@ -18,6 +19,7 @@ class CUsuario
                     $sesion->Close();
                     $res['msgError'] .= urlencode("Error en el inicio de sesión");
                 } else {
+                    session_id($sesionStar['usnombre']);
                     $res['msg'] .= urlencode("Sesión iniciada");
                 }
             } else {
