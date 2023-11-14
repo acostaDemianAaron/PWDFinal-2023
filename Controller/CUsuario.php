@@ -3,8 +3,7 @@ class CUsuario
 {
     public function Login($data)
     {
-        $res = ['msgError' => "?msgError=", 'msg' => "?msg="];
-        // Instanciar objetos necesarios
+        $res = FALSE;
         $sesion = new Session();
         $abmUsuario = new ABMUsuario();
         $data['uspass'] = hash("SHA512/256", $data['uspass']);
@@ -12,26 +11,27 @@ class CUsuario
         $user = $abmUsuario->Search($data);
         if (count($user) > 0) {
             $userName = $user[0];
-            if ($userName->getUsDeshabilitado() == null) {
+            if ($userName->getUsDeshabilitado() == NULL) {
                 $sesion->Start($data['usnombre'], $data['uspass']);
-                list($sesionStar, $error) = $sesion->Verify();
+                $sesionStar =  $sesion->Verify();
                 if (!$sesionStar) {
-                    $sesion->Close();
-                    $res['msgError'] .= urlencode("Error en el inicio de sesión");
+                    $sesion->close();
+                    //Error en el inicio de sesión
+                    $res =  FALSE;
                 } else {
                     session_id($sesionStar['usnombre']);
-                    $res['msg'] .= urlencode("Sesión iniciada");
+                    //Sesión iniciada
+                    $res =  TRUE;
                 }
             } else {
-                echo($userName->getUsDeshabilitado());
-                die();
-
-                $res['msgError'] .= urlencode("Usuario deshabilitado");
+                echo ($userName->getUsDeshabilitado());
+                //Usuario deshabilitado
+                $res =  FALSE;
             }
         } else {
-            $res['msgError'] .= urlencode("Usuario y/o contraseña incorrectos");
+            //Usuario y/o contraseña incorrectos
+            $res =  FALSE;
         }
         return $res;
     }
-
 }

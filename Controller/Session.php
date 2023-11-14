@@ -73,22 +73,18 @@ class Session
         $success = FALSE;
         $user = $this->getUsNombreSession();
         $pass = $this->getUsPassSession();
-
         $abmUsuario = new ABMUsuario();
         $where = ['usnombre' => $user, 'uspass' => $pass];
-
         $userList = $abmUsuario->Search($where);
-
-        $error = "";
-
         if (empty($userList)) {
-            $error .= "Usuario y/o contraseña incorrecto!";
+            //Usuario y/o contraseña incorrecto!
+            $success = FALSE;
         } else {
             $userName = $userList[0];
             $fechaDes = $userName->getUsDeshabilitado();
-
             if ($fechaDes != null) {
-                $error .= "Este usuario se encuentra deshabilitado!";
+                //Este usuario se encuentra deshabilitado!
+                $success = FALSE;
             } else {
                 $success = TRUE;
                 $this->setIdUsuario($userName->getIdUsuario());
@@ -101,7 +97,7 @@ class Session
                 }
             }
         }
-        return [$success, $error];
+        return $success;
     }
 
     public function getUser()
