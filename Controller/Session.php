@@ -10,8 +10,9 @@ class Session
     //Magic Methods
     public function __construct()
     {
-        if (!isset($_SESSION)) {
-            session_start();
+        if (!array_key_exists('idusuario', $_SESSION)) {
+            // echo "started session"; 
+            // session_start();
         }
     }
 
@@ -24,17 +25,17 @@ class Session
 
     public function setUsPass($usPass)
     {
-        $_SESSION['uspass'] = $usPass;
+        $this->usPass = $usPass;
     }
 
     public function setUsNombre($usNombre)
     {
-        $_SESSION['usnombre'] = $usNombre;
+        $this->usNombre = $usNombre;
     }
 
     public function setRol($rol)
     {
-        $_SESSION['rol'] = $rol;
+        $this->rol = $rol;
     }
 
 
@@ -46,17 +47,17 @@ class Session
 
     public function getUsPassSession()
     {
-        return $_SESSION['uspass'];
+        return $this->usPass;
     }
 
     public function getUsNombreSession()
     {
-        return $_SESSION['usnombre'];
+        return $this->usNombre;
     }
 
     public function getRolSession()
     {
-        return $_SESSION['rol'];
+        return $this->rol;
     }
 
 
@@ -69,7 +70,6 @@ class Session
 
     public function Verify()
     {
-
         $success = FALSE;
         $user = $this->getUsNombreSession();
         $pass = $this->getUsPassSession();
