@@ -9,23 +9,31 @@ class Header{
     * Construct header by parameters.
     * @param String $title
     * @param Array $dirs
-    * @param Integer $rol
+    * @return Heredoc
     */
-   function __construct($title, $dirs, $rol)
+   function __construct($title, $dirs)
    {
-      // TODO refactor
-      if(array_key_exists('usnombre', $_SESSION)){
-         $usuario = new ABMUsuario;
-         $usuarioRol = new ABMUsuarioRol;
+      $session = new Session;
+      $rol = 0;
+   
+      if($session->onSession()){
+         print_r($session->getUsNombreSession());
 
-         $idUsuario = $usuario->Search(['usnombre' => $_SESSION['usnombre']])[0]->getIdUsuario();
-         // print_r($idUsuario);
-         
-         $rol = $usuarioRol->Search(['idusuario' => $idUsuario])[0]->getObjRol()->getIdRol();
+         $rol = $this->GetRol($session->getUsNombreSession());
       }
+
+      // TODO refactor
+      // if(array_key_exists('usnombre', $_SESSION)){
+      //    $usuario = new ABMUsuario;
+      //    $usuarioRol = new ABMUsuarioRol;
+
+      //    $idUsuario = $usuario->Search(['usnombre' => $_SESSION['usnombre']])[0]->getIdUsuario();
+      //    $rol = $usuarioRol->Search(['idusuario' => $idUsuario])[0]->getObjRol()->getIdRol();
+      // }
+
       // Arrow function for easier call inside heredoc.
-      $loadMenu = fn($dirs, $rol) => $this->LoadMenues($dirs, $rol);
-      $accountMenu = fn($idrol) => $this->accountButtons($idrol);
+      $loadMenu = fn($dirs, $idrol) => $this->LoadMenues($dirs, $idrol);
+      $accountMenu = fn($dirs, $idrol) => $this->accountButtons($dirs, $idrol);
 
       // HereDoc
       echo 
@@ -101,7 +109,7 @@ class Header{
                      </form>
 
                      <div class="text-end">
-                        {$accountMenu($rol)}
+                        {$accountMenu($dirs, $rol)}
                      </div>
                   </div>
                </div>
@@ -129,6 +137,29 @@ class Header{
    }
 
    // Methods
+   /**
+    * Find IdRol by Session's usname.
+    * @param String $usnombre
+    * @return Integer $idRol
+    */
+   private function GetRol($usnombre){
+      $idRol = 0;
+      $abmusuario = new ABMUsuario;
+      $abmusuarioRol = new ABMUsuarioRol;
+      $check = fn($array) => $table[0] ?? null;
+
+      $usuarioArray = $abmusuario->Search(['usnombre' => $usnombre]);
+
+      if($check($usuarioArray)){
+         $usuarioRolArray = $abmusuarioRol->Search(['idusuario' => $usuarioArray[0]->getIdUsuario()]);
+         if($check($usuarioRolArray)){
+            $idRol = $usuarioRolArray[0]->getObjRol()->getIdRol();
+         }
+      }
+
+      return $idRol;
+   }
+
    /**
     * Get the ID of the menues by the MenuRol table
     * @param Integer $idrol
@@ -222,19 +253,18 @@ class Header{
     * @param Integer $idrol Rol of session.
     * @return Heredoc $html heredoc of buttons.
     */
-   private function accountButtons($idrol){
+   private function accountButtons($dirs, $idrol){
       $html = "";
       if($idrol == 0){
          $html = <<<HTML
             <!-- End of optional buttons -->
-            <button type="button" class="btn btn-secondary me-2">Log in</button>
-            <button type="button" class="btn btn-primary" disabled>Sign-up</button>
+            <a href="{$dirs['ROOT']}View/login.php" class="btn btn-secondary me-2">Log in</a>
          HTML;
       } else {
          $html = <<<HTML
             <!-- End of optional buttons -->
-            <button type="button" class="btn btn-secondary me-2">Log out</button>
-            <button type="button" class="btn btn-secondary me-2">Profile</button>
+            <a href="{$dirs['ROOT']}View/Action/logout.php" class="btn btn-secondary me-2">Log out</a>
+            <a href="{$dirs['ROOT']}View/profile.php" class="btn btn-secondary me-2">Profile</a>
          HTML;
       }
       return $html;
