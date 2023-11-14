@@ -1,8 +1,7 @@
 <?php
-session_id('nombre');
 session_start();
 header('Content-Type: text/html; charset=utf-8;');
-header ("Cache-Control: no-cache, must-revalidate ");
+header('Cache-Control: no-cache, must-revalidate');
 
 /////////////////////////////
 //    CONFIGURACION APP    //
@@ -20,10 +19,10 @@ $FUNCIONES = $ROOT.'Function/function.php';
 require($FUNCIONES);
 
 // Root
-$DIRS["ROOT"] = "/$PROYECTO/";
+$DIRS['ROOT'] = "/$PROYECTO/";
 
 // Location of index
-$DIRS["INDEX"] = "/$PROYECTO/View/";
+$DIRS['INDEX'] = "/$PROYECTO/View/";
 
 // Location of Libraries.
 $DIRS['LIBS'] = "/$PROYECTO/View/Libs/";
