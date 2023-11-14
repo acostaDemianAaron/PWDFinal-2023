@@ -15,21 +15,13 @@ class Header{
    {
       $session = new Session;
       $rol = 0;
-   
-      if($session->onSession()){
-         print_r($session->getUsNombreSession());
+      $msg = json_encode(data_submitted()['msg'] ?? null);
 
-         $rol = $this->GetRol($session->getUsNombreSession());
+      if($session->getUser() != null){
+         $usuarioRol = new ABMUsuarioRol;
+         $rol = $this->GetRol($session->getUser()->getIdUsuario());
+         $rol = $usuarioRol->Search(['idusuario' => $session->getUser()->getIdUsuario()])[0]->getObjRol()->getIdRol();
       }
-
-      // TODO refactor
-      // if(array_key_exists('usnombre', $_SESSION)){
-      //    $usuario = new ABMUsuario;
-      //    $usuarioRol = new ABMUsuarioRol;
-
-      //    $idUsuario = $usuario->Search(['usnombre' => $_SESSION['usnombre']])[0]->getIdUsuario();
-      //    $rol = $usuarioRol->Search(['idusuario' => $idUsuario])[0]->getObjRol()->getIdRol();
-      // }
 
       // Arrow function for easier call inside heredoc.
       $loadMenu = fn($dirs, $idrol) => $this->LoadMenues($dirs, $idrol);
@@ -85,7 +77,7 @@ class Header{
                            </li>
                            <li>
                               <!-- TODO DIR -->
-                              <a href="{$dirs['INDEX']}adminDashboard.php" class="nav-link px-2">
+                              <a href="{$dirs['INDEX']}Admin/adminDashboard.php" class="nav-link px-2">
                                  <div><i class="fa-solid fa-gauge me-1"></i>Dashboard</div>
                               </a>
                            </li>
@@ -131,6 +123,30 @@ class Header{
                }
             })
          </script>
+
+         <div class="toast-container position-fixed bottom-0 end-0 p-3 my-5">
+            <div id="messageToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+               <div class="toast-header">
+                  <i class="fa-solid fa-user me-2"></i>
+                  <strong class="me-auto">Logout</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+               </div>
+               <div class="toast-body">
+                  You've been logged out successfully!
+               </div>
+            </div>
+         </div>
+
+         <script>
+            toast = $("#messageToast");
+
+            var params = {$msg}
+            if(params != null){
+               const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast)
+               toastBootstrap.show()
+            }
+            console.log(params)
+         </script>
       </body>
 
       HTML;
@@ -139,22 +155,17 @@ class Header{
    // Methods
    /**
     * Find IdRol by Session's usname.
-    * @param String $usnombre
+    * @param Integer $idusuario
     * @return Integer $idRol
     */
-   private function GetRol($usnombre){
+   private function GetRol($idusuario){
       $idRol = 0;
-      $abmusuario = new ABMUsuario;
       $abmusuarioRol = new ABMUsuarioRol;
-      $check = fn($array) => $table[0] ?? null;
+      $check = fn($array) => $array[0] ?? null;
 
-      $usuarioArray = $abmusuario->Search(['usnombre' => $usnombre]);
-
-      if($check($usuarioArray)){
-         $usuarioRolArray = $abmusuarioRol->Search(['idusuario' => $usuarioArray[0]->getIdUsuario()]);
-         if($check($usuarioRolArray)){
-            $idRol = $usuarioRolArray[0]->getObjRol()->getIdRol();
-         }
+      $usuarioRolArray = $abmusuarioRol->Search(['idusuario' => $idusuario]);
+      if($check($usuarioRolArray)){
+         $idRol = $usuarioRolArray[0]->getObjRol()->getIdRol();
       }
 
       return $idRol;
@@ -206,7 +217,6 @@ class Header{
     */
    private function LoadMenues($dirs, $idrol){
       $html = "";
-      // TODO add logic to check Session. Maybe its better in a diff function.
       // Only show if is a verified Session.
       if($idrol != 0){
          $menurolArray = $this->GetMenuesRol($idrol);
@@ -258,13 +268,13 @@ class Header{
       if($idrol == 0){
          $html = <<<HTML
             <!-- End of optional buttons -->
-            <a href="{$dirs['ROOT']}View/login.php" class="btn btn-secondary me-2">Log in</a>
+            <a href="{$dirs['ROOT']}View/Login/login.php" class="btn btn-secondary me-2">Log in</a>
          HTML;
       } else {
          $html = <<<HTML
             <!-- End of optional buttons -->
-            <a href="{$dirs['ROOT']}View/Action/logout.php" class="btn btn-secondary me-2">Log out</a>
-            <a href="{$dirs['ROOT']}View/profile.php" class="btn btn-secondary me-2">Profile</a>
+            <a href="{$dirs['ROOT']}View/Login/Action/logout.php" class="btn btn-secondary me-2">Log out</a>
+            <a href="{$dirs['ROOT']}View/Login/profile.php" class="btn btn-secondary me-2">Profile</a>
          HTML;
       }
       return $html;
