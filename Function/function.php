@@ -43,13 +43,29 @@ spl_autoload_register(function ($class_name) { //Se ejecuta automáticamente cad
  */
 function ObjectToArray($object)
 {
-   $array = [];
-   $methodsArray = get_class_methods($object);
-   foreach ($methodsArray as $method) {
-      if (mb_substr($method, 0, 3) == "get" && mb_substr($method, 3, 3) != "Obj") {
-         $key = strtolower(mb_substr($method, 3));
-         $array[$key] = $object->$method();
-      }
+    $array = [];
+    $methodsArray = get_class_methods($object);
+    foreach ($methodsArray as $method) {
+        if (mb_substr($method, 0, 3) == "get" && mb_substr($method, 3, 3) != "Obj") {
+            $key = strtolower(mb_substr($method, 3));
+            $array[$key] = $object->$method();
+        }
     }
     return $array;
+}
+
+
+/**
+ * Convert password into hash password
+ * @param string $pass
+ * @return null|string
+ */
+function encrypPassword($pass)
+{
+    $hasheado = null;
+    if ($pass != null && $pass != "null") {
+        $hasheado = hash("SHA512/256", $pass);
+    }
+
+    return $hasheado;
 }

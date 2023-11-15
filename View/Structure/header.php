@@ -156,7 +156,8 @@ class Header{
          "logoutError" => ["title" => "Logout", "msg" => "There's been an error loggin out.<br>Try again or Contact support."],
          "login" => ["title" => "Login", "msg" => "You've been logged in!"],
          "updatedTable" => ["title" => "Table Update", "msg" => "The table was updated."],
-         "store" => ["title" => "Store", "msg" => "You must log in to purchase."]
+         "store" => ["title" => "Store", "msg" => "You must log in to purchase."],
+         "UpdateError" => ["title" => "Update", "msg" => "It wasn't possible to update any field."]
       ];
 
       $messages = $options[$msg];
