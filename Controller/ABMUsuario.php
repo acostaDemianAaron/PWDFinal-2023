@@ -12,9 +12,11 @@ class ABMUsuario
             $usuario = new Usuario;
             $usuario->setIdUsuario($array['idusuario']);
             if ($usuario->Load()) {
-                foreach ($array as $key => $data) 
-                {
-                    $this->checkData($key, $data, $usuario);
+
+                foreach ($array as $key => $data) {
+                    if($data != null){
+                    $usuario = $this->checkData($key, $data, $usuario);
+                    }
                 }
             } else if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
                 $usuario = new Usuario();
@@ -26,7 +28,7 @@ class ABMUsuario
         //     $usuario = new Usuario();
         //     $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], null);
         // } 
-        // return $usuario;
+        return $usuario;
     }
 
     public function checkData($key, $data, $usuario)
@@ -36,15 +38,16 @@ class ABMUsuario
                 $usuario->setUsNombre($data);
                 break;
             case 'uspass':
-                $usuario->setUsPass();
+                $usuario->setUsPass($data);
                 break;
             case 'usmail':
-                $usuario->setUsMail();
+                $usuario->setUsMail($data);
                 break;
             case 'usdeshabilitado':
-                $usuario->setUsDeshabilitado();
+                $usuario->setUsDeshabilitado($data);
                 break;
         }
+        return $usuario;
     }
 
     /** 

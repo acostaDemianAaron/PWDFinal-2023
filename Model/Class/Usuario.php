@@ -138,7 +138,8 @@ class Usuario
         $res = false;
         $database = new Database();
         $query = "UPDATE usuario SET usnombre = '{$this->getUsNombre()}', uspass = '{$this->getUsPass()}', usmail = '{$this->getUsMail()}', usdeshabilitado = '{$this->getUsDeshabilitado()} WHERE idusuario = {$this->getIdUsuario()}";
-
+        echo $query;
+        die();
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
                 $res = true;
