@@ -115,6 +115,8 @@ class Session
         return null;
     }
 
+
+
     public function onSession()
     {
         $on = FALSE;

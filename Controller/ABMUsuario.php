@@ -8,11 +8,43 @@ class ABMUsuario
     public function LoadObject($array)
     {
         $usuario = NULL;
-        if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
-            $usuario = new Usuario();
-            $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], null);
+        if ($this->Verify($array)) {
+            $usuario = new Usuario;
+            $usuario->setIdUsuario($array['idusuario']);
+            if ($usuario->Load()) {
+                foreach ($array as $key => $data) 
+                {
+                    $this->checkData($key, $data, $usuario);
+                }
+            } else if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
+                $usuario = new Usuario();
+                $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], $array['usdeshabilitado']);
+            }
         }
-        return $usuario;
+        // $usuario = NULL;
+        // if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
+        //     $usuario = new Usuario();
+        //     $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], null);
+        // } 
+        // return $usuario;
+    }
+
+    public function checkData($key, $data, $usuario)
+    {
+        switch ($key) {
+            case 'usnombre':
+                $usuario->setUsNombre($data);
+                break;
+            case 'uspass':
+                $usuario->setUsPass();
+                break;
+            case 'usmail':
+                $usuario->setUsMail();
+                break;
+            case 'usdeshabilitado':
+                $usuario->setUsDeshabilitado();
+                break;
+        }
     }
 
     /** 
