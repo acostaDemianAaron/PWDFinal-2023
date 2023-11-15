@@ -97,12 +97,32 @@ class ABMUsuarioRol
         if ($array <> NULL) {
             if($this->Verify($array))
             {
-                $on .= " and idusuario = '" . $array['idusuario'] . "'";
+                $on .= " and idusuario ='" . $array['idusuario'] . "'";
             }
         }
 
         $usuarioRol = new UsuarioRol();
         $arrayList = $usuarioRol->List($on);
         return $arrayList;
+    }
+
+
+    public function RolDescrip($arrayUsuarios){
+        $rolesUs = [];
+        foreach ($arrayUsuarios as $us) {
+            $param['idusuario'] = $us->getIdUsuario();
+            array_push($rolesUs, $this->Search($param)); //esto me devuelve un array de objetos usuario +rol
+        }
+        $rolesDesc = [];
+        foreach ($rolesUs as $rolUs) {
+            $roles = [];
+            //aca me devuelve el array de roles de cada usuario:
+            foreach ($rolUs as $rolU) {
+                $rol = $rolU->getObjRol()->getRoDescripcion();
+                array_push($roles, $rol);
+            }
+            array_push($rolesDesc, $roles);
+        }
+        return $rolesDesc;
     }
 }
