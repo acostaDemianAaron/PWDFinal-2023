@@ -26,7 +26,7 @@ class Database extends PDO
         $this->engine = "mysql";
         $this->host = "localhost";
         $this->database = "bdcarritocompras";
-        $this->user = ""; // Agregar usuario para ingresar a la base de datos
+        $this->user = "root"; // Agregar usuario para ingresar a la base de datos
         $this->pass = ""; // Agregar contraseña para ingresar a la base de datos.
         $this->debug = true;
         $this->error = "";
