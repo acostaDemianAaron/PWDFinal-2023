@@ -1,11 +1,11 @@
 <?php
 include_once("../../Config/config.php");
 // TODO header call
-new Header("Titulo", $DIRS, null);
 
-echo <<< HTML
 
-<body>
+if ((array_key_exists('idusuario', $_SESSION))) {
+    new Header("Store", $DIRS, null);
+    echo <<<HTML
     <div class="container mt-5">
         <h1 class="mb-4"> Tienda en línea</h1>
         <div class="row">
@@ -90,4 +90,84 @@ echo <<< HTML
     </div>
     <script src="../js/carrito.js"></script>
     </div>
+    
+    HTML;
+} else {
+    $_POST['msg'] = 'store';
+    new Header("Store", $DIRS, null);
+    echo <<<HTML
+    <div class="container mt-5">
+        <h1 class="mb-4"> Tienda en línea</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-img">
+                        <img src="../img/furyRam.png" class="card-img-top" alt="Producto 1">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Memoria RAM - Marca Fury</h5>
+                        <p class="card-text">Precio: $25</p>
+                        <button class="btn btn-primary" disabled="disabled">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-img">
+                        <img src="../img/furysRam.png" class="card-img-top" alt="Producto 2">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Memoria RAM - Marca Fury - x2</h5>
+                        <p class="card-text">Precio: $50</p>
+                        <button class="btn btn-primary" disabled="disabled">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="../img/intelTres.png" class="card-img-top" alt="Producto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Procesador - Marca I3</h5>
+                        <p class="card-text">Precio: $150</p>
+                        <button class="btn btn-primary" disabled="disabled">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="../img/interXeon.png" class="card-img-top" alt="Producto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Procesador - Marca Xeon</h5>
+                        <p class="card-text">Precio: $250</p>
+                        <button class="btn btn-primary" disabled="disabled">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="../img/motherboardAORUS.png" class="card-img-top" alt="Producto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Motherboard - Marca Aorus</h5>
+                        <p class="card-text">Precio: $325</p>
+                        <button class="btn btn-primary" disabled="disabled">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="../img/motherboardGG.png" class="card-img-top" alt="Producto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Motherboard - Marca Gygabyte</h5>
+                        <p class="card-text">Precio: $499</p>
+                        <button class="btn btn-primary" disabled="disabled">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 HTML;
+}

@@ -93,6 +93,11 @@ class Header{
 
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                            <li>
+                              <a href="{$dirs['INDEX']}Store/catalogo.php" class="nav-link px-2">
+                                 <div><i class="fa-solid fa-store me-1"></i></i>Store</div>
+                              </a>
+                           </li>
+                           <li>
                               <a href="{$dirs['INDEX']}" class="nav-link px-2">
                                  <div><i class="fa-solid fa-house me-1"></i></i>Home</div>
                               </a>
@@ -150,7 +155,8 @@ class Header{
          "logoutSuccess" => ["title" => "Logout", "msg" => "You've been logged out successfully!"],
          "logoutError" => ["title" => "Logout", "msg" => "There's been an error loggin out.<br>Try again or Contact support."],
          "login" => ["title" => "Login", "msg" => "You've been logged in!"],
-         "updatedTable" => ["title" => "Table Update", "msg" => "The table was updated."]
+         "updatedTable" => ["title" => "Table Update", "msg" => "The table was updated."],
+         "store" => ["title" => "Store", "msg" => "You must log in to purchase."]
       ];
 
       $messages = $options[$msg];
