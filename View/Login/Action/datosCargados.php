@@ -9,8 +9,4 @@ $idUser = $session->getIdUsuarioSession();
 $dataUser = data_submitted();
 $dataUser['idusuario'] = $idUser;
 
-
 $usuario->Edit($dataUser);
-
-
-//print_r($dataUser);

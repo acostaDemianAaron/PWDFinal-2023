@@ -12,42 +12,43 @@ class ABMUsuario
             $usuario = new Usuario;
             $usuario->setIdUsuario($array['idusuario']);
             if ($usuario->Load()) {
-
+                $sus = new Usuario;
+                $sus->setIdUsuario($usuario->getIdUsuario());
                 foreach ($array as $key => $data) {
-                    if($data != null){
-                    $usuario = $this->checkData($key, $data, $usuario);
+                    if ($data != null) {
+                        $sus = $this->checkData($key, $data, $usuario, $sus);
                     }
                 }
+                $usuario = $sus;
             } else if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
                 $usuario = new Usuario();
                 $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], $array['usdeshabilitado']);
             }
         }
-        // $usuario = NULL;
-        // if (array_key_exists('idusuario', $array) && array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array)) {
-        //     $usuario = new Usuario();
-        //     $usuario->setValues($array['idusuario'], $array['usnombre'], $array['uspass'], $array['usmail'], null);
-        // } 
         return $usuario;
     }
 
-    public function checkData($key, $data, $usuario)
+    public function checkData($key, $data, $usuario, $sus)
     {
-        switch ($key) {
-            case 'usnombre':
-                $usuario->setUsNombre($data);
-                break;
-            case 'uspass':
-                $usuario->setUsPass($data);
-                break;
-            case 'usmail':
-                $usuario->setUsMail($data);
-                break;
-            case 'usdeshabilitado':
-                $usuario->setUsDeshabilitado($data);
-                break;
+
+        if ($data != null && $data != "null") {
+            switch ($key) {
+                case 'usnombre':
+                    if ($usuario->getUsNombre() != $data) $sus->setUsNombre($data);
+                    break;
+                case 'uspass':
+                    $sus->setUsPass($data);
+                    break;
+                case 'usmail':
+                    if ($usuario->getUsMail() != $data) $sus->setUsMail($data);
+                    break;
+                case 'usdeshabilitado':
+                    if ($usuario->getUsDeshabilitado()) $sus->setUsDeshabilitado($data);
+                    break;
+            }
         }
-        return $usuario;
+
+        return $sus;
     }
 
     /** 

@@ -12,11 +12,11 @@ class Usuario
     //Magic Methods
     public function __construct()
     {
-        $this->idUsuario = "";
-        $this->usNombre = "";
-        $this->usPass = "";
-        $this->usMail = "";
-        $this->usDeshabilitado = "";
+        $this->idUsuario = null;
+        $this->usNombre = null;
+        $this->usPass = null;
+        $this->usMail = null;
+        $this->usDeshabilitado = null;
         $this->mensaje = "";
     }
 
@@ -137,9 +137,20 @@ class Usuario
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE usuario SET usnombre = '{$this->getUsNombre()}', uspass = '{$this->getUsPass()}', usmail = '{$this->getUsMail()}', usdeshabilitado = '{$this->getUsDeshabilitado()} WHERE idusuario = {$this->getIdUsuario()}";
-        echo $query;
-        die();
+        $query = "UPDATE usuario SET";
+        if ($this->getUsNombre() != null) {
+            $query .= " usnombre ='" . $this->getUsNombre() . "'";
+        }
+        if ($this->getUsPass() != null) {
+            $query .= " , uspass ='" . $this->getUsPass() . "'";
+        }
+        if ($this->getUsMail() != null) {
+            $query .= " , usmail ='" . $this->getUsMail() . "'";
+        }
+        if ($this->getUsDeshabilitado() != null) {
+            $query .= " , usdeshabilitado ='" . $this->getUsDeshabilitado() . "'";
+        }
+        $query .= " WHERE idusuario = " . $this->getIdUsuario() . ";";
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
                 $res = true;
