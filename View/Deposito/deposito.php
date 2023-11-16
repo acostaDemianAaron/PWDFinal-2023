@@ -26,50 +26,50 @@ echo <<<HTML
 </div>
 
 <script>
-   function processProduct(){
-      $('#dlg').dialog('open').dialog('setTitle', 'Edit Product');
-      $('#fm').form('clear');
-      url = 'Action/process_producto.php';
-   }
+function processProduct(){
+   $('#dlg').dialog('open').dialog('setTitle', 'Edit Product');
+   $('#fm').form('clear');
+   url = 'Action/process_producto.php';
+}
 
 
-   function saveProduct(){
-      $('#fm').form('submit',{
-         url: url,
-         onSubmit: function(){
-            return $(this).form('validate');
-         },
-         success: function(result){
-            console.log(result);
-            if (result.errorMsg){
-               $.messager.show({
-                  title: 'Error',
-                  msg: result.errorMsg
-               });
-            } else {
-                  $('#dlg').dialog('close');
-                  $('#dg').datagrid('reload');
-            }
+function saveProduct(){
+   $('#fm').form('submit',{
+      url: url,
+      onSubmit: function(){
+         return $(this).form('validate');
+      },
+      success: function(result){
+         console.log(result);
+         if (result.errorMsg){
+            $.messager.show({
+               title: 'Error',
+               msg: result.errorMsg
+            });
+         } else {
+               $('#dlg').dialog('close');
+               $('#dg').datagrid('reload');
          }
-      });
-   }
+      }
+   });
+}
 
 
-   function processProducto(){
-   var row = $('#dg').datagrid('getSelected');
-   if (row){
-      $.messager.confirm('Confirm','Are you sure you want to process the product?',function(r){
-            if (r){
-               $.post('Action/process_producto.php',{idcompra:row.idcompra},function(result){
-                  if (result.success){
-                       $('#dg').datagrid('reload');    // reload the user data
-                  } else {
-                        $.messager.show({    // show error message
-                           title: 'Error',
-                           msg: result.errorMsg
-                     });
-                  }
-               },'json');
+function processProducto(){
+var row = $('#dg').datagrid('getSelected');
+if (row){
+   $.messager.confirm('Confirm','Are you sure you want to process the product?',function(r){
+         if (r){
+            $.post('Action/process_producto.php',{idcompra:row.idcompra},function(result){
+               if (result.success){
+                     $('#dg').datagrid('reload');    // reload the user data
+               } else {
+                     $.messager.show({    // show error message
+                     title: 'Error',
+                     msg: result.errorMsg
+                  });
+               }
+            },'json');
          }
       });
    }
@@ -77,21 +77,21 @@ echo <<<HTML
 
 
 function cancelProducto(){
-   var row = $('#dg').datagrid('getSelected');
-   if (row){
-      $.messager.confirm('Confirm','Are you sure you want to cancel the product?',function(r){
-            if (r){
-               $.post('Action/cancel_producto.php',{idcompra:row.idcompra},function(result){
-                  if (result.success){
-                     console.log(result)
-                       //$('#dg').datagrid('reload');    // reload the user data
-                  } else {
-                        $.messager.show({    // show error message
-                           title: 'Error',
-                           msg: result.errorMsg
-                     });
-                  }
-               },'json');
+var row = $('#dg').datagrid('getSelected');
+if (row){
+   $.messager.confirm('Confirm','Are you sure you want to cancel the product?',function(r){
+         if (r){
+            $.post('Action/cancel_producto.php',{idcompra:row.idcompra},function(result){
+               if (result.success){
+                  console.log(result)
+                     //$('#dg').datagrid('reload');    // reload the user data
+               } else {
+                     $.messager.show({    // show error message
+                        title: 'Error',
+                        msg: result.errorMsg
+                  });
+               }
+            },'json');
          }
       });
    }

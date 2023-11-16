@@ -109,8 +109,8 @@ CREATE TABLE `menurol` (
 CREATE TABLE `producto` (
   `idproducto` bigint(20) NOT NULL,
   `proprecio` float NOT NULL,
-  `pronombre` int(11) NOT NULL,
-  `prodetalle` varchar(512) NOT NULL,
+  `pronombre` varchar(32) NOT NULL,
+  `prodetalle` varchar(64) NOT NULL,
   `procantstock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -432,7 +432,7 @@ VALUES
 INSERT INTO
 producto (idproducto, proprecio, pronombre, prodetalle, procantstock)
 VALUES 
-(1, 24000, 'HyperX RAM 8Gbx2', 'Img/hyperx-ram-2x8', 40),
-(2, 180000, 'Monitor 360hz', 'Img/monitor-360hz', 7);
+(1, 24000, 'HyperX RAM 8Gbx2', 'Img/hyperx-ram-2x8.png', 40),
+(2, 180000, 'Monitor 360hz', 'Img/monitor-360hz.png', 7);
 
 COMMIT;

@@ -5,6 +5,9 @@ include_once("../../Config/config.php");
 
 if ((array_key_exists('idusuario', $_SESSION))) {
     new Header("Store", $DIRS, null);
+
+    $producto = new Producto;
+    foreach()
     echo <<<HTML
     <div class="container mt-5">
         <h1 class="mb-4"> Tienda en línea</h1>

@@ -119,8 +119,7 @@ class Producto
     {
         $res = false;
         $database = new Database();
-        $query = "INSERT INTO producto (idproducto, proprecio, pronombre, prodetalle, procantstock) VALUES ('" . $this->getIdProducto() . $this->getProprecio() . ",'" . $this->getProNombre() . "','" . $this->getProDetalle() . "'," . $this->getProCantStock();
-
+        $query = "INSERT INTO producto (proprecio, pronombre, prodetalle, procantstock) VALUES (" . $this->getProprecio() . ",'" . $this->getProNombre() . "','" . $this->getProDetalle() . "'," . $this->getProCantStock() . ")";
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $this->setIdProducto($database);
@@ -138,8 +137,7 @@ class Producto
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE producto SET idproducto = '{$this->getIdProducto()}', proprecio = '{$this->getProPrecio()}', pronombre = '{$this->getProNombre()}', prodetalle = '{$this->getProDetalle()}', procantstock = '{$this->getProCantStock()} WHERE idproducto = {$this->getIdProducto()}";
-
+        $query = "UPDATE producto SET idproducto = '{$this->getIdProducto()}', proprecio = '{$this->getProPrecio()}', pronombre = '{$this->getProNombre()}', prodetalle = '{$this->getProDetalle()}', procantstock = {$this->getProCantStock()} WHERE idproducto = {$this->getIdProducto()}";
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
                 $res = true;

@@ -4,9 +4,12 @@ class AbmProducto
     public function LoadObject($array)
     {
         $obj = NULL;
-        if (array_key_exists('idproducto', $array) && array_key_exists('proprecio', $array) && array_key_exists('pronombre', $array) && array_key_exists('prodetalle', $array) && array_key_exists('procantstock', $array)) {
-            $obj = new Producto;
-            $obj->setValues($array['idproducto'], $array['proprecio'], $array['pronombre'], $array['prodetalle'], $array['procantstock']);
+        $obj = new Producto;
+        if (array_key_exists('proprecio', $array) && array_key_exists('pronombre', $array) && array_key_exists('prodetalle', $array) && array_key_exists('procantstock', $array)) {
+            $obj->setValues(null, $array['proprecio'], $array['pronombre'], $array['prodetalle'], $array['procantstock']);
+        }
+        if(array_key_exists('idproducto', $array)){
+            $obj->setIdProducto($array['idproducto']);
         }
         return $obj;
     }
