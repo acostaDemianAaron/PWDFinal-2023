@@ -7,8 +7,19 @@ class Header{
     * @param array $dirs Array that contains Strings of directories.
     * @return void
     */ 
-   function __construct(string $title, array $dirs)
+   function __construct(string $title, array $dirs, int $privilege = null)
    {
+      if($privilege != null){
+         $session = new Session;
+         if($session->getUser() != null) {
+            $idrol = $this->GetRol($session->getUser()->getIdUsuario());
+         } else {
+            $idrol = 4;
+         }
+         if($idrol > $privilege){
+            header('Location: ' . $dirs['INDEX'] . '?msg=insufficientPrivilege', true);
+         }
+      }
       // Load Head with integrations first.
       $this->GetIntegrations($title, $dirs['LIBS']);
 
@@ -152,7 +163,8 @@ class Header{
          "login" => ["title" => "Login", "msg" => "You've been logged in!"],
          "updatedTable" => ["title" => "Table Update", "msg" => "The table was updated."],
          "store" => ["title" => "Store", "msg" => "You must log in to purchase."],
-         "UpdateError" => ["title" => "Update", "msg" => "It wasn't possible to update any field."]
+         "UpdateError" => ["title" => "Update", "msg" => "It wasn't possible to update any field."],
+         "insufficientPrivilege" => ["title" => "Can't Load Page", "msg" => "You don't have privileges to open that page."]
       ];
 
       $messages = $options[$msg];
