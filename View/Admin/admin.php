@@ -1,6 +1,6 @@
 <?php
 include_once("../../Config/config.php");
-new Header("Admin", $DIRS);
+new Header("Admin", $DIRS, 1);
 
 echo <<<HTML
 
