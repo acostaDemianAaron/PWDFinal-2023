@@ -5,11 +5,10 @@ new Header("Admin", $DIRS, 1);
 echo <<<HTML
 
 <div class="container">
-   <h2>Cambiar estado de compras</h2>
-   <p>Dentro de esta tabla se visualizan y cambian los estados de las compras.</p>
+   <h2>CAdministrar usuarios</h2>
 
-   <table id="dg" title="Compras" class="easyui-datagrid" style="width:100%;height:500px"
-      url="Action/load_usuario.php" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
+   <table id="dg" title="Usuarios" class="easyui-datagrid" style="width:100%;height:500px"
+      url="Action/load_usuario.php" toolbar="#toolbar" fitColumns="true" singleSelect="true">
       <thead>
          <tr id="menu-fields">
             <th field="idusuario" width="10">ID Usuario</th>
