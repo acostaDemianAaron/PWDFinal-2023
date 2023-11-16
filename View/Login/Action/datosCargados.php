@@ -18,7 +18,7 @@ foreach($dataUser as $key => $data)
         echo " Se encontro null en: " . $key;
     }
 }
-
+header("Location: ../profile.php");
 if(count($dataUser) > 1){
 $usuario->Edit($dataUser);
 } else {
