@@ -42,7 +42,7 @@ if ((array_key_exists('idusuario', $_SESSION))) {
     </div>
     <script src="../js/carrito.js"></script>
     </div>
-    
+    <div class = "mb-5">
     HTML;
 } else {
     $_POST['msg'] = 'store';
