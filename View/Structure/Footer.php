@@ -1,6 +1,6 @@
 <?php
 class Footer {
-   protected function __construct(){
+   function __construct(){
    echo <<<HTML
    <body class="d-flex flex-column min-vh-100">
       <div class="container mt-auto">
