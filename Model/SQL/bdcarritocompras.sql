@@ -403,7 +403,6 @@ INSERT INTO
 VALUES
 (10, 1), (4, 1);
 
-
 --
 -- Volcado de datos para la tabla `compra`
 --
@@ -426,5 +425,14 @@ VALUES
 (7, 5, 1, '2023-11-10 10:12:12', NULL),
 (8, 6, 1, '2023-11-11 12:11:23', NULL),
 (9, 7, 1, '2023-11-14 17:00:19', NULL);
+
+--
+-- Volcado de datos para la tabla `compraestado`
+--
+INSERT INTO
+producto (idproducto, proprecio, pronombre, prodetalle, procantstock)
+VALUES 
+(1, 24000, 'HyperX RAM 8Gbx2', 'Img/hyperx-ram-2x8', 40),
+(2, 180000, 'Monitor 360hz', 'Img/monitor-360hz', 7);
 
 COMMIT;
