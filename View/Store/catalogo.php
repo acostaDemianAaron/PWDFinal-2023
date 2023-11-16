@@ -6,7 +6,6 @@ $productos = $objProductos->Search();
 
 echo <<<HTML
 <div class="container mt-5">
-    <h1 class="mb-4"> Tienda en línea</h1>
     <div class="row">
 HTML;
 if ((array_key_exists('idusuario', $_SESSION))) {
