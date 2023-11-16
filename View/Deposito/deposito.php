@@ -1,6 +1,6 @@
 <?php
 include_once("../../Config/config.php");
-new Header("Deposito", $DIRS);
+new Header("Deposito", $DIRS, 2);
 
 echo <<<HTML
 <div class="container">

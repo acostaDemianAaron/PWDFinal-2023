@@ -1,7 +1,7 @@
 <?php
 include_once("../../Config/config.php");
 // TODO header call
-new Header("Perfil", $DIRS);
+new Header("Perfil", $DIRS, 3);
 
 $session = new Session();
 $objUser = $session->getUser(['idusuario']);

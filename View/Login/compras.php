@@ -1,6 +1,6 @@
 <?php
 include_once("../../Config/config.php");
-new Header("Compras", $DIRS);
+new Header("Compras", $DIRS, 3);
 
 
 echo <<<HTML

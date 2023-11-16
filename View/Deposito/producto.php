@@ -1,6 +1,6 @@
 <?php
 include_once("../../Config/config.php");
-new Header("Productos", $DIRS);
+new Header("Productos", $DIRS, 2);
 
 function selectImg(){
    $radioButtons = '';
