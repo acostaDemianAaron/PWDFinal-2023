@@ -19,6 +19,6 @@ if ($objCompraEstado->getObjCompraEstadoTipo()->getIdCompraEstadoTipo() != 4) {
     $compraEstado->Add($data);
     $res['success'] = TRUE;
 } else {
-    $res['errorMsg'] = "no se puede procesar el pedido";
+    $res['errorMsg'] = "el pedido ya esta cancelado";
 }
 echo json_encode($res);
