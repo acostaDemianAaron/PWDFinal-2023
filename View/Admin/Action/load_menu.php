@@ -10,6 +10,7 @@ foreach ($arrayMenu as $menu) {
     $col['menombre'] = $menu->getMeNombre();
     $col['medescripcion'] = $menu->getMeDescripcion();
     $col['medeshabilitado'] = $menu->getMeDeshabilitado();
+    $col['idpadre'] = $menu->getIdPadre();
     array_push($array, $col);
 }
 echo json_encode($array);

@@ -1,4 +1,7 @@
 <?php
+
+use AbmMenu as GlobalAbmMenu;
+
 class ABMMenu
 {
     /** 
@@ -9,9 +12,11 @@ class ABMMenu
     public function LoadObject($array)
     {
         $object = Null;
-        if (array_key_exists('idmenu', $array) && array_key_exists('menombre', $array) && array_key_exists('medescripcion', $array) && array_key_exists('idpadre', $array) && array_key_exists('medeshabilitado', $array)) {
+        if (array_key_exists('menombre', $array) && array_key_exists('medescripcion', $array) && array_key_exists('idpadre', $array)) {
             $object = new Menu();
-            $object->setValues($array['idmenu'], $array['menombre'], $array['medescripcion'], $array['idpadre'], null);
+            $object->setMeNombre($array['menombre']);
+            $object->setMeDescripcion($array['medescripcion']);
+            $object->setIdPadre($array['idpadre']);
         }
         return $object;
     }
@@ -54,7 +59,6 @@ class ABMMenu
     {
         $resp = false;
         $object = $this->LoadObject($array);
-
         if($object != null and $object->Insert())
         {
             $resp = true;
@@ -87,6 +91,8 @@ class ABMMenu
     {
         $resp = false;
         $object = $this->LoadObject($array);
+        $object->setIdMenu($array['idmenu']);
+
         if($object != null and $object->Modify()){
             $resp = true;
         }

@@ -118,8 +118,7 @@ class Menu
     {
         $res = false;
         $database = new Database();
-        $query = "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) VALUES  ('" . $this->getMeNombre() . "','" . $this->getMeDescripcion() . "'," . $this->getIdPadre() . ",'0000-00-00 00:00:00');";
-
+        $query = "INSERT INTO menu (menombre, medescripcion, idpadre, medeshabilitado) VALUES  ('" . $this->getMeNombre() . "','" . $this->getMeDescripcion() . "'," . $this->getIdPadre() . ", null);";
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $this->setIdMenu($database);
@@ -135,10 +134,18 @@ class Menu
 
     public function Modify()
     {
+        echo json_encode($this->getIdMenu());
         $res = false;
         $database = new Database();
-        $query = "UPDATE menu SET menombre = '{$this->getMeNombre()}', medescripcion = '{$this->getMeDescripcion()}', idpadre = '{$this->getIdPadre()}', medeshabilitado= '{$this->getMeDeshabilitado()} WHERE idmenu = {$this->getIdMenu()}";
+        $query = "UPDATE menu SET menombre = '{$this->getMeNombre()}', medescripcion = '{$this->getMeDescripcion()}', idpadre = {$this->getIdPadre()}";
+        if($this->getMeDeshabilitado() != null){
+            $query .= ', medeshabilitado= {$this->getMeDeshabilitado()}';
+        }
+        $query .= ' WHERE idmenu = ' . $this->getIdMenu();
 
+
+        echo json_encode($query);
+        echo "<br>";
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
                 $res = true;
