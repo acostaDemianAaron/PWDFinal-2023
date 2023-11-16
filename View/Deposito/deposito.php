@@ -8,7 +8,7 @@ echo <<<HTML
    <p>Dentro de esta tabla se visualizan y cambian los estados de las compras.</p>
 
    <table id="dg" title="Compras" class="easyui-datagrid" style="width:100%;height:500px"
-      url="Action/load_deposito.php" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
+      url="Action/load_deposito.php" toolbar="#toolbar" fitColumns="true" singleSelect="true">
       <thead>
          <tr id="menu-fields">
             <th field="idcompra" width="10">ID Compra</th>
@@ -20,7 +20,6 @@ echo <<<HTML
       </thead>
    </table>
    <div id="toolbar">
-      <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New Product</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="processProducto()">Process Product</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="cancelProducto()">Cancel Product</a>
    </div>
