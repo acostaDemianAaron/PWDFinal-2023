@@ -77,7 +77,6 @@ echo <<<HTML
             return $(this).form('validate');
          },
          success: function(result){
-            console.log(result)
             if (result.errorMsg){
                $.messager.show({
                   title: 'Error',
@@ -90,5 +89,14 @@ echo <<<HTML
          }
       });
    }
+
+function editUser(){
+   var row = $('#dg').datagrid('getSelected');
+   if (row){
+      $('#dlg').dialog('open').dialog('setTitle','Edit User');
+      $('#fm').form('load',row);
+      url = 'Action/update_usuario.php?idusuario='+row.idusuario;
+   }
+}
 </script>
 HTML;
