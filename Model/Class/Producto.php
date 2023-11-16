@@ -101,7 +101,6 @@ class Producto
         $res = false;
         $database = new Database();
         $query = "SELECT * FROM producto WHERE idproducto = '" . $this->getIdProducto() . "'";
-
         if ($database->Start()) {
             $status = $database->Execute($query);
             if ($status > 0) {

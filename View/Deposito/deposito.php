@@ -84,7 +84,7 @@ if (row){
             $.post('Action/cancel_producto.php',{idcompra:row.idcompra},function(result){
                if (result.success){
                   console.log(result)
-                     //$('#dg').datagrid('reload');    // reload the user data
+                     $('#dg').datagrid('reload');    // reload the user data
                } else {
                      $.messager.show({    // show error message
                         title: 'Error',

@@ -4,13 +4,13 @@ include_once("../../Config/config.php");
 $objProductos = new AbmProducto();
 $productos = $objProductos->Search();
 
+echo <<<HTML
+<div class="container mt-5">
+    <h1 class="mb-4"> Tienda en línea</h1>
+    <div class="row">
+HTML;
 if ((array_key_exists('idusuario', $_SESSION))) {
     new Header("Store", $DIRS, null);
-    echo <<<HTML
-    <div class="container mt-5">
-        <h1 class="mb-4"> Tienda en línea</h1>
-        <div class="row">
-    HTML;
     foreach ($productos as $product) {
         echo <<<HTML
             <div class="col-md-4">
@@ -69,8 +69,9 @@ if ((array_key_exists('idusuario', $_SESSION))) {
             </div>
         HTML;
     }
-    echo <<<HTML
-        </div>
-    </div>
-HTML;
 }
+
+echo <<<HTML
+    </div>
+</div>
+HTML;

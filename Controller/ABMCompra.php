@@ -15,9 +15,16 @@ class ABMCompra
          $objUsuario = $abmUsuario->LoadObjectId($params);
          $objCompra->setObjUsuario($objUsuario);
          $objCompra->setCoFecha($params['cofecha']);
-         // if($objCompra->Load()){
+         // if($objCompsra->Load()){
          $res = $objCompra;
          // }
+      }
+      if(array_key_exists('idcompra', $params)){
+         $objCompra = new Compra();
+         $objCompra->setIdCompra($params['idcompra']);
+         if($objCompra->Load()){
+            $res = $objCompra;
+         }
       }
       return $res;
    }
@@ -83,20 +90,19 @@ class ABMCompra
    {
       $condition = '';
       $objCompra = new Compra();
-
       foreach ($params as $key => $param) {
          switch ($key) {
-            case ' idcompra':
+            case 'idcompra':
                $condition .= ' idcompra = ' . $param;
                break;
-            case ' idusuario':
+            case 'idusuario':
                $condition .= ' idusuario = ' . $param;
                break;
-               case 'cofecha':
-                  $condition .= " cofecha = '" . $param . "'";
-                  break;
+            case 'cofecha':
+               $condition .= " cofecha = '" . $param . "'";
+               break;
             default:
-               $condition = ' true';
+               $condition = ' true ';
                break;
          }
       }

@@ -133,28 +133,28 @@ class ABMCompraEstado
     public function setData($array){
         $objCompraEstado = new CompraEstado();
         foreach($array as $data){
-        if (array_key_exists('idcompraestado', $array)) {
-            $objCompraEstado->setIdCompraEstado($array['idcompraestado']);
+            if (array_key_exists('idcompraestado', $array)) {
+                $objCompraEstado->setIdCompraEstado($array['idcompraestado']);
+            }
+            if (array_key_exists('idcompra', $array)) {
+                $objCompra = new Compra();
+                $objCompra->setIdCompra($array['idcompra']);
+                $objCompra->Load();
+                $objCompraEstado->setObjCompra($objCompra);
+            }
+            if (array_key_exists('idcompraestadotipo', $array)) {
+                $objCompraEstadoTipo = new CompraEstadoTipo();
+                $objCompraEstadoTipo->setIdCompraEstadoTipo($array['idcompraestadotipo']);
+                $objCompraEstadoTipo->Load();
+                $objCompraEstado->setObjCompraEstadoTipo($objCompraEstadoTipo);
+            }
+            if (array_key_exists('cefechaini', $array)) {
+                $objCompraEstado->setCeFechaIni($array['cefechaini']);
+            }
+            if (array_key_exists('cefechafin', $array)) {
+                $objCompraEstado->setCeFechaFin($array['cefechafin']);
+            }
         }
-        if (array_key_exists('idcompra', $array)) {
-            $objCompra = new Compra();
-            $objCompra->setIdCompra($array['idcompra']);
-            $objCompra->Load();
-            $objCompraEstado->setObjCompra($objCompra);
-        }
-        if (array_key_exists('idcompraestadotipo', $array)) {
-            $objCompraEstadoTipo = new CompraEstadoTipo();
-            $objCompraEstadoTipo->setIdCompraEstadoTipo($array['idcompraestadotipo']);
-            $objCompraEstadoTipo->Load();
-            $objCompraEstado->setObjCompraEstadoTipo($objCompraEstadoTipo);
-        }
-        if (array_key_exists('cefechaini', $array)) {
-            $objCompraEstado->setCeFechaIni($array['cefechaini']);
-        }
-        if (array_key_exists('cefechafin', $array)) {
-            $objCompraEstado->setCeFechaFin($array['cefechafin']);
-        }
-    }
         return $objCompraEstado;
     }
 }

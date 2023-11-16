@@ -33,6 +33,11 @@ class ABMCompraItem
                 $objProducto->Load();
                 $objCompraItem->setObjProducto($objProducto);
             }
+            if (array_key_exists('pronombre', $array)) {
+                $objProducto = new AbmProducto();
+                $objProducto = $objProducto->Search(['pronombre' => $array['pronombre']])[0];
+                $objCompraItem->setObjProducto($objProducto);
+            }
             if (array_key_exists('idcompra', $array)) {
                 $objCompra = new Compra();
                 $objCompra->setIdCompra($array['idcompra']);
@@ -113,7 +118,6 @@ class ABMCompraItem
     public function Add($array)
     {
         $resp =  FALSE;
-        print_r($array);
         $obj = $this->LoadObject($array);
         if ($obj != NULL && $obj->Insert()) {
             $resp = TRUE;

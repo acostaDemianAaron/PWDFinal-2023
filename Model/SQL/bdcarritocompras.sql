@@ -407,35 +407,13 @@ VALUES
 (9, 2), (4, 1), (13, 3);
 
 --
--- Volcado de datos para la tabla `compra`
---
-INSERT INTO
-    compra(idcompra, cofecha, idusuario)
-VALUES (1, '2023-11-2 13:23:23', 2), (2, '2023-11-4 10:46:13', 2), (3, '2023-11-5 15:41:12', 2), (4, '2023-11-6 12:23:54', 2), (5, '2023-11-10 10:12:12', 1), (6, '2023-11-11 12:11:23', 2), (7, '2023-11-14 17:00:19', 2);
-
---
--- Volcado de datos para la tabla `compraestado`
---
-INSERT INTO
-    compraestado(idcompraestado, idcompra, idcompraestadotipo, cefechaini, cefechafin)
-VALUES
-(1, 1, 1, '2023-11-2 13:23:23', '2023-11-2 14:23:23'),
-(2, 1, 2, '2023-11-2 14:23:23', NULL),
-(3, 2, 1, '2023-11-4 10:46:13', NULL),
-(4, 3, 1, '2023-11-5 15:41:12', NULL),
-(5, 4, 1, '2023-11-6 12:23:54', '2023-11-6 15:10:43'),
-(6, 4, 4, '2023-11-6 15:10:43', NULL),
-(7, 5, 1, '2023-11-10 10:12:12', NULL),
-(8, 6, 1, '2023-11-11 12:11:23', NULL),
-(9, 7, 1, '2023-11-14 17:00:19', NULL);
-
---
 -- Volcado de datos para la tabla `compraestado`
 --
 INSERT INTO
 producto (idproducto, proprecio, pronombre, prodetalle, procantstock)
 VALUES 
-(1, 24000, 'HyperX RAM 8Gbx2', 'Img/hyperx-ram-2x8.png', 40),
-(2, 180000, 'Monitor 360hz', 'Img/monitor-360hz.png', 7);
+(1, 24000.00, 'HyperX RAM 8Gbx2', 'hyperx-ram-2x8.png', 40),
+(2, 180000.00, 'Monitor 360hz', 'monitor-360hz.png', 7),
+(3, 250874.99, 'Intel Xeon', 'interXeon.png', 7);
 
 COMMIT;

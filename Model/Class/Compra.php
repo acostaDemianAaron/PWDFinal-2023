@@ -179,8 +179,6 @@ class Compra
         } else {
             $this->setMensaje("Compra->List: " . $database->getError());
         }
-
-        print_r($query);
         return $array;
     }
 }
