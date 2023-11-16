@@ -118,12 +118,11 @@ class Usuario
     {
         $res = false;
         $database = new Database();
-        $query = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) VALUES ('" . $this->getUsNombre() . "','" . $this->getUsPass() . "','" . $this->getUsMail() . ",'0000-00-00 00:00:00');";
-        echo $query;
-        die();
+        $query = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) VALUES ('" . $this->getUsNombre() . "','" . $this->getUsPass() . "','" . $this->getUsMail() . "',NULL);";
+
         if ($database->Start()) {
-            if ($database->Execute($query)) {
-                $this->setIdUsuario($database);
+            if ($id = $database->Execute($query)) {
+                $this->setIdUsuario($id);
                 $res = true;
             } else {
                 $this->setMensaje("Usuario->Insert: " . $database->getError());

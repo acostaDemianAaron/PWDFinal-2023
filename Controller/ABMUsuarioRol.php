@@ -10,6 +10,7 @@ class ABMUsuarioRol
         $usuarioRol = NULL;
         $usuario = NULL;
         $rol = NULL;
+
         if (array_key_exists('idusuario', $array) && $array['idusuario'] != NULL) {
             $usuario = new Usuario();
             $usuario->setIdUsuario($array['idusuario']);

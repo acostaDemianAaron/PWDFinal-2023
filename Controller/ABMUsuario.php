@@ -22,9 +22,9 @@ class ABMUsuario
                 }
                 $usuario = $sus;
             } 
-        }else if ((array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) && array_key_exists('usdeshabilitado', $array))) {
+        }else if ((array_key_exists('usnombre', $array) && array_key_exists('uspass', $array) && array_key_exists('usmail', $array) || array_key_exists('usdeshabilitado', $array))) {
                 $usuario = new Usuario();
-                $usuario->setValues(null, $array['usnombre'], $array['uspass'], $array['usmail'], $array['usdeshabilitado']);
+                $usuario->setValues(null, $array['usnombre'], $array['uspass'], $array['usmail'], null); //TODO refactorizar (errores en carga de datos);
         }
         return $usuario;
     }

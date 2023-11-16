@@ -148,11 +148,13 @@ class Database extends PDO
     public function Insert($query)
     {
 
+
         $objState = parent::query($query);
         if (!$objState) {
             $this->checkDebug();
             $id = 0;
         } else {
+
             $id = $this->lastInsertId();
             if ($id == 0) {
                 $id = -1;

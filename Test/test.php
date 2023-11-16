@@ -8,6 +8,23 @@ new Header("Test Page", $DIRS, null);
    $passDepo = hash("SHA512/256", "deposito");
 // }
 
+
+$abm = new ABMUsuario();
+
+$data = json_decode('{"usnombre":"sd","uspass":"a","usmail":"b@mail.com","idrol":"3"}', true);
+
+$abm->Add($data);
+
+$usuario = $abm->Search($data);
+
+$data['idusuario'] = $usuario[0]->getIdUsuario();
+
+$abmUsRol = new ABMUsuarioRol();
+
+$abmUsRol->Add($data);
+
+
+
 // { Testing with MENU
 
    // Getting data directly from model. Test

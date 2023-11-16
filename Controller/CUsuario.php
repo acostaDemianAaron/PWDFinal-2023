@@ -12,7 +12,6 @@ class CUsuario
         if (count($user) > 0) {
             $userName = $user[0];
             if ($userName->getUsDeshabilitado() == NULL) {
-                print_r($data);
                 $sesion->Start($data['usnombre'], $data['uspass']);
                 $sesionStar =  $sesion->Verify();
                 if (!$sesionStar) {
