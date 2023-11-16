@@ -139,7 +139,7 @@ class CompraEstado
     {
         $res = false;
         $database = new Database();
-        $query = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini, cefechafin) VALUES ( {$this->getObjCompra()->getIdCompra()} , {$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo()} , '{$this->getCeFechaIni()} ',' {$this->getCeFechaFin()} ');";
+        $query = "INSERT INTO compraestado (idcompra, idcompraestadotipo, cefechaini) VALUES ( {$this->getObjCompra()->getIdCompra()} , {$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo()} , '{$this->getCeFechaIni()}');";
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $this->setIdCompraEstado($database);
@@ -157,7 +157,14 @@ class CompraEstado
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE compraestado SET idcompra = '{$this->getObjCompra()->getIdCompra()}', idcompraestadotipo= '{$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo()}', cefechaini= '{$this->getCeFechaIni()}', cefechafin= '{$this->getCeFechaFin()} WHERE idcompraestado = {$this->getIdCompraEstado()}";
+        $query = "UPDATE compraestado SET
+        idcompra = '{$this->getObjCompra()->getIdCompra()}',
+        idcompraestadotipo= '{$this->getObjCompraEstadoTipo()->getIdCompraEstadoTipo()}',
+        cefechaini= '{$this->getCeFechaIni()}'";
+        if($this->getCeFechaFin() != ""){
+            $query .=  ", cefechafin= '{$this->getCeFechaFin()}'";
+        }
+        $query .= " WHERE idcompraestado = {$this->getIdCompraEstado()}";
 
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {

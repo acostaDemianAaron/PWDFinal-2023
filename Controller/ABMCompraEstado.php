@@ -5,29 +5,47 @@ class ABMCompraEstado
     public function LoadObject($array)
     {
         $obj = NULL;
-        if (array_key_exists('idcompra', $array)) {
-            $objCompra = new Compra();
-            $objCompra->setIdCompra($array['idcompra']);
-            $objCompra->Load();
-
-            $objCompraEstadoTipo = new CompraEstadoTipo();
-            $objCompraEstadoTipo->setIdCompraEstadoTipo($array['idcompraestadotipo']);
-            $objCompraEstadoTipo->Load();
-
-            $ceFechaIni = '0000-00-00 00:00:00';
-            if (array_key_exists('cefechaini', $array)) {
-                $ceFechaIni = $array['cefechaini'];
-            }
-            $ceFechaFin = '0000-00-00 00:00:00';
-            if (array_key_exists('cefechafin', $array)) {
-                $ceFechaFin = $array['cefechafin'];
-            }
-
-            $obj = new CompraEstado;
-            $obj->setValues($array['idcompraestado'], $objCompra, $objCompraEstadoTipo, $ceFechaIni, $ceFechaFin);
+        $objCompraEstado = new CompraEstado();
+        $objCompraEstado = $this->setData($array);
+        if ($objCompraEstado->Load()) {
+            $obj = $objCompraEstado;
         }
+        if (array_key_exists('cefechafin', $array)) {
+            $objCompraEstado->setCeFechaFin($array['cefechafin']);
+        }
+        // if (array_key_exists('idcompra', $array) && array_key_exists('idcompraestado', $array) && array_key_exists('idcompraestadotipo', $array)) {
+        //     $objCompra = new Compra();
+        //     $objCompra->setIdCompra($array['idcompra']);
+        //     $objCompra->Load();
+
+        //     $objCompraEstadoTipo = new CompraEstadoTipo();
+        //     $objCompraEstadoTipo->setIdCompraEstadoTipo($array['idcompraestadotipo']);
+        //     $objCompraEstadoTipo->Load();
+
+        //     $ceFechaIni = NULL;
+        //     if (array_key_exists('cefechaini', $array)) {
+        //         $ceFechaIni = $array['cefechaini'];
+        //     }
+        //     $ceFechaFin = NULL;
+        //     if (array_key_exists('cefechafin', $array)) {
+        //         $ceFechaFin = $array['cefechafin'];
+        //     }
+
+        //     $obj = new CompraEstado;
+        //     $obj->setValues($array['idcompraestado'], $objCompra, $objCompraEstadoTipo, $ceFechaIni, $ceFechaFin);
+        //     $obj->Load();
+        // } else if (array_key_exists('idcompra', $array)) {
+        //     $objCompra = new Compra();
+        //     $objCompra->setIdCompra($array['idcompra']);
+        //     $objCompra->Load();
+
+        //     $obj = new CompraEstado();
+        //     $obj->setObjCompra($objCompra);
+        //     $obj->Load();
+        // }
         return $obj;
     }
+
 
     public function LoadObjectId($array)
     {
@@ -68,6 +86,8 @@ class ABMCompraEstado
         $resp = FALSE;
         if ($this->Verify($array)) {
             $obj = $this->LoadObject($array);
+            print_r($obj);
+            echo "<br>";
             if ($obj != NULL && $obj->Modify()) {
                 $resp = TRUE;
             }
@@ -92,7 +112,7 @@ class ABMCompraEstado
                 $on .= " and cefechaini ='" . $array['cefechaini'] . "'";
             }
             if (isset($array['cefechafin'])) {
-                $on .= " and cefechafin ='" . $array['cefechafin'] . "'";
+                $on .= " and cefechafin IS " . $array['cefechafin'];
             }
         }
         $obj = new CompraEstado;
@@ -103,10 +123,38 @@ class ABMCompraEstado
     public function Add($array)
     {
         $resp =  FALSE;
-        $obj = $this->LoadObject($array);
+        $obj = $this->setData($array);
         if ($obj != NULL && $obj->Insert()) {
             $resp = TRUE;
         }
         return $resp;
+    }
+
+    public function setData($array){
+        $objCompraEstado = new CompraEstado();
+        foreach($array as $data){
+        if (array_key_exists('idcompraestado', $array)) {
+            $objCompraEstado->setIdCompraEstado($array['idcompraestado']);
+        }
+        if (array_key_exists('idcompra', $array)) {
+            $objCompra = new Compra();
+            $objCompra->setIdCompra($array['idcompra']);
+            $objCompra->Load();
+            $objCompraEstado->setObjCompra($objCompra);
+        }
+        if (array_key_exists('idcompraestadotipo', $array)) {
+            $objCompraEstadoTipo = new CompraEstadoTipo();
+            $objCompraEstadoTipo->setIdCompraEstadoTipo($array['idcompraestadotipo']);
+            $objCompraEstadoTipo->Load();
+            $objCompraEstado->setObjCompraEstadoTipo($objCompraEstadoTipo);
+        }
+        if (array_key_exists('cefechaini', $array)) {
+            $objCompraEstado->setCeFechaIni($array['cefechaini']);
+        }
+        if (array_key_exists('cefechafin', $array)) {
+            $objCompraEstado->setCeFechaFin($array['cefechafin']);
+        }
+    }
+        return $objCompraEstado;
     }
 }

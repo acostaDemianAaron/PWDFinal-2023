@@ -23,46 +23,14 @@ echo <<<HTML
       <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New Product</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="processProducto()">Process Product</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="cancelProducto()">Cancel Product</a>
-      <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="disableUser()">Disable Product</a>
    </div>
-</div>
-
-
-<!--Crear nuevo producto-->
-<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
-   <form id="fm" method="post" novalidate>
-      <div class="fitem">
-         <label>Estado compra</label>
-         <input name="cetdescripcion" class="easyui-textbox" required="true" disabled>
-      </div>
-      <div class="fitem">
-         <label>Fecha Estado</label>
-         <input name="cefechaini" class="easyui-textbox" required="true" disabled>
-      </div>
-      <div class="fitem">
-         <label>Fecha Inicio Compra</label>
-         <input name="cetdescripcion" class="easyui-textbox" required="true" disabled>
-      </div>
-      <div class="fitem">
-         <label>Usuario</label>
-         <input name="cofecha" class="easyui-textbox" required="true" disabled>
-      </div>
-      <div class="fitem">
-         <label>Usuario</label>
-         <input name="cofecha" class="easyui-textbox" required="true" disabled>
-      </div>
-   </form>
-</div>
-<div id="dlg-buttons">
-   <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="processProducto()" style="width:150px">Procesar Envio</a>
-   <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="saveUser()" style="width:150px">Cancelar Envio</a>
 </div>
 
 <script>
    function processProduct(){
       $('#dlg').dialog('open').dialog('setTitle', 'Edit Product');
       $('#fm').form('clear');
-      url = 'Action/update_producto.php';
+      url = 'Action/process_producto.php';
    }
 
 
@@ -95,8 +63,7 @@ echo <<<HTML
             if (r){
                $.post('Action/process_producto.php',{idcompra:row.idcompra},function(result){
                   if (result.success){
-                     console.log(result)
-                       //$('#dg').datagrid('reload');    // reload the user data
+                       $('#dg').datagrid('reload');    // reload the user data
                   } else {
                         $.messager.show({    // show error message
                            title: 'Error',
