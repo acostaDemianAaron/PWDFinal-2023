@@ -28,5 +28,9 @@ $DIRS['INDEX'] = "/$PROYECTO/View/";
 // Location of Libraries.
 $DIRS['LIBS'] = "/$PROYECTO/View/Libs/";
 
+$DIRS['IMG'] = "/$PROYECTO/View/Img/";
+
 $_SESSION['ROOT']=$ROOT;
+
+
 ?>

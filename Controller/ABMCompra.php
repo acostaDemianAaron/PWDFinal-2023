@@ -1,22 +1,24 @@
 <?php
-class ABMCompra{
+class ABMCompra
+{
    /**
     * @param Array
     * @return Null|Object
     */
-   public function LoadObject($params = []){
+   public function LoadObject($params = [])
+   {
       $res = null;
-      
-      if($this->Verify()){
-         $objCompra = $this->LoadObjectId($params);
+      if (array_key_exists('idusuario', $params) && array_key_exists('cofecha', $params)) {
+         //$objCompra = $this->LoadObjectId($params);
+         $objCompra = new Compra();
          $abmUsuario = new ABMUsuario;
          $objUsuario = $abmUsuario->LoadObjectId($params);
          $objCompra->setObjUsuario($objUsuario);
-         if($objCompra->Load()){
-            $res = $objCompra;
-         }
+         $objCompra->setCoFecha($params['cofecha']);
+         // if($objCompra->Load()){
+         $res = $objCompra;
+         // }
       }
-
       return $res;
    }
 
@@ -25,12 +27,13 @@ class ABMCompra{
     * @param Array
     * @return Null|Compra
     */
-   public function LoadObjectId($params = []){
+   public function LoadObjectId($params = [])
+   {
       $res = null;
-      if($this->Verify()){
+      if ($this->Verify()) {
          $instance = new Compra;
          $instance->SetIdCompra($params);
-         if($instance->Load()){
+         if ($instance->Load()) {
             $res = $instance;
          }
       }
@@ -42,7 +45,8 @@ class ABMCompra{
     * @param Array
     * @return Boolean
     */
-   public function Verify($params = []){
+   public function Verify($params = [])
+   {
       return array_key_exists('idcompra', $params);
    }
 
@@ -50,13 +54,24 @@ class ABMCompra{
     * @param Array
     * @return Boolean
     */
-   public function Delete($params = []){
+   public function Delete($params = [])
+   {
       $res = false;
-      if($this->Verify($params)){
+      if ($this->Verify($params)) {
          $objCompra = new Compra();
          $res = $objCompra->Delete($params);
       }
       return $res;
+   }
+
+   public function Add($array)
+   {
+      $resp =  FALSE;
+      $obj = $this->LoadObject($array);
+      if ($obj != NULL && $obj->Insert()) {
+         $resp = TRUE;
+      }
+      return $resp;
    }
 
    /**
@@ -64,18 +79,28 @@ class ABMCompra{
     * @param Array
     * @return Array
     */
-   public function Search($params = []){
+   public function Search($params = [])
+   {
       $condition = '';
       $objCompra = new Compra();
 
-      foreach($params as $key => $param){
-         switch($key){
-            case ' idcompra': $condition .= ' idcompra = ' . $param; break;
-            case ' idusuario': $condition .= ' idusuario = ' . $param; break;
-            default: $condition = ' true'; break;
+      foreach ($params as $key => $param) {
+         switch ($key) {
+            case ' idcompra':
+               $condition .= ' idcompra = ' . $param;
+               break;
+            case ' idusuario':
+               $condition .= ' idusuario = ' . $param;
+               break;
+               case 'cofecha':
+                  $condition .= " cofecha = '" . $param . "'";
+                  break;
+            default:
+               $condition = ' true';
+               break;
          }
       }
-      
+
       return $objCompra->List($condition);
    }
 }

@@ -102,8 +102,7 @@ class Compra
     {
         $res = false;
         $database = new Database();
-        $query = " INSERT INTO compra (cofecha, idusuario) VALUES (" . $this->getCoFecha() . "," . $this->getObjUsuario()->getIdUsuario() . ");";
-
+        $query = " INSERT INTO compra (cofecha, idusuario) VALUES ('" . $this->getCoFecha() . "'," . $this->getObjUsuario()->getIdUsuario() . ");";
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $this->setIdCompra($database);
@@ -157,7 +156,7 @@ class Compra
     {
         $array = array();
         $database = new Database();
-        $query = "SELECT * FROM compra";
+        $query = "SELECT * FROM compra ";
 
         if ($condition != "") {
             $query .= "WHERE " . $condition;
@@ -180,6 +179,8 @@ class Compra
         } else {
             $this->setMensaje("Compra->List: " . $database->getError());
         }
+
+        print_r($query);
         return $array;
     }
 }

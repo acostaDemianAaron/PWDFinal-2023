@@ -5,19 +5,45 @@ class ABMCompraItem
     public function LoadObject($array)
     {
         $obj = NULL;
-        if (array_key_exists('idcompraitem', $array) && array_key_exists('idproducto', $array) && array_key_exists('idcompra', $array) && array_key_exists('cicantidad', $array)) {
-            $objProducto = new Producto();
-            $objProducto->setIdProducto($array['idproducto']);
-            $objProducto->Load();
+        $objCompraItem = new CompraItem();
+        $obj = $this->setData($array);
+        // if (array_key_exists('idcompraitem', $array) && array_key_exists('idproducto', $array) && array_key_exists('idcompra', $array) && array_key_exists('cicantidad', $array)) {
+        //     $objProducto = new Producto();
+        //     $objProducto->setIdProducto($array['idproducto']);
+        //     $objProducto->Load();
 
-            $objCompra = new Compra();
-            $objCompra->setIdCompra($array['idcompra']);
-            $objCompra->Load();
+        //     $objCompra = new Compra();
+        //     $objCompra->setIdCompra($array['idcompra']);
+        //     $objCompra->Load();
 
-            $obj = new CompraItem();
-            $obj->setValues($array['idcompraitem'], $objProducto, $objCompra, $array['cicantidad']);
-        }
+        //     $obj = new CompraItem();
+        //     $obj->setValues($array['idcompraitem'], $objProducto, $objCompra, $array['cicantidad']);
+        // }
         return $obj;
+    }
+
+    public function setData($array)
+    {
+        $objCompraItem = new CompraItem();
+
+        foreach ($array as $data) {
+            if (array_key_exists('idproducto', $array)) {
+                $objProducto = new Producto();
+                $objProducto->setIdProducto($array['idproducto']);
+                $objProducto->Load();
+                $objCompraItem->setObjProducto($objProducto);
+            }
+            if (array_key_exists('idcompra', $array)) {
+                $objCompra = new Compra();
+                $objCompra->setIdCompra($array['idcompra']);
+                $objCompra->Load();
+                $objCompraItem->setObjCompra($objCompra);
+            }
+            if (array_key_exists('cicantidad', $array)) {
+                $objCompraItem->setCiCantidad($array['cicantidad']);
+            }
+        }
+        return $objCompraItem;
     }
 
     public function LoadObjectId($array)
@@ -87,6 +113,7 @@ class ABMCompraItem
     public function Add($array)
     {
         $resp =  FALSE;
+        print_r($array);
         $obj = $this->LoadObject($array);
         if ($obj != NULL && $obj->Insert()) {
             $resp = TRUE;
