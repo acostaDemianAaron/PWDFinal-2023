@@ -345,7 +345,7 @@ VALUES
 --
 INSERT INTO
     rol(idrol, rodescripcion)
-VALUES (3, "User"), (2, "Deposito"), (1, "Admin");
+VALUES (3, "Cliente"), (2, "Deposito"), (1, "Admin");
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -406,21 +406,15 @@ VALUES
 
 
 --
-
 -- Volcado de datos para la tabla `compra`
-
 --
-
 INSERT INTO
     compra(idcompra, cofecha, idusuario)
 VALUES (1, '2023-11-2 13:23:23', 2), (2, '2023-11-4 10:46:13', 2), (3, '2023-11-5 15:41:12', 2), (4, '2023-11-6 12:23:54', 2), (5, '2023-11-10 10:12:12', 1), (6, '2023-11-11 12:11:23', 2), (7, '2023-11-14 17:00:19', 2);
 
 --
-
 -- Volcado de datos para la tabla `compraestado`
-
 --
-
 INSERT INTO
     compraestado(idcompraestado, idcompra, idcompraestadotipo, cefechaini, cefechafin)
 VALUES

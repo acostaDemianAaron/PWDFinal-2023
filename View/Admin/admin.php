@@ -3,6 +3,7 @@ include_once("../../Config/config.php");
 new Header("Admin", $DIRS);
 
 echo <<<HTML
+
 <div class="container">
    <h2>Cambiar estado de compras</h2>
    <p>Dentro de esta tabla se visualizan y cambian los estados de las compras.</p>
@@ -26,50 +27,50 @@ echo <<<HTML
    </div>
 </div>
 
-
-
 <!--Crear nuevo usuario-->
 <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
-      <div class="ftitle">User Information</div>
-      <form id="fm" method="post" novalidate>
-         <div class="fitem">
-            <label>Name:</label>
-            <input name="usnombre" class="easyui-textbox" required="true">
+   <div class="ftitle">User Information</div>
+   <form id="fm" method="post" novalidate>
+      <div class="fitem">
+         <label>Name:</label>
+         <input name="usnombre" class="easyui-textbox" required="true">
+      </div>
+      <div class="fitem">
+         <label>Password:</label>
+         <input name="uspass" class="easyui-textbox" required="true">
+      </div>
+      <div class="fitem">
+         <label>Mail:</label>
+         <input name="usmail" class="easyui-textbox" validType="email">
+      </div>
+      <div class="fitem">
+         <label>Rol:</label>
+         <div>
+            <input class="easyui-radiobutton" name="idrol" value="1" label="Admin:">
          </div>
-         <div class="fitem">
-            <label>Password:</label>
-            <input name="uspass" class="easyui-textbox" required="true">
+         <div>
+            <input class="easyui-radiobutton" name="idrol" value="2" label="Deposito:">
          </div>
-         <div class="fitem">
-            <label>Mail:</label>
-            <input name="usmail" class="easyui-textbox" validType="email">
+         <div>
+            <input class="easyui-radiobutton" name="idrol" value="3" label="Usuario:">
          </div>
-         <div class="fitem">
-            <label>Rol:</label>
-            <div>
-               <input class="easyui-radiobutton" name="idrol" value="1" label="Admin:">
-            </div>
-            <div>
-               <input class="easyui-radiobutton" name="idrol" value="2" label="Deposito:">
-            </div>
-            <div>
-               <input class="easyui-radiobutton" name="idrol" value="3" label="Usuario:">
-            </div>
-         </div>
-      </form>
-   </div>
-   <div id="dlg-buttons">
-      <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
-      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
-   </div>
-   <script>
-      function newUser() {
-         $('#dlg').dialog('open').dialog('setTitle', 'New User');
-         $('#fm').form('clear');
-         url = 'Action/save_usuario.php';
-      }
+      </div>
+   </form>
+</div>
 
-      function saveUser(){
+<div id="dlg-buttons">
+   <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+   <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+</div>
+
+<script>
+   function newUser() {
+      $('#dlg').dialog('open').dialog('setTitle', 'New User');
+      $('#fm').form('clear');
+      url = 'Action/save_usuario.php';
+   }
+
+   function saveUser(){
       $('#fm').form('submit',{
          url: url,
          onSubmit: function(){
@@ -83,11 +84,11 @@ echo <<<HTML
                   msg: result.errorMsg
                });
             } else {
-                $('#dlg').dialog('close');        // close the dialog
-                $('#dg').datagrid('reload');    // reload the user data
+                  $('#dlg').dialog('close');
+                  $('#dg').datagrid('reload');
             }
          }
       });
-}
-   </script>
+   }
+</script>
 HTML;
