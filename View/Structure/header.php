@@ -75,7 +75,7 @@ class Header{
 
       // Arrow function for easier call inside heredoc.
       $loadMenu = fn($dirs, $idrol) => $this->LoadMenues($dirs, $idrol); // Reference to LoadMenu()
-      $accountMenu = fn($dirs, $idrol) => $this->accountButtons($dirs, $idrol); // Reference to accountButtons()
+      $accountMenu = fn($dirs, $idrol) => $this->bottomBar($dirs, $idrol); // Reference to bottomBar()
 
       // Heredoc
       echo <<<HTML
@@ -85,7 +85,7 @@ class Header{
                <div class="px-3 py-2 border-bottom">
                   <div class="container">
                      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <a href="{$dirs['INDEX']}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                        <a href="{$dirs['ROOT']}View/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                            <!-- Logo and Title of website -->
                            <i class="fa-solid  fa-laptop fa-2xl px-2"></i> <!-- Icon -->
                            <span class="fs-4">E-commerce</span>
@@ -93,12 +93,12 @@ class Header{
 
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                            <li>
-                              <a href="{$dirs['INDEX']}Store/catalogo.php" class="nav-link px-2">
+                              <a href="{$dirs['ROOT']}View/Store/catalogo.php" class="nav-link px-2">
                                  <div><i class="fa-solid fa-store me-1"></i></i>Store</div>
                               </a>
                            </li>
                            <li>
-                              <a href="{$dirs['INDEX']}" class="nav-link px-2">
+                              <a href="{$dirs['ROOT']}View/" class="nav-link px-2">
                                  <div><i class="fa-solid fa-house me-1"></i></i>Home</div>
                               </a>
                            </li>
@@ -110,14 +110,7 @@ class Header{
                </div>
                <div class="px-3 py-2 border-bottom mb-3">
                   <div class="container d-flex flex-wrap justify-content-center">
-                     <!-- Search to find products easier -->
-                     <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-                        <input type="search" class="form-control" name="search-input" placeholder="Search..." aria-label="Search">
-                     </form>
-
-                     <div class="text-end">
                         {$accountMenu($dirs, $rol)}
-                     </div>
                   </div>
                </div>
             </header>
@@ -230,13 +223,14 @@ class Header{
    /**
     * Load every dropdown item from the array of children the menu has.
     * @param array $children Array of menu's that need to be a dropdown item.
+    * @param array $dirs Array of base directories.
     * @return heredoc $dropdown HTML code of the dropdown items.
     */
-   private function LoadDropdown(array $children){
+   private function LoadDropdown(array $children, array $dirs){
       $dropdown = "";
       foreach($children as $child){
          $dropdown .= <<<HTML
-         <li><a class="dropdown-item" href="{$child->getMeDescripcion()}">{$child->getMeNombre()}</a></li>
+         <li><a class="dropdown-item" href="{$dirs['ROOT']}{$child->getMeDescripcion()}">{$child->getMeNombre()}</a></li>
          HTML;
       }
       return $dropdown;
@@ -252,40 +246,43 @@ class Header{
       $html = "";
       // Only show if is a verified Session.
       if($idrol != 0){
-         $menurolArray = $this->GetMenuesRol($idrol);
-         $menuesArray = $this->GetMenues($menurolArray);
+         while($idrol <= 3){
+            $menurolArray = $this->GetMenuesRol($idrol);
+            $menuesArray = $this->GetMenues($menurolArray);
 
-         foreach($menuesArray as $menu){
-            $abmMenu = new ABMMenu;
-            $children = $abmMenu->Search(['idpadre' => $menu->getIdMenu()]);
+            foreach($menuesArray as $menu){
+               $abmMenu = new ABMMenu;
+               $children = $abmMenu->Search(['idpadre' => $menu->getIdMenu()]);
 
-            // if there is no children, make a redirectable button.
-            if($children == []){
-               $html .= <<<HTML
-               <li>
-                  <a href="{$dirs['INDEX']}{$menu->getMeDescripcion()}" class="nav-link px-2">
-                     <div><i class="fa-solid fa-gauge me-1"></i>{$menu->getMeNombre()}</div>
-                  </a>
-               </li>
-               HTML;
-            } else {
-               // If there are children, generate a dropdown button instead.
-               $html .= <<<HTML
-               <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                     {$menu->getMeNombre()}
-                  </button>
-                  <ul class="dropdown-menu">
-                     <li><span class="dropdown-item-text">Options</span></li>
-               HTML;
+               // if there is no children, make a redirectable button.
+               if($children == []){
+                  $html .= <<<HTML
+                  <li>
+                     <a href="{$dirs['ROOT']}{$menu->getMeDescripcion()}" class="nav-link px-2">
+                        <div><i class="fa-solid fa-gauge me-1"></i>{$menu->getMeNombre()}</div>
+                     </a>
+                  </li>
+                  HTML;
+               } else {
+                  // If there are children, generate a dropdown button instead.
+                  $html .= <<<HTML
+                  <div class="dropdown">
+                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {$menu->getMeNombre()}
+                     </button>
+                     <ul class="dropdown-menu">
+                        <li><span class="dropdown-item-text">Options</span></li>
+                  HTML;
 
-               $html .= $this->LoadDropdown($children);
+                  $html .= $this->LoadDropdown($children, $dirs);
 
-               $html .= <<<HTML
-                  </ul>
-               </div>
-               HTML;
+                  $html .= <<<HTML
+                     </ul>
+                  </div>
+                  HTML;
+               }
             }
+            $idrol++;
          }
       }
       return $html;
@@ -296,20 +293,26 @@ class Header{
     * @param int $idrol Rol of session.
     * @return heredoc $html heredoc of buttons.
     */
-   private function accountButtons(array $dirs, int $idrol){
-      $html = "";
+   private function bottomBar(array $dirs, int $idrol){
+      $html = <<<HTML
+      <div class="text-end">
+      HTML;
       if($idrol == 0){
          $html = <<<HTML
             <!-- End of optional buttons -->
             <a href="{$dirs['ROOT']}View/Login/login.php" class="btn btn-secondary me-2">Log in</a>
          HTML;
       } else {
+         $abmMenu = new ABMMenu;
+         $profileMenu = $abmMenu->Search(['idmenu' => 10])[0];
          $html = <<<HTML
             <!-- End of optional buttons -->
             <a href="{$dirs['ROOT']}View/Login/Action/logout.php" class="btn btn-secondary me-2">Log out</a>
-            <a href="{$dirs['ROOT']}View/Login/profile.php" class="btn btn-secondary me-2">Profile</a>
+            <a href="{$dirs['ROOT']}{$profileMenu->getMeDescripcion()}" class="btn btn-secondary me-2">Profile</a>
          HTML;
       }
+      $html .= "</div>"; // Close text-end div.
+
       return $html;
    }
 }

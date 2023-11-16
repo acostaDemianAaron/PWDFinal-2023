@@ -386,15 +386,14 @@ INSERT INTO
   menu(idmenu, menombre, medescripcion, idpadre, medeshabilitado)
 VALUES
 (1, 'Menu', '#', NULL, NULL),
-(2, 'Home', '/View/', 1, NULL),
-(3, 'Iniciar Sesion', '/View/login/', 1, NULL),
+(2, 'Home', 'View/index.php', 1, NULL),
+(3, 'Iniciar Sesion', 'View/Login/login.php', 1, NULL),
 (4, 'Admin', '#', NULL, NULL),
-(5, 'Gestion Admin', '/Private/admin/', 4, NULL),
-(6, 'Gestion de Usuarios', '/Private/usuario/', 4, NULL),
-(7, 'Gestion de Rol', '/Private/usuariorol/', 4, NULL),
-(8, 'Gestion de Permisos', '/Private/menu/', 4, NULL),
-(9, 'Dashboard', '/Private/menu/', 4, NULL),
-(10, 'Deposito', '#', NULL, NULL);
+(6, 'Gestion de Usuarios', 'View/Admin/usuarios.php', 4, NULL),
+(7, 'Gestion de Menu', 'View/Admin/menu.php', 4, NULL),
+(8, 'Dashboard', 'View/Admin/adminDashboard.php', 4, NULL),
+(9, 'Deposito', 'View/Deposito/deposito.php', NULL, NULL),
+(10, 'Profile', 'View/Login/profile.php', NULL, NULL);
 
 --
 -- Volcado de datos para la tabla `menurol`
@@ -402,7 +401,7 @@ VALUES
 INSERT INTO 
     menurol(idmenu, idrol)
 VALUES
-(10, 1), (4, 1), (10, 2);
+(10, 1), (4, 1);
 
 
 --
