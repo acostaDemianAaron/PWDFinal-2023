@@ -392,8 +392,11 @@ VALUES
 (6, 'Gestion de Usuarios', 'View/Admin/usuarios.php', 4, NULL),
 (7, 'Gestion de Menu', 'View/Admin/menu.php', 4, NULL),
 (8, 'Dashboard', 'View/Admin/adminDashboard.php', 4, NULL),
-(9, 'Deposito', 'View/Deposito/deposito.php', NULL, NULL),
-(10, 'Profile', 'View/Login/profile.php', NULL, NULL);
+(9, 'Deposito', '#', NULL, NULL),
+(11, 'Gestion de Deposito', 'View/Deposito/deposito.php', 9, NULL),
+(12, 'Gestion de Productos', 'View/Deposito/producto.php', 9, NULL),
+(10, 'Perfil', 'View/Login/profile.php', NULL, NULL),
+(13, 'Compras', 'View/Login/compras.php', NULL, NULL);
 
 --
 -- Volcado de datos para la tabla `menurol`
@@ -401,7 +404,7 @@ VALUES
 INSERT INTO 
     menurol(idmenu, idrol)
 VALUES
-(10, 1), (4, 1);
+(9, 2), (4, 1), (13, 3);
 
 --
 -- Volcado de datos para la tabla `compra`

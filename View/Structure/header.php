@@ -109,8 +109,10 @@ class Header{
                   </div>
                </div>
                <div class="px-3 py-2 border-bottom mb-3">
-                  <div class="container d-flex flex-wrap justify-content-center">
+                  <div class="container d-flex flex-wrap justify-content-end">
+                     <div class="text-end">
                         {$accountMenu($dirs, $rol)}
+                     </div>
                   </div>
                </div>
             </header>
@@ -294,9 +296,7 @@ class Header{
     * @return heredoc $html heredoc of buttons.
     */
    private function bottomBar(array $dirs, int $idrol){
-      $html = <<<HTML
-      <div class="text-end">
-      HTML;
+      $html = "";
       if($idrol == 0){
          $html = <<<HTML
             <!-- End of optional buttons -->
@@ -304,14 +304,13 @@ class Header{
          HTML;
       } else {
          $abmMenu = new ABMMenu;
-         $profileMenu = $abmMenu->Search(['idmenu' => 10])[0];
+         $profileMenu = $abmMenu->Search(['menombre' => 'Perfil'])[0];
          $html = <<<HTML
             <!-- End of optional buttons -->
             <a href="{$dirs['ROOT']}View/Login/Action/logout.php" class="btn btn-secondary me-2">Log out</a>
             <a href="{$dirs['ROOT']}{$profileMenu->getMeDescripcion()}" class="btn btn-secondary me-2">Profile</a>
          HTML;
       }
-      $html .= "</div>"; // Close text-end div.
 
       return $html;
    }

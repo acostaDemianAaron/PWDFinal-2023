@@ -110,6 +110,10 @@ class ABMMenu
             {
                 $where .= " and idpadre =" . $array['idpadre'];
             }
+            if(isset($array['menombre']))
+            {
+                $where .= " and menombre = '" . $array['menombre'] . "'";
+            }
         }
 
         $object = new Menu();
