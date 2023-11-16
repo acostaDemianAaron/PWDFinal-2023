@@ -17,7 +17,7 @@ new Header("Test Page", $DIRS, null);
 
    // Getting data directly from Database.
    $menuModel = new Menu;
-   $manuArray = $menuModel->List();
+   $menuArray = $menuModel->List();
    // print_r($data);
 
    function showData($data){
@@ -89,14 +89,14 @@ echo <<<HTML
       <h2>Basic CRUD Application</h2>
       <p>Useful for checking if DB is working correctly.</p>
 
-      <table id="dg" title="Menues" class="easyui-datagrid" style="width:550px;height:250px"
-        url="test_menu.php" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
+      <table id="dg" title="Menues" class="easyui-datagrid" style="width:100%;height:400px"
+        url="test_menu.php" toolbar="#toolbar" fitColumns="true" singleSelect="true">
          <thead>
             <tr id="menu-fields">
-               <th field="idmenu" width="50">ID</th>
+               <th field="idmenu" width="10">ID</th>
                <th field="menombre" width="50">Nombre</th>
-               <th field="medescripcion" width="50">Pass (encoded)</th>
-               <th field="idpadre" width="50">Mail</th>
+               <th field="medescripcion" width="50">Descripcion</th>
+               <th field="idpadre" width="50">ID Padre</th>
                <th field="medeshabilitado" width="50">Deshabiltado</th>
             </tr>
          </thead>
