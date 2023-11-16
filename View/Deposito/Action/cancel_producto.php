@@ -6,7 +6,7 @@ $data = data_submitted();
 $compraEstado = new ABMCompraEstado();
 $data['cefechafin'] = "NULL";
 $objCompraEstado = $compraEstado->Search($data)[0];
-if ($ultimoEstado != 4) {
+if ($objCompraEstado->getObjCompraEstadoTipo()->getIdCompraEstadoTipo() != 4) {
     $data['cefechafin'] = date("Y-m-d H:i:s");
     $data['idcompraestado'] = $objCompraEstado->getIdCompraEstado();
     $compraEstado->Edit($data);
