@@ -111,3 +111,5 @@ $(document).ready(function(){
 })
 </script>
 HTML;
+
+new Footer;

@@ -39,3 +39,5 @@ echo <<<HTML
     </div>
 
 HTML;
+
+new Footer;

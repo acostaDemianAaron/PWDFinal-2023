@@ -74,3 +74,5 @@ echo <<<HTML
     </div>
 </div>
 HTML;
+
+new Footer;

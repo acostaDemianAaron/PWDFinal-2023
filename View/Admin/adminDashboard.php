@@ -12,3 +12,4 @@ echo <<<HTML
 HTML;
 
 // TODO footer call
+new Footer;

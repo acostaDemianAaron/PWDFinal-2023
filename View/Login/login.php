@@ -28,3 +28,5 @@ echo <<< HTML
         </main>
 
 HTML;
+
+new Footer;

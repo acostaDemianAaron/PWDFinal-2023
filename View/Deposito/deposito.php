@@ -98,3 +98,5 @@ if (row){
 }
    </script>
 HTML;
+
+new Footer;

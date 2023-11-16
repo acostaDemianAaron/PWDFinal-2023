@@ -123,3 +123,5 @@ function disableUser(){
 }
 </script>
 HTML;
+
+new Footer;
