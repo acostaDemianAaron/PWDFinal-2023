@@ -5,8 +5,8 @@ new Header("Compras", $DIRS);
 
 echo <<<HTML
 <div class="container">
-   <h2>Cambiar estado de compras</h2>
-   <p>Dentro de esta tabla se visualizan y cambian los estados de las compras.</p>
+   <h2>Historial de compras</h2>
+   <p>Dentro de esta tabla se visualizan y el historial de compras de cada usuario.</p>
 
    <table id="dg" title="Compras" class="easyui-datagrid" style="width:100%;height:500px"
       url="Action/ver_compras.php" toolbar="#toolbar" fitColumns="true" singleSelect="true">
