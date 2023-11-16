@@ -2,7 +2,7 @@
 include_once('../../../Config/config.php');
 
 // TODO check if user has privileges to see this page, otherwise redirect to index or ask login info.
-$session == 2;
+//$session == 2;
 
 $array = [];
 $abm = new ABMCompra;
