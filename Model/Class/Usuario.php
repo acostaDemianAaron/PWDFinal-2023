@@ -203,11 +203,11 @@ class Usuario
     }
 
     // TODO check
-    public function State($condition = "")
+    public function State()
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE usuario SET usdeshabilitado='" . $condition . "' WHERE idusuario=" . $this->getIdUsuario();
+        $query = "UPDATE usuario SET usdeshabilitado='" . date("Y-m-d H:i:s") . "' WHERE idusuario=" . $this->getIdUsuario();
 
         if ($database->Start()) {
             if ($database->Execute($query)) {

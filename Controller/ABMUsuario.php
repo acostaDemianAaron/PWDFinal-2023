@@ -112,6 +112,22 @@ class ABMUsuario
         return $res;
     }
 
+        /** 
+     * @param Array
+     * @return Boolean
+     */
+    public function State($array)
+    {
+        $res = FALSE;
+        if ($this->Verify($array)) {
+            $usuario = $this->LoadObjectId($array);
+            if ($usuario != NULL && $usuario->State()) {
+                $res =  TRUE;
+            }
+        }
+        return $res;
+    }
+
     /** 
      * @param Array
      * @return Boolean

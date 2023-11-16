@@ -23,7 +23,7 @@ echo <<<HTML
    <div id="toolbar">
       <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
-      <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+      <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="disableUser()">Remove User</a>
    </div>
 </div>
 
@@ -77,6 +77,7 @@ echo <<<HTML
             return $(this).form('validate');
          },
          success: function(result){
+            console.log(result);
             if (result.errorMsg){
                $.messager.show({
                   title: 'Error',
@@ -97,6 +98,28 @@ function editUser(){
       $('#fm').form('load',row);
       url = 'Action/update_usuario.php?idusuario='+row.idusuario;
    }
+}
+
+function disableUser(){
+   var row = $('#dg').datagrid('getSelected');
+   if (row){
+      $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+            if (r){
+               $.post('Action/disableUser.php',{idusuario:row.idusuario},function(result){
+                  if (result.success){
+                     console.log(result)
+                       $('#dg').datagrid('reload');    // reload the user data
+                  } else {
+                        $.messager.show({    // show error message
+                           title: 'Error',
+                           msg: result.errorMsg
+                     });
+                  }
+               },'json');
+         }
+      });
+   }
+
 }
 </script>
 HTML;
