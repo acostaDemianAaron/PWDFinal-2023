@@ -45,24 +45,15 @@ echo <<<HTML
             <input name="usmail" class="easyui-textbox" validType="email">
          </div>
          <div class="fitem">
-            <label class="form-check-label">Rol</label>
-            <div class="form-check">
-               <input class="form-check-input" type="radio" name="idrol" id="1">
-               <label class="form-check-label" for="1">
-                  Admin
-               </label>
+            <label>Rol:</label>
+            <div>
+               <input class="easyui-radiobutton" name="idrol" value="1" label="Admin:">
             </div>
-            <div class="form-check">
-               <input class="form-check-input" type="radio" name="idrol" id="2">
-               <label class="form-check-label" for="2">
-                  Deposito
-               </label>
+            <div>
+               <input class="easyui-radiobutton" name="idrol" value="2" label="Deposito:">
             </div>
-            <div class="form-check">
-               <input class="form-check-input" type="radio" name="idrol" id="3" checked>
-               <label class="form-check-label" for="3">
-                  Usuario
-               </label>
+            <div>
+               <input class="easyui-radiobutton" name="idrol" value="3" label="Usuario:">
             </div>
          </div>
       </form>
@@ -75,29 +66,28 @@ echo <<<HTML
       function newUser() {
          $('#dlg').dialog('open').dialog('setTitle', 'New User');
          $('#fm').form('clear');
-         url = 'save_user.php';
+         url = 'Action/save_usuario.php';
       }
+
+      function saveUser(){
+      $('#fm').form('submit',{
+         url: url,
+         onSubmit: function(){
+            return $(this).form('validate');
+         },
+         success: function(result){
+            console.log(result)
+            if (result.errorMsg){
+               $.messager.show({
+                  title: 'Error',
+                  msg: result.errorMsg
+               });
+            } else {
+                $('#dlg').dialog('close');        // close the dialog
+                $('#dg').datagrid('reload');    // reload the user data
+            }
+         }
+      });
+}
    </script>
 HTML;
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
-</head>
-
-<body>
-
-
-
-
-
-
-</body>
-
-</html>

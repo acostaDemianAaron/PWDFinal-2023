@@ -119,7 +119,8 @@ class Usuario
         $res = false;
         $database = new Database();
         $query = "INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) VALUES ('" . $this->getUsNombre() . "','" . $this->getUsPass() . "','" . $this->getUsMail() . ",'0000-00-00 00:00:00');";
-
+        echo $query;
+        die();
         if ($database->Start()) {
             if ($database->Execute($query)) {
                 $this->setIdUsuario($database);
