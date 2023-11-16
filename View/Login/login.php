@@ -7,7 +7,7 @@ $data = data_submitted();
 echo <<< HTML
 
         <main class="form-signin w-25 p-auto m-auto">
-            <form class="needs-validation" method="POST" id="dataUser" name="dataUser" action="Action/actionSession.php">
+            <form class="needs-validation " method="POST" name="form-login" id="form-login" action="Action/actionSession.php" >
                 <h1 class="h3 mb-3 fw-normal ">Please sign in</h1>
 
                 <div class="form-floating">
@@ -24,6 +24,7 @@ echo <<< HTML
                 <br>
                 <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
             </form>
+            <script src="../js/validalogin.js"></script>
         </main>
 
 HTML;
