@@ -6,6 +6,7 @@ $abm = new ABMCompra;
 $session = new Session();
 $idUser['idusuario'] = $session->getIdUsuarioSession();
 $arrayCompras = $abm->Search($idUser);
+$precio = 0;
 foreach ($arrayCompras as $compra) {
     $col = [];
     // Add values in compra
@@ -23,10 +24,15 @@ foreach ($arrayCompras as $compra) {
     $col['cetdescripcion'] = $abmCompraEstadoTipo->getCetDescripcion();
     $ambCompraItem = new ABMCompraItem;
     $compraItem = $ambCompraItem->Search(['idcompra' => $col['idcompra']]);
-    $producto = $compraItem[0]->getObjProducto()->getProPrecio();
-    $col['proprecio'] = $producto;
-
+    foreach($compraItem as $item){
+        if(is_object($item)){
+        $producto = $item->getObjProducto()->getProPrecio();
+        $precio += $producto;
+        }
+    }
+    $col['proprecio'] = $precio;
     array_push($array, $col);
 
 }
+
 echo json_encode($array);
