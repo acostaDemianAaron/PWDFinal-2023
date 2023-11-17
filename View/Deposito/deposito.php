@@ -23,8 +23,25 @@ echo <<<HTML
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="processProducto()">Process Product</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="cancelProducto()">Cancel Product</a>
    </div>
-</div>
 
+
+<div class="m-5"></div>
+<div class="">
+<table class="easyui-datagrid" title="State" style="width:100%;height:300px"
+url="Action/load_state.php"  singleSelect="true" data-options="collapsible:true,">
+        <thead>
+            <tr>
+            <th field="idcompra" width="100">ID Compra</th>
+            <th field="cofecha" width="230">Fecha de Cambio</th>
+            <th field="cefechaini" width="235">Fecha de Estado Inicio</th>
+            <th field="cefechaace" width="235">Fecha de Estado Aceptado</th>
+            <th field="cefechaevi" width="235">Fecha de Estado Enviado</th>
+            <th field="cefechacan" width="235">Fecha de Estado Cancelado</th>
+            </tr>
+        </thead>
+    </table> 
+    </div>
+    </div>
 <script>
 function processProduct(){
    $('#dlg').dialog('open').dialog('setTitle', 'Edit Product');
@@ -97,6 +114,7 @@ if (row){
    }
 }
    </script>
+
 HTML;
 
 new Footer;
