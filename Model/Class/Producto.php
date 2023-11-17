@@ -14,10 +14,10 @@ class Producto
     public function __construct()
     {
         $this->idProducto = "";
-        $this->proPrecio = "";
+        $this->proPrecio = 0;
         $this->proNombre = "";
         $this->proDetalle = "";
-        $this->proCantStock = "";
+        $this->proCantStock = 0;
         $this->mensaje = "";
     }
 

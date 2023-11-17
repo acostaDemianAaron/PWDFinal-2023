@@ -4,21 +4,11 @@ class ABMCompraItem
 {
     public function LoadObject($array)
     {
+
         $obj = NULL;
         $objCompraItem = new CompraItem();
         $obj = $this->setData($array);
-        // if (array_key_exists('idcompraitem', $array) && array_key_exists('idproducto', $array) && array_key_exists('idcompra', $array) && array_key_exists('cicantidad', $array)) {
-        //     $objProducto = new Producto();
-        //     $objProducto->setIdProducto($array['idproducto']);
-        //     $objProducto->Load();
 
-        //     $objCompra = new Compra();
-        //     $objCompra->setIdCompra($array['idcompra']);
-        //     $objCompra->Load();
-
-        //     $obj = new CompraItem();
-        //     $obj->setValues($array['idcompraitem'], $objProducto, $objCompra, $array['cicantidad']);
-        // }
         return $obj;
     }
 

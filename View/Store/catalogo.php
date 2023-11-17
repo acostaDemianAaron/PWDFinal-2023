@@ -21,7 +21,7 @@ if ((array_key_exists('idusuario', $_SESSION))) {
                         <h5 class="card-title">{$product->getProNombre()}</h5>
                         <p class="card-text">ARG$ {$product->getProPrecio()}</p>
                         <p class="card-text">Cant Stock: {$product->getProCantStock()}</p>
-                        <button class="btn btn-primary" onclick="agregarAlCarrito('{$product->getProNombre()}', 1, {$product->getProPrecio()})">Agregar al carrito</button>
+                        <button class="btn btn-primary" onclick="agregarAlCarrito('{$product->getIdProducto()}', 1, {$product->getProPrecio()})">Agregar al carrito</button>
                     </div>
                 </div>
             </div>
