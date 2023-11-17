@@ -7,8 +7,8 @@ echo <<<HTML
 <div class="container">
    <h2>CAdministrar usuarios</h2>
 
-   <table id="dg" title="Usuarios" class="easyui-datagrid" style="width:100%;height:500px"
-      url="Action/load_usuario.php" toolbar="#toolbar" fitColumns="true" singleSelect="true">
+   <table id="dg" title="Usuarios" class="easyui-datagrid" style="width:100%;height:400%"
+      url="Action/load_usuario.php" toolbar="#toolbar" fitColumns="true" singleSelect="true" data-bs-theme="dark">
       <thead>
          <tr id="menu-fields">
             <th field="idusuario" width="10">ID Usuario</th>
@@ -27,16 +27,16 @@ echo <<<HTML
 </div>
 
 <!--Crear nuevo usuario-->
-<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
+<div id="dlg" class="easyui-dialog" style="width:80%;height:50%;padding:10px 20px;" closed="true" buttons="#dlg-buttons">
    <div class="ftitle">User Information</div>
    <form id="fm" method="post" novalidate>
       <div class="fitem">
          <label>Name:</label>
-         <input name="usnombre" class="easyui-textbox" required="true">
+         <input name="usnombre" class="easyui-textbox">
       </div>
       <div class="fitem">
          <label>Password:</label>
-         <input name="uspass" class="easyui-textbox" required="true">
+         <input name="uspass" class="easyui-textbox">
       </div>
       <div class="fitem">
          <label>Mail:</label>

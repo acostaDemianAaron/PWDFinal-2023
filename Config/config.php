@@ -10,7 +10,7 @@ header('Cache-Control: no-cache, must-revalidate');
 
 // Array of directories
 $DIRS = [];
-$PROYECTO = 'PWDFinal-2023';
+$PROYECTO = 'PWDFinal-2023'; // Set route from the Server Root. Usually only needs Project's folder name.
 
 // Variable de rooteo de proyecto.
 $ROOT = $_SERVER['DOCUMENT_ROOT'] . "/$PROYECTO/";

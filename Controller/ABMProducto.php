@@ -2,16 +2,47 @@
 class AbmProducto
 {
     public function LoadObject($array)
+    { {
+            $producto = NULL;
+            if ($this->Verify($array)) {
+                $producto = new Producto;
+                $producto->setIdproducto($array['idproducto']);
+                if ($producto->Load()) {
+                    $prod = $producto;
+                    foreach ($array as $key => $data) {
+                        if ($data != null) {
+                            $prod = $this->checkData($key, $data, $producto, $prod);
+                        }
+                    }
+                }
+            } else if ((array_key_exists('proprecio', $array) && array_key_exists('pronombre', $array) && array_key_exists('prodetalle', $array) || array_key_exists('procantstock', $array))) {
+                $producto = new producto();
+                $producto->setValues(null, $array['proprecio'], $array['pronombre'], $array['prodetalle'], null); //TODO refactorizar (errores en carga de datos);
+            }
+            return $producto;
+        }
+    }
+
+    public function checkData($key, $data, $producto, $prod)
     {
-        $obj = NULL;
-        $obj = new Producto;
-        if (array_key_exists('proprecio', $array) && array_key_exists('pronombre', $array) && array_key_exists('prodetalle', $array) && array_key_exists('procantstock', $array)) {
-            $obj->setValues(null, $array['proprecio'], $array['pronombre'], $array['prodetalle'], $array['procantstock']);
+
+        if ($data != null && $data != "null" && $data != "" && $data != 0) {
+            switch ($key) {
+                case 'proprecio':
+                    if ($producto->getProPrecio() != $data) $prod->setProPrecio($data);
+                    break;
+                case 'pronombre':
+                    if ($producto->getProNombre() != $data) $prod->setProNombre($data);
+                    break;
+                case 'prodetalle':
+                    if ($producto->getProDetalle() != $data) $prod->setProDetalle($data);
+                    break;
+                case 'procantstock':
+                    if ($producto->getProCantStock() != $data) $prod->setProCantStock($data);
+                    break;
+            }
         }
-        if(array_key_exists('idproducto', $array)){
-            $obj->setIdProducto($array['idproducto']);
-        }
-        return $obj;
+        return $prod;
     }
 
     public function LoadObjectId($array)
@@ -53,6 +84,9 @@ class AbmProducto
         $resp = FALSE;
         if ($this->Verify($array)) {
             $obj = $this->LoadObject($array);
+            if (array_key_exists('procantstock', $array)) {
+                $obj->setProCantStock($array['procantstock']);
+            }
             if ($obj != NULL && $obj->Modify()) {
                 $resp = TRUE;
             }
