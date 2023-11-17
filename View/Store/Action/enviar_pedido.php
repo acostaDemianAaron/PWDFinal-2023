@@ -30,6 +30,6 @@ if ($compra->Add($idUser)) {
             $itemb['idcompra'] = $idCompra;
             $compraItem->Add($itemb);
         }
-        // header("Location: ../catalogo.php");
+        header("Location: ../catalogo.php");
     }
 }

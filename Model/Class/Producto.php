@@ -137,6 +137,9 @@ class Producto
         $res = false;
         $database = new Database();
         $query = "UPDATE producto SET idproducto = '{$this->getIdProducto()}', proprecio = '{$this->getProPrecio()}', pronombre = '{$this->getProNombre()}', prodetalle = '{$this->getProDetalle()}', procantstock = {$this->getProCantStock()} WHERE idproducto = {$this->getIdProducto()}";
+        echo "<br> ESTA ES LA QUERY AAAAAAH";
+        echo $query;
+        echo "<br>";
         if ($database->Start()) {
             if ($database->Execute($query) > -1) {
                 $res = true;

@@ -99,8 +99,9 @@ if (row){
    $.messager.confirm('Confirm','Are you sure you want to cancel the product?',function(r){
          if (r){
             $.post('Action/cancel_producto.php',{idcompra:row.idcompra},function(result){
+               
+               console.log(result)
                if (result.success){
-                  console.log(result)
                      $('#dg').datagrid('reload');    // reload the user data
                } else {
                      $.messager.show({    // show error message
