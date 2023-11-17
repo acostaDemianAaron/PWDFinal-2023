@@ -12,24 +12,24 @@ class ABMMenu
     public function LoadObject($array)
     {
         $object = null;
+        
         if(array_key_exists('idmenu', $array)){
             $object = new Menu();
             $object->setIdMenu($array['idmenu']);
             if($object->Load()){
                 foreach($array as $key => $data){
-                    echo "Key: " . $key . " and tye: " . gettype($key) . "/////";
                     switch ($key) {
                         case 'menombre':
-                            if ($object->getMeNombre() != null) $object->setMeNombre($data);
+                            $object->setMeNombre($data);
                             break;
                         case 'medescripcion':
-                            if ($object->getMeDescripcion() != null) $object->setMeDescripcion($data);
+                            $object->setMeDescripcion($data);
                             break;
                         case 'idpadre':
-                            if ($object->getIdPadre() != null) $object->setIdPadre($data); 
+                            $object->setIdPadre($data); 
                             break;
                         case 'medeshabilitado':
-                            if ($object->getMeDeshabilitado() != null) $object->setMeDeshabilitado($data); 
+                            if ($data != null) $object->setMeDeshabilitado($data); 
                             break;
                     }
                 }
@@ -119,6 +119,9 @@ class ABMMenu
             }
             if(array_key_exists('idpadre', $array)){
                 $object->setIdPadre($array['idpadre']);
+            }
+            if(array_key_exists('medescripcion', $array)){
+                $object->setMeDescripcion($array['medescripcion']);
             }
         }
         if($object != null and $object->Modify()){

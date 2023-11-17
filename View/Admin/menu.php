@@ -99,7 +99,7 @@ echo <<<HTML
    <div id="toolbar">
       <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMenu()">New Menu</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMenu()">Edit Menu</a>
-      <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="disableMenu()" hidden>Remove Menu</a>
+      <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="disableMenu()">Remove Menu</a>
    </div>
 </div>
 

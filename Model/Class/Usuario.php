@@ -137,18 +137,31 @@ class Usuario
     {
         $res = false;
         $database = new Database();
-        $query = "UPDATE usuario SET";
+        $query = "UPDATE usuario SET ";
+        $comma = false;
         if ($this->getUsNombre() != null) {
             $query .= " usnombre ='" . $this->getUsNombre() . "'";
+            $comma = $comma || true;
         }
         if ($this->getUsPass() != null) {
-            $query .= " , uspass ='" . $this->getUsPass() . "'";
+            if($comma){
+                $query .= ",";
+            }
+            $query .= " uspass ='" . $this->getUsPass() . "'";
+            $comma = $comma || true;
         }
         if ($this->getUsMail() != null) {
-            $query .= " , usmail ='" . $this->getUsMail() . "'";
+            if($comma){
+                $query .= ",";
+            }
+            $query .= " usmail ='" . $this->getUsMail() . "'";
+            $comma = $comma || true;
         }
         if ($this->getUsDeshabilitado() != null) {
-            $query .= " , usdeshabilitado ='" . $this->getUsDeshabilitado() . "'";
+            if($comma){
+                $query .= ",";
+            }
+            $query .= " usdeshabilitado ='" . $this->getUsDeshabilitado() . "'";
         }
         $query .= " WHERE idusuario = " . $this->getIdUsuario() . ";";
         if ($database->Start()) {

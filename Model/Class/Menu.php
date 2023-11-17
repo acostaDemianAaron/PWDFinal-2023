@@ -140,8 +140,8 @@ class Menu
         if($this->getIdPadre() != null){
             $query .= ", idpadre = {$this->getIdPadre()}";
         }
-        if($this->getMeDeshabilitado() != null){
-            $query .= ', medeshabilitado= {$this->getMeDeshabilitado()}';
+        if($this->getMeDeshabilitado() != null ){
+            $query .= ", medeshabilitado = '{$this->getMeDeshabilitado()}'";
         }
         $query .= ' WHERE idmenu = ' . $this->getIdMenu();
         if ($database->Start()) {
