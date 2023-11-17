@@ -98,7 +98,7 @@ echo <<<HTML
    </table>
    <div id="toolbar">
       <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMenu()">New Menu</a>
-      <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMenu()" hidden>Edit Menu</a>
+      <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMenu()">Edit Menu</a>
       <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="disableMenu()" hidden>Remove Menu</a>
    </div>
 </div>
@@ -109,7 +109,7 @@ echo <<<HTML
    <form id="fm" method="post" novalidate>
       <div class="fitem">
          <label>Nombre:</label>
-         <input name="usnombre" class="easyui-textbox" required="true">
+         <input name="menombre" class="easyui-textbox" required="true">
       </div>
       <br>
       <div class="fitem">
@@ -125,7 +125,7 @@ echo <<<HTML
 </div>
 
 <div id="dlg-buttons">
-   <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+   <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveMenu()" style="width:90px">Save</a>
    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
 </div>
 
@@ -136,7 +136,7 @@ echo <<<HTML
       url = 'Action/save_menu.php';
    }
 
-   function saveUser(){
+   function saveMenu(){
       $('#fm').form('submit',{
          url: url,
          onSubmit: function(){
@@ -172,8 +172,8 @@ function disableMenu(){
       $.messager.confirm('Confirm','Are you sure you want to disable this user?',function(r){
             if (r){
                $.post('Action/disable_menu.php',{idmenu:row.idmenu},function(result){
+                  console.log(result)
                   if (result.success){
-                     console.log(result)
                        $('#dg').datagrid('reload');    // reload the user data
                   } else {
                         $.messager.show({    // show error message

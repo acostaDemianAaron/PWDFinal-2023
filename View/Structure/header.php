@@ -164,7 +164,9 @@ class Header{
          "updatedTable" => ["title" => "Table Update", "msg" => "The table was updated."],
          "store" => ["title" => "Store", "msg" => "You must log in to purchase."],
          "UpdateError" => ["title" => "Update", "msg" => "It wasn't possible to update any field."],
-         "insufficientPrivilege" => ["title" => "Can't Load Page", "msg" => "You don't have privileges to open that page."]
+         "insufficientPrivilege" => ["title" => "Can't Load Page", "msg" => "You don't have privileges to open that page."],
+         "changedProcess" => ["title" => "Successfull change", "msg" => "The state was changed."],
+         "canceledPurchase" => ["title" => "Canceled", "msg" => "The purchase was canceled."]
       ];
 
       $messages = $options[$msg];

@@ -2,12 +2,15 @@ const carrito = [];
 
 function agregarAlCarrito(title, quantity, unit_price) {
     const itemExistente = carrito.find(item => item.title === title);
+    cantStock = $('.cantStock' + title)[0].value
 
-    if (itemExistente) {
-        itemExistente.quantity++;
-    } else {
-        const newItem = { title, quantity, unit_price };
-        carrito.push(newItem);
+    if (cantStock > 0) {
+        if (itemExistente) {
+            itemExistente.quantity++;
+        } else {
+            const newItem = { title, quantity, unit_price };
+            carrito.push(newItem);
+        }
     }
 
     mostrarCarrito();
@@ -25,8 +28,9 @@ function eliminarDelCarrito(title) {
 
 function aumentarCantidad(title) {
     const itemExistente = carrito.find(item => item.title === title);
+    cantStock = $('.cantStock' + title)[0].value
 
-    if (itemExistente) {
+    if (itemExistente && itemExistente.quantity < cantStock) {
         itemExistente.quantity++;
         mostrarCarrito();
     }

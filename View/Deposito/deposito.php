@@ -28,7 +28,7 @@ echo <<<HTML
 <div class="m-5"></div>
 <div class="">
 <table class="easyui-datagrid" title="State" style="width:100%;height:300px"
-url="Action/load_state.php"  singleSelect="true" data-options="collapsible:true,">
+url="Action/load_state.php"  singleSelect="true" data-options="collapsible:true" id="sg">
         <thead>
             <tr>
             <th field="idcompra" width="100">ID Compra</th>
@@ -79,7 +79,10 @@ if (row){
          if (r){
             $.post('Action/process_producto.php',{idcompra:row.idcompra},function(result){
                if (result.success){
-                     $('#dg').datagrid('reload');    // reload the user data
+                  $.messager.show({    // show error message
+                     title: 'The state was changed, reload to visualize',
+                     msg: result.errorMsg
+                  });
                } else {
                      $.messager.show({    // show error message
                      title: 'Error',
@@ -102,7 +105,10 @@ if (row){
                
                console.log(result)
                if (result.success){
-                     $('#dg').datagrid('reload');    // reload the user data
+                  $.messager.show({    // show error message
+                     title: 'The purchase was canceled, reload to visualize',
+                     msg: result.errorMsg
+                  });
                } else {
                      $.messager.show({    // show error message
                         title: 'Error',

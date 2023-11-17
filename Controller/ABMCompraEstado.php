@@ -86,8 +86,6 @@ class ABMCompraEstado
         $resp = FALSE;
         if ($this->Verify($array)) {
             $obj = $this->LoadObject($array);
-            print_r($obj);
-            echo "<br>";
             if ($obj != NULL && $obj->Modify()) {
                 $resp = TRUE;
             }

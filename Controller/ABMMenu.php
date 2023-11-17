@@ -11,8 +11,30 @@ class ABMMenu
      */
     public function LoadObject($array)
     {
-        $object = Null;
-        if (array_key_exists('menombre', $array) && array_key_exists('medescripcion', $array) && array_key_exists('idpadre', $array)) {
+        $object = null;
+        if(array_key_exists('idmenu', $array)){
+            $object = new Menu();
+            $object->setIdMenu($array['idmenu']);
+            if($object->Load()){
+                foreach($array as $key => $data){
+                    echo "Key: " . $key . " and tye: " . gettype($key) . "/////";
+                    switch ($key) {
+                        case 'menombre':
+                            if ($object->getMeNombre() != null) $object->setMeNombre($data);
+                            break;
+                        case 'medescripcion':
+                            if ($object->getMeDescripcion() != null) $object->setMeDescripcion($data);
+                            break;
+                        case 'idpadre':
+                            if ($object->getIdPadre() != null) $object->setIdPadre($data); 
+                            break;
+                        case 'medeshabilitado':
+                            if ($object->getMeDeshabilitado() != null) $object->setMeDeshabilitado($data); 
+                            break;
+                    }
+                }
+            }
+        } else if (array_key_exists('menombre', $array) && array_key_exists('medescripcion', $array) && array_key_exists('idpadre', $array)) {
             $object = new Menu();
             $object->setMeNombre($array['menombre']);
             $object->setMeDescripcion($array['medescripcion']);
@@ -91,8 +113,14 @@ class ABMMenu
     {
         $resp = false;
         $object = $this->LoadObject($array);
-        $object->setIdMenu($array['idmenu']);
-
+        if ($object != null){
+            if(array_key_exists('idmenu', $array)){
+                $object->setIdMenu($array['idmenu']);
+            }
+            if(array_key_exists('idpadre', $array)){
+                $object->setIdPadre($array['idpadre']);
+            }
+        }
         if($object != null and $object->Modify()){
             $resp = true;
         }
